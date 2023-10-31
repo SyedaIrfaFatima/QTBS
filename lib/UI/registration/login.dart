@@ -9,6 +9,7 @@ import 'package:test_project/UI/module/Student/student%20registration/stu-regist
 import 'package:test_project/UI/registration/resetpassword.dart';
 import 'package:test_project/posts/post_Screen.dart';
 
+import '../module/Manager/Dashboard/man dashboard.dart';
 import '../module/Manager/manager_routes/man_region.dart';
 import '../widgets/round_button.dart';
 
@@ -46,14 +47,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
       // Navigator.push(
       //     context, MaterialPageRoute(builder: (context) => regionnnn()));
-      String userType =
-          "student"; // Change this to "manager" for a manager user
+      String userType = "manager";
+      // Change this to "manager" for a manager user
       if (userType == "student") {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => RegionManagerScreen()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => regionnnn()));
       } else if (userType == "manager") {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => RegionManagerScreen()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => mdashboard()));
       }
       setState(() {
         loading = false;

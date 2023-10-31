@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 
@@ -16,7 +14,7 @@ import 'package:image/image.dart' as img;
 
 import '../../../../Authentication/models/User_model.dart';
 import '../../Student/Profile/profile_controller.dart';
-import '../Camera.dart';
+import '../Uploadvoucher.dart';
 
 //
 // class _voucherState extends State<voucher> {

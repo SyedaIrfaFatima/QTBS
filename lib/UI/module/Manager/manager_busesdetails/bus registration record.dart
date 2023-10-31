@@ -2,13 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class busregistration extends StatefulWidget {
-  final String selectRoute;
-
-  busregistration({required this.selectRoute});
+  // final String selectRoute;
+  //
+  // busregistration({required this.selectRoute});
   @override
   State<busregistration> createState() => _busregistrationState();
 }
@@ -62,24 +59,36 @@ class _busregistrationState extends State<busregistration> {
             List<Map<String, dynamic>> busRegistrations =
                 snapshot.data as List<Map<String, dynamic>>;
 
-            return DataTable(
-              columns: <DataColumn>[
-                DataColumn(label: Text('Email')),
-                DataColumn(label: Text('Bus Number')),
-                DataColumn(label: Text('Date')),
-              ],
-              rows: busRegistrations
-                  .map(
-                    (registration) => DataRow(
-                      cells: <DataCell>[
-                        DataCell(Text(registration['email'].toString())),
-                        DataCell(Text(registration['busNumber'].toString())),
-                        DataCell(Text(registration['date'].toString())),
-                      ],
-                    ),
-                  )
-                  .toList(),
-            );
+            return SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: DataTable(
+                    dataRowHeight:
+                        60, // You can adjust the row height as needed
+                    columns: <DataColumn>[
+                      DataColumn(
+                        label: Text('Email'),
+                      ),
+                      DataColumn(
+                        label: Text('Bus Number'),
+                      ),
+                      // DataColumn(
+                      //   label: Text('Date'),
+                      // ),
+                    ],
+                    rows: busRegistrations.map((registration) {
+                      return DataRow(
+                        cells: <DataCell>[
+                          DataCell(Text(registration['userEmail'].toString())),
+                          DataCell(Text(registration['busNumber'].toString())),
+                          // DataCell(Text(
+                          //     registration['registrationTimestamp'].toString())),
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                ));
           }
         },
       ),
