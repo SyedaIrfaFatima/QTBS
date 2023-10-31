@@ -2,12 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_project/Authentication/login_with_phonenumber.dart';
 import 'package:test_project/UI/Module/HomeScreen/Homee.dart';
+import 'package:test_project/UI/module/Student/student%20routes/regionn.dart';
 import 'package:test_project/UI/registration/Util/utils.dart';
 import 'package:test_project/UI/registration/forgetpassword.dart';
-import 'package:test_project/UI/registration/registration.dart';
+import 'package:test_project/UI/module/Student/student%20registration/stu-registration.dart';
 import 'package:test_project/UI/registration/resetpassword.dart';
 import 'package:test_project/posts/post_Screen.dart';
 
+import '../module/Manager/manager_routes/man_region.dart';
 import '../widgets/round_button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -42,7 +44,17 @@ class _LoginScreenState extends State<LoginScreen> {
         .then((value) {
       utils().toastMessage(value.user!.email.toString());
 
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => regionnnn()));
+      String userType =
+          "student"; // Change this to "manager" for a manager user
+      if (userType == "student") {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => RegionManagerScreen()));
+      } else if (userType == "manager") {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => RegionManagerScreen()));
+      }
       setState(() {
         loading = false;
       });
@@ -59,10 +71,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blue,
         title: Text(
           'Login',
-          style: TextStyle(color: Colors.blue),
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: Stack(children: [
@@ -114,26 +126,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             }),
                       ],
                     )),
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 180),
-                //   child: Column(
-                //     crossAxisAlignment: CrossAxisAlignment.end,
-                //     children: [
-                //       TextButton(
-                //         onPressed: () {
-                //           Navigator.push(
-                //             context,
-                //             MaterialPageRoute(
-                //               builder: (context) => ResetPassword(),
-                //             ),
-                //           );
-                //         },
-                //         child: Text("Forget password"),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-
                 SizedBox(
                   height: 40,
                 ),
@@ -146,7 +138,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                   },
                 ),
-
                 Align(
                   alignment: Alignment.bottomRight,
                   child: TextButton(
@@ -161,7 +152,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -179,24 +169,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => loginWithphonenumber()));
-                    },
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(
-                            color: Colors.black,
-                          )),
-                      child: Center(
-                        child: Text('Login with phone'),
-                      ),
-                    ))
+                // InkWell(
+                //     onTap: () {
+                //       Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: (context) => loginWithphonenumber()));
+                //     },
+                //     child: Container(
+                //       height: 50,
+                //       decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(50),
+                //           border: Border.all(
+                //             color: Colors.black,
+                //           )),
+                //       child: Center(
+                //         child: Text('Login with phone'),
+                //       ),
+                //     ))
               ]),
         )
       ]),

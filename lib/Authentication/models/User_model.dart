@@ -1,27 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  // final String  id;
   final String fullName;
-  final String email;
+  late final String email;
   final String phoneNo;
   final String Sapid;
   final String Address;
   final String Password;
   final String ConfirmPassword;
+  final String role;
 
-  UserModel(
-      {required this.fullName,
-      required this.email,
-      required this.phoneNo,
-      required this.Sapid,
-      required this.Address,
-      required this.Password,
-      required this.ConfirmPassword});
+  UserModel({
+    required this.fullName,
+    required this.email,
+    required this.phoneNo,
+    required this.Sapid,
+    required this.Address,
+    required this.Password,
+    required this.ConfirmPassword,
+    required this.role,
+  });
 
-  toJson() {
+  Map<String, dynamic> toJson() {
     return {
-      // "id": id,
       "FullName": fullName,
       "Email": email,
       "phone": phoneNo,
@@ -29,16 +30,13 @@ class UserModel {
       "Address": Address,
       "Password": Password,
       "ConfirmPassword": ConfirmPassword,
+      "role": role,
     };
   }
-
-  // factory UserModel.fromSnapshot(Map<String, dynamic> document) {
-  //   final data = document;
 
   factory UserModel.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data() as Map<String, dynamic>;
     return UserModel(
-      // id: document.id,
       email: data["Email"] ?? "",
       fullName: data["FullName"] ?? "",
       phoneNo: data["phone"] ?? "",
@@ -46,6 +44,7 @@ class UserModel {
       Address: data["Address"] ?? "",
       Password: data["Password"] ?? "",
       ConfirmPassword: data["ConfirmPassword"] ?? "",
+      role: data["Role"] ?? "",
     );
   }
 }

@@ -31,8 +31,9 @@ android {
     ndkVersion flutter.ndkVersion
 
     compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_8
-//        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+//        additionalParameters = ["-Xlint:unchecked"]
     }
 
     kotlinOptions {
@@ -49,7 +50,7 @@ android {
             applicationId "com.technology.test"
             // You can update the following values to match your application needs.
             // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-            minSdkVersion 19
+            minSdkVersion 21
             targetSdkVersion 33
 
             targetSdkVersion flutter.targetSdkVersion

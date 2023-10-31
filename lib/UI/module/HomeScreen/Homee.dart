@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:test_project/UI/registration/Profile/profileScreen.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:test_project/UI/module/Bus%20Booking/payment/pay.dart';
 
-void main() {
-  runApp(const Home());
+import '../../../Authentication/models/User_model.dart';
+import '../Student/Profile/profileScreen.dart';
+import '../Student/Profile/profile_controller.dart';
+
+class Home extends StatefulWidget {
+  final String selectRoute;
+
+  Home({required this.selectRoute});
+
+  @override
+  State<Home> createState() => _HomeState();
 }
 
-class Home extends StatelessWidget {
-  const Home({super.key});
-
+class _HomeState extends State<Home> {
+  String userName = '';
+  final ProfileController profileController = Get.find();
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -36,9 +47,25 @@ class Home extends StatelessWidget {
                                 'assets/profileimage.jpg'), // Replace with actual driver profile image
                           ),
                         ),
-                        Text(
-                          'Irfa shah',
-                          style: TextStyle(color: Colors.white),
+                        FutureBuilder(
+                          future: profileController.getUserData(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              if (snapshot.hasData) {
+                                UserModel user = snapshot.data as UserModel;
+
+                                userName = user.fullName;
+
+                                return Text(
+                                  userName,
+                                  style: TextStyle(color: Colors.white),
+                                );
+                              }
+                            }
+                            // Return a loading indicator or error message if needed
+                            return CircularProgressIndicator(); // Change this to suit your UI
+                          },
                         ),
                       ],
                     ),
@@ -49,7 +76,13 @@ class Home extends StatelessWidget {
                   ListTile(
                     title: Text('Payment'),
                     onTap: () {
-                      // Update the UI to show that item 1 was selected
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => payfee(
+                              selectRoute: widget
+                                  .selectRoute), // Replace PaymentScreen with your actual payment screen
+                        ),
+                      ); // Update the UI to show that item 1 was selected
                     },
                   ),
                   ListTile(

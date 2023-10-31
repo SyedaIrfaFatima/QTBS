@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'Bus/Select bus.dart'; // Import Firestore
+import '../student_bus_selection/Select bus.dart'; // Import Firestore
 
 class NearbyStop extends StatefulWidget {
   final String selectedRoute;
+  final String selectregion;
 
-  NearbyStop({required this.selectedRoute});
+  NearbyStop({required this.selectedRoute, required this.selectregion});
 
   @override
   _NearbyStopState createState() => _NearbyStopState();
@@ -22,7 +23,7 @@ class _NearbyStopState extends State<NearbyStop> {
     // Initialize the Firestore path for the selected route's stops
     stopsCollection = FirebaseFirestore.instance
         .collection('Region')
-        .doc('Islamabad')
+        .doc(widget.selectregion)
         .collection('Route')
         .doc(widget.selectedRoute)
         .collection('Stops');
@@ -71,6 +72,28 @@ class _NearbyStopState extends State<NearbyStop> {
               ),
             ),
             Padding(
+              padding: const EdgeInsets.only(left: 210),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Navigator.push(
+                  //   context,
+                  //   // MaterialPageRoute(
+                  //   //   builder: (context) =>
+                  //   //       voucher(
+                  //   //           db: FirebaseFirestore
+                  //   //               .instance),
+                  //   // ),
+                  // );
+                },
+                child: Text(
+                  'Nearby Stops',
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
               padding: EdgeInsets.all(9.0),
               child: Container(
                 decoration: BoxDecoration(
@@ -110,7 +133,9 @@ class _NearbyStopState extends State<NearbyStop> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => MyBus(),
+                                          builder: (context) => MyBus(
+                                            selectRoute: widget.selectedRoute,
+                                          ),
                                         ),
                                       );
                                     },

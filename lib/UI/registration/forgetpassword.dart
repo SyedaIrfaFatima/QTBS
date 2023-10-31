@@ -17,28 +17,6 @@ class _forgetpasswordState extends State<forgetpassword> {
   final TextEditingController _emailController = TextEditingController();
 
   final auth = FirebaseAuth.instance;
-  // final TextEditingController _otpController=TextEditingController();
-
-//   void sendOTP()async{
-//     EmailAuth.sessionName ='Tesy session';
-//     var res=await EmailAuth.sendOTP(recieveMail:_emailController.text);
-//     if (res){
-//       print("OTP send");
-//     }
-//   }
-//
-//   void verifyOTP()async{
-//     var res= EmailAuth.validate(recieveMail:_otpController.text);
-//     if (res){
-//       print("OTP verified");
-// else{
-//   print("we could not send the OTP");
-//     }
-//     }
-//     else{
-//       print("invalid OTP");
-//     }
-//   }
 
   @override
   Widget build(BuildContext context) {
@@ -133,10 +111,6 @@ class _forgetpasswordState extends State<forgetpassword> {
                           Icons.email,
                           color: Color((0Xff323F4B)),
                         ),
-                        // suffixIcon: TextButton(
-                        // child: Text("send OTP"),
-                        // onPressed: () => sendOTP(),
-                        // ),
                       ),
                     ),
                   ],
@@ -145,7 +119,6 @@ class _forgetpasswordState extends State<forgetpassword> {
               const SizedBox(
                 height: 40,
               ),
-
               RoundButton(
                   title: 'forget',
                   onTap: () {
@@ -159,36 +132,6 @@ class _forgetpasswordState extends State<forgetpassword> {
                       utils().toastMessage(error.toString());
                     });
                   })
-
-              // Container(
-              //   height: 50,
-              //   width: 250,
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(10),
-              //     color: Colors.indigo,
-              //   ),
-              //   child: ElevatedButton(
-              //     onPressed: () {
-              //       Navigator.push(
-              //         context,
-              //         MaterialPageRoute(
-              //           builder: (context) => forgetpassword(),
-              //         ),
-              //       );
-              //     },
-              //     child: const Center(
-              //       child: Text(
-              //         'Send verification code',
-              //         textAlign: TextAlign.center,
-              //         style: TextStyle(
-              //           fontSize: 18,
-              //           fontFamily: "Oswald",
-              //           color: Colors.white,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
             ]),
           ]),
         ));
