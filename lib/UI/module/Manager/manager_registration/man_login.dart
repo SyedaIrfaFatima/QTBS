@@ -1,25 +1,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:test_project/UI/module/Manager/Dashboard/man%20dashboard.dart';
 
 import 'package:test_project/UI/module/Student/student%20routes/regionn.dart';
 import 'package:test_project/UI/registration/Util/utils.dart';
 import 'package:test_project/UI/registration/forgetpassword.dart';
 import 'package:test_project/UI/module/Student/student%20registration/stu-registration.dart';
-import 'package:test_project/UI/registration/resetpassword.dart';
-import 'package:test_project/posts/post_Screen.dart';
+import 'package:test_project/UI/widgets/round_button.dart';
 
-import '../module/Manager/Dashboard/man dashboard.dart';
-import '../module/Manager/manager_routes/man_region.dart';
-import '../widgets/round_button.dart';
-
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class mlogin extends StatefulWidget {
+  const mlogin({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<mlogin> createState() => _mloginState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _mloginState extends State<mlogin> {
   bool loading = false;
   final _formkey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -45,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
       utils().toastMessage(value.user!.email.toString());
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => regionnnn()));
+          context, MaterialPageRoute(builder: (context) => mdashboard()));
       // String userType = "manager";
       // // Change this to "manager" for a manager user
       // if (userType == "student") {

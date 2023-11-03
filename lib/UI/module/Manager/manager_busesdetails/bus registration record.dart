@@ -73,17 +73,16 @@ class _busregistrationState extends State<busregistration> {
                       DataColumn(
                         label: Text('Bus Number'),
                       ),
-                      // DataColumn(
-                      //   label: Text('Date'),
-                      // ),
+                      DataColumn(
+                        label: Text('Route'),
+                      ),
                     ],
                     rows: busRegistrations.map((registration) {
                       return DataRow(
                         cells: <DataCell>[
                           DataCell(Text(registration['userEmail'].toString())),
                           DataCell(Text(registration['busNumber'].toString())),
-                          // DataCell(Text(
-                          //     registration['registrationTimestamp'].toString())),
+                          DataCell(Text(registration['Route'].toString())),
                         ],
                       );
                     }).toList(),

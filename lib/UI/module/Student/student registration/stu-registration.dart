@@ -203,35 +203,35 @@ class _registerState extends State<register> {
                                 }
                                 return null;
                               }),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFormField(
-                            controller: addressController,
-                            keyboardType: TextInputType.text,
-                            decoration: const InputDecoration(
-                              hintText: 'Address',
-                              suffixIcon: Icon(Icons.home),
-                            ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Enter Address';
-                              }
-
-                              // Split the input into parts using any whitespace as the separator.
-                              List<String> addressParts =
-                                  value.split(RegExp(r'\s+'));
-
-                              // Check if there are at least one non-empty part.
-                              if (addressParts.isEmpty ||
-                                  addressParts
-                                      .any((part) => part.trim().isEmpty)) {
-                                return 'Each part of the address should not be empty';
-                              }
-
-                              return null;
-                            },
-                          ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          // TextFormField(
+                          //   controller: addressController,
+                          //   keyboardType: TextInputType.text,
+                          //   decoration: const InputDecoration(
+                          //     hintText: 'Address',
+                          //     suffixIcon: Icon(Icons.home),
+                          //   ),
+                          //   validator: (value) {
+                          //     if (value!.isEmpty) {
+                          //       return 'Enter Address';
+                          //     }
+                          //
+                          //     // Split the input into parts using any whitespace as the separator.
+                          //     List<String> addressParts =
+                          //         value.split(RegExp(r'\s+'));
+                          //
+                          //     // Check if there are at least one non-empty part.
+                          //     if (addressParts.isEmpty ||
+                          //         addressParts
+                          //             .any((part) => part.trim().isEmpty)) {
+                          //       return 'Each part of the address should not be empty';
+                          //     }
+                          //
+                          //     return null;
+                          //   },
+                          // ),
                           const SizedBox(
                             height: 10,
                           ),

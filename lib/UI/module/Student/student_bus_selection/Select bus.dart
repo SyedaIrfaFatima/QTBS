@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore
 
 import 'package:test_project/UI/module/Student/student%20routes/Nearbystop.dart';
-import 'package:test_project/UI/module/Bus%20Booking/payment/fee_voucher.dart';
+import 'package:test_project/UI/module/Student/Payment/fee_voucher.dart';
 
-import '../../Bus Booking/payment/pay.dart';
+import '../Payment/pay.dart';
 import 'bus description.dart';
 
 class MyBus extends StatefulWidget {
@@ -320,6 +320,9 @@ class _MyBusState extends State<MyBus> {
                                                                           userEmail, // Store the student's email.
                                                                       'busNumber':
                                                                           busNumber,
+                                                                      'Route':
+                                                                          widget
+                                                                              .selectRoute,
                                                                       'registrationTimestamp':
                                                                           FieldValue
                                                                               .serverTimestamp(),

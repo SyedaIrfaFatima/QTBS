@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:test_project/UI/module/Manager/Feed%20back/feedback.dart';
 
 import '../../../../Authentication/models/User_model.dart';
 
 import '../../Student/Profile/profileScreen.dart';
 import '../../Student/Profile/profile_controller.dart';
+import '../DiscussionForm/mandiscussion.dart';
 import '../manager_busesdetails/bus registration record.dart';
 import '../manager_routes/man_region.dart';
 
@@ -73,6 +75,17 @@ class _mdashboardState extends State<mdashboard> {
                 ),
               ),
               ListTile(
+                title: Text('Bus Registration Record'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          busregistration(), // Replace PaymentScreen with your actual payment screen
+                    ),
+                  ); // Update the UI to show that item 1 was selected
+                },
+              ),
+              ListTile(
                 title: Text('Payment'),
                 onTap: () {
                   // Navigator.of(context).push(
@@ -99,12 +112,28 @@ class _mdashboardState extends State<mdashboard> {
               ListTile(
                 title: Text('Feedback'),
                 onTap: () {
-                  // Update the UI to show that item 2 was selected
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          mfeedback(), // Replace PaymentScreen with your actual payment screen
+                    ),
+                  ); // Update the U
                 },
               ),
               ListTile(
                 title: Text('discussion'),
                 onTap: () {
+                  {
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (context) =>
+                    //         DiscussionForumManager(), // Replace PaymentScreen with your actual payment screen
+                    //   ),
+                    // );
+                    // Update the UI to show that item 2 was selected
+                  }
+                  ;
+
                   // Update the UI to show that item 2 was selected
                 },
               ),
@@ -138,7 +167,7 @@ class _mdashboardState extends State<mdashboard> {
                             ElevatedButton(
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => busregistration(),
+                                  builder: (context) => RegionManagerScreen(),
                                 ));
 
                                 // Add your button 1 action here

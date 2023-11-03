@@ -1,17 +1,15 @@
 import 'dart:io';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:test_project/Authentication/models/User_model.dart';
-import 'package:test_project/Constants/Test%20String.dart';
+import 'package:test_project/UI/module/Student/HomeScreen/Homee.dart';
+
 import 'package:test_project/UI/module/Student/Profile/profile_controller.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fStorage;
-
-import '../../HomeScreen/Homee.dart';
 
 // class profile extends StatelessWidget {
 //   const profile({super.key});

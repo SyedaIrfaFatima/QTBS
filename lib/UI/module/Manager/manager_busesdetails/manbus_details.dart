@@ -55,8 +55,71 @@ class _mandetailsState extends State<mandetails> {
     }
   }
 
+  // Future<void> addBus() async {
+  //   String busNumber = '';
+  //
+  //   await showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: Text('Add Bus'),
+  //         content: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             TextField(
+  //               onChanged: (value) {
+  //                 busNumber = value;
+  //               },
+  //               decoration: InputDecoration(labelText: 'Enter Bus Number'),
+  //             ),
+  //             SizedBox(height: 10),
+  //             Text(
+  //               'Only alphabets and numbers allowed, maximum 10 characters.',
+  //               style: TextStyle(color: Colors.red),
+  //             ),
+  //           ],
+  //         ),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             child: Text('Cancel'),
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //           ),
+  //           TextButton(
+  //             child: Text('Add'),
+  //             onPressed: () async {
+  //               if (RegExp(r'^[a-zA-Z0-9]{1,10}$').hasMatch(busNumber)) {
+  //                 try {
+  //                   await busesCollection.doc(busNumber).set({
+  //                     'time': '0',
+  //                     'seats': 0,
+  //                   });
+  //                   fetchBuses();
+  //                   Navigator.of(context).pop();
+  //                   setState(() {
+  //                     busAdded = true;
+  //                   });
+  //                   selectedBusNumber = busNumber;
+  //                 } catch (e) {
+  //                   print('Error adding bus: $e');
+  //                   // Handle the Firestore write error as needed
+  //                 }
+  //               } else {
+  //                 print('Invalid input. Please follow the constraints.');
+  //                 // You can show an error message to the user if needed
+  //               }
+  //             },
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
+
   Future<void> addBus() async {
     String busNumber = '';
+    bool showError = false; // Initialize showError to false
 
     await showDialog(
       context: context,
@@ -69,14 +132,19 @@ class _mandetailsState extends State<mandetails> {
               TextField(
                 onChanged: (value) {
                   busNumber = value;
+                  // Clear the error message when the user starts typing
+                  setState(() {
+                    showError = false;
+                  });
                 },
                 decoration: InputDecoration(labelText: 'Enter Bus Number'),
               ),
               SizedBox(height: 10),
-              Text(
-                'Only alphabets and numbers allowed, maximum 10 characters.',
-                style: TextStyle(color: Colors.red),
-              ),
+              if (showError) // Show the error message conditionally
+                Text(
+                  'Only capital letters and numbers allowed at the same time, maximum 10 characters.',
+                  style: TextStyle(color: Colors.red),
+                ),
             ],
           ),
           actions: <Widget>[
@@ -89,7 +157,8 @@ class _mandetailsState extends State<mandetails> {
             TextButton(
               child: Text('Add'),
               onPressed: () async {
-                if (RegExp(r'^[a-zA-Z0-9]{1,10}$').hasMatch(busNumber)) {
+                if (RegExp(r'^(?=.*[A-Z])(?=.*[0-9])[A-Z0-9]{1,10}$')
+                    .hasMatch(busNumber)) {
                   try {
                     await busesCollection.doc(busNumber).set({
                       'time': '0',
@@ -106,8 +175,10 @@ class _mandetailsState extends State<mandetails> {
                     // Handle the Firestore write error as needed
                   }
                 } else {
-                  print('Invalid input. Please follow the constraints.');
-                  // You can show an error message to the user if needed
+                  // Set the showError flag to true to display the error message
+                  setState(() {
+                    showError = true;
+                  });
                 }
               },
             ),
@@ -140,7 +211,9 @@ class _mandetailsState extends State<mandetails> {
             TextButton(
               child: Text('Cancel'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.pop(
+                  (context),
+                );
               },
             ),
             TextButton(
@@ -171,7 +244,8 @@ class _mandetailsState extends State<mandetails> {
   }
 
   Future<void> addSeats(String busId) async {
-    int totalseats = 0;
+    int totalSeats = 0;
+    int availableSeats = 0;
 
     await showDialog(
       context: context,
@@ -183,9 +257,9 @@ class _mandetailsState extends State<mandetails> {
             children: [
               TextField(
                 onChanged: (value) {
-                  totalseats = int.tryParse(value) ?? 0;
+                  totalSeats = int.tryParse(value) ?? 0;
                 },
-                decoration: InputDecoration(labelText: 'Enter Seats'),
+                decoration: InputDecoration(labelText: 'Enter Total Seats'),
               ),
             ],
           ),
@@ -199,11 +273,13 @@ class _mandetailsState extends State<mandetails> {
             TextButton(
               child: Text('Add Seats'),
               onPressed: () async {
-                // Perform validation and update the seats for the bus
-                if (totalseats > 0) {
+                if (totalSeats > 0) {
                   try {
+                    // Update both total seats and available seats
                     await busesCollection.doc(busId).update({
-                      'totalseats': totalseats,
+                      'totalseats': totalSeats,
+                      'seats':
+                          totalSeats, // Set available seats initially to total seats
                     });
                     fetchBuses(); // Refresh the bus list
                     Navigator.of(context).pop();

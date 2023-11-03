@@ -11,6 +11,7 @@ import '../../Student/student routes/Route.dart';
 import '../../../widgets/round_button.dart';
 import '../../../registration/Util/utils.dart';
 import '../../../registration/login.dart';
+import 'man_login.dart';
 
 class manageRegister extends StatefulWidget {
   const manageRegister({Key? key}) : super(key: key);
@@ -286,10 +287,8 @@ class _manageRegisterState extends State<manageRegister> {
                       }
 
                       if (isFormValid) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => mlogin()));
                       }
                     },
                   ),
@@ -302,7 +301,7 @@ class _manageRegisterState extends State<manageRegister> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => LoginScreen()));
+                                    builder: (context) => mlogin()));
                           },
                           child: Text("Login"))
                     ],

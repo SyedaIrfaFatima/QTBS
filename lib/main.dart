@@ -1,23 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:test_project/Authentication/auth_controller.dart';
-import 'package:test_project/UI/module/Student/student_bus_selection/Select%20bus.dart';
-import 'package:test_project/UI/module/Student/student%20routes/regionn.dart';
-import 'package:test_project/UI/registration/login.dart';
-
-import 'UI/module/Bus Booking/payment/paymentScreennn.dart';
-
-import 'UI/module/Manager/manager_routes/man_region.dart';
-
 import 'UI/module/Student/Profile/profile_controller.dart';
 import 'UI/module/Student/student registration/Start.dart';
 import 'UI/module/Student/student registration/Users.dart';
-import 'UI/registration/creatpass.dart';
 import 'UI/module/Manager/manager_registration/man_registration.dart';
-import 'UI/module/Student/student registration/stu-registration.dart';
 
 // void main() async {
 //   WidgetsFlutterBinding.ensureInitialized();

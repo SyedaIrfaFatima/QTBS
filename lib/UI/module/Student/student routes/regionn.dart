@@ -38,7 +38,11 @@ class _regionnnnState extends State<regionnnn> {
             Icons.arrow_back,
             color: Colors.white,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(
+              (context),
+            );
+          },
         ),
       ),
       body: FutureBuilder<List<QueryDocumentSnapshot>>(
