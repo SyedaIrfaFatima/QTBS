@@ -7,7 +7,9 @@ import 'package:test_project/UI/registration/login.dart';
 import 'package:test_project/UI/widgets/round_button.dart';
 
 class forgetpassword extends StatefulWidget {
-  const forgetpassword({Key? key}) : super(key: key);
+  final String selectRoute;
+
+  forgetpassword({required this.selectRoute});
 
   @override
   State<forgetpassword> createState() => _forgetpasswordState();
@@ -34,7 +36,9 @@ class _forgetpasswordState extends State<forgetpassword> {
                 Navigator.pop(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => LoginScreen(),
+                    builder: (context) => LoginScreen(
+                      selectRoute: widget.selectRoute,
+                    ),
                   ),
                 );
               },

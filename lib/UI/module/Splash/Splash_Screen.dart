@@ -7,7 +7,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  SplashServices splashScreen = SplashServices();
+  SplashServices splashScreen = SplashServices(selectRoute: '');
   @override
   void initState() {
     // TODO: implement initState

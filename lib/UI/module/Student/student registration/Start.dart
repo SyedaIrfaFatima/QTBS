@@ -3,7 +3,9 @@ import 'package:test_project/UI/module/Student/student%20registration/Users.dart
 import 'package:test_project/UI/module/Student/student%20registration/stu-registration.dart';
 
 class Start extends StatelessWidget {
-  const Start({super.key});
+  final String selectRoute;
+
+  Start({required this.selectRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +86,9 @@ class Start extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => register(),
+                      builder: (context) => register(
+                        selectRoute: selectRoute,
+                      ),
                     ),
                   );
                 },

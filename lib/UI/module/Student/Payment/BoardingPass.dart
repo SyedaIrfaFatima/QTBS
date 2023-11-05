@@ -3,8 +3,9 @@ import 'package:test_project/UI/module/Student/HomeScreen/Homee.dart';
 
 class BoardingPass extends StatefulWidget {
   final String selectRoute;
+  final String fee;
 
-  BoardingPass({required this.selectRoute});
+  BoardingPass({required this.selectRoute, required this.fee});
 
   @override
   State<BoardingPass> createState() => _BoardingPassState();
@@ -72,6 +73,7 @@ class _BoardingPassState extends State<BoardingPass> {
                       MaterialPageRoute(
                           builder: (context) => Home(
                                 selectRoute: widget.selectRoute,
+                                fee: widget.fee,
                               )));
                 },
               )),

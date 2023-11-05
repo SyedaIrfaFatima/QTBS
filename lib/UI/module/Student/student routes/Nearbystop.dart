@@ -6,8 +6,13 @@ import '../student_bus_selection/Select bus.dart'; // Import Firestore
 class NearbyStop extends StatefulWidget {
   final String selectedRoute;
   final String selectregion;
+  final String fee;
 
-  NearbyStop({required this.selectedRoute, required this.selectregion});
+  NearbyStop({
+    required this.selectedRoute,
+    required this.selectregion,
+    required this.fee,
+  });
 
   @override
   _NearbyStopState createState() => _NearbyStopState();
@@ -103,13 +108,27 @@ class _NearbyStopState extends State<NearbyStop> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      ('${widget.selectedRoute}'),
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          ('${widget.selectedRoute}'),
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 90,
+                        ),
+                        Text(
+                          '${widget.fee}',
+                          style: TextStyle(
+                            fontSize: 15, // Adjust the font size as needed
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 3),
                     Container(
@@ -134,8 +153,8 @@ class _NearbyStopState extends State<NearbyStop> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => MyBus(
-                                            selectRoute: widget.selectedRoute,
-                                          ),
+                                              selectRoute: widget.selectedRoute,
+                                              fee: widget.fee),
                                         ),
                                       );
                                     },

@@ -6,8 +6,8 @@ import 'BoardingPass.dart';
 
 class VoucherUpload extends StatefulWidget {
   final String selectRoute;
-
-  VoucherUpload({required this.selectRoute});
+  final String fee;
+  VoucherUpload({required this.selectRoute, required this.fee});
 
   @override
   State<VoucherUpload> createState() => _VoucherUploadState();
@@ -28,8 +28,7 @@ class _VoucherUploadState extends State<VoucherUpload> {
           context,
           MaterialPageRoute(
               builder: (context) => BoardingPass(
-                    selectRoute: widget.selectRoute,
-                  )),
+                  selectRoute: widget.selectRoute, fee: widget.fee)),
         );
       }
     } catch (e) {

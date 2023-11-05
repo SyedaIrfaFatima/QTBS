@@ -6,6 +6,9 @@ import 'package:test_project/UI/registration/login.dart';
 import 'package:test_project/posts/post_Screen.dart';
 
 class SplashServices {
+  final String selectRoute;
+
+  SplashServices({required this.selectRoute});
   void isLogin(BuildContext context) {
     final auth = FirebaseAuth.instance;
     final user = auth.currentUser;
@@ -19,7 +22,9 @@ class SplashServices {
       Timer(
           Duration(seconds: 3),
           () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => LoginScreen())));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => LoginScreen(selectRoute: ''))));
     }
   }
 }

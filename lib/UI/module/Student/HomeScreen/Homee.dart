@@ -14,8 +14,9 @@ import '../Profile/profile_controller.dart';
 
 class Home extends StatefulWidget {
   final String selectRoute;
+  final String fee;
 
-  Home({required this.selectRoute});
+  Home({required this.selectRoute, required this.fee});
 
   @override
   State<Home> createState() => _HomeState();
@@ -33,8 +34,12 @@ class _HomeState extends State<Home> {
               IconButton(
                 onPressed: () {
                   auth.signOut().then((value) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LoginScreen(
+                                  selectRoute: widget.selectRoute,
+                                )));
                   }).onError((error, stackTrace) {
                     utils().toastMessage(error.toString());
                   });
@@ -96,8 +101,9 @@ class _HomeState extends State<Home> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => payfee(
-                              selectRoute: widget
-                                  .selectRoute), // Replace PaymentScreen with your actual payment screen
+                              selectRoute: widget.selectRoute,
+                              fee: widget
+                                  .fee), // Replace PaymentScreen with your actual payment screen
                         ),
                       ); // Update the UI to show that item 1 was selected
                     },

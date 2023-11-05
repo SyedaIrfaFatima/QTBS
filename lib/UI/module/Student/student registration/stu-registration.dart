@@ -10,7 +10,9 @@ import '../../../../Authentication/Auth_reprository/User_Repository/user_reposit
 import '../../../widgets/round_button.dart';
 
 class register extends StatefulWidget {
-  const register({Key? key}) : super(key: key);
+  final String selectRoute;
+
+  register({required this.selectRoute});
 
   @override
   State<register> createState() => _registerState();
@@ -309,7 +311,9 @@ class _registerState extends State<register> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
+                                builder: (context) => LoginScreen(
+                                      selectRoute: widget.selectRoute,
+                                    )));
                       }
                     },
                   ),
@@ -322,7 +326,9 @@ class _registerState extends State<register> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => LoginScreen()));
+                                    builder: (context) => LoginScreen(
+                                          selectRoute: widget.selectRoute,
+                                        )));
                           },
                           child: Text("Login"))
                     ],

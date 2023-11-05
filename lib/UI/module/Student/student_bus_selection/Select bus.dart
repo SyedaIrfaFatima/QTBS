@@ -5,13 +5,15 @@ import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore
 import 'package:test_project/UI/module/Student/student%20routes/Nearbystop.dart';
 import 'package:test_project/UI/module/Student/Payment/fee_voucher.dart';
 
+import '../HomeScreen/Homee.dart';
 import '../Payment/pay.dart';
 import 'bus description.dart';
 
 class MyBus extends StatefulWidget {
   final String selectRoute;
+  final String fee;
 
-  MyBus({required this.selectRoute});
+  MyBus({required this.selectRoute, required this.fee});
 
   @override
   State<MyBus> createState() => _MyBusState();
@@ -87,12 +89,6 @@ class _MyBusState extends State<MyBus> {
             onPressed: () {
               Navigator.pop(
                 (context),
-                // MaterialPageRoute(
-                //   builder: (context) => NearbyStop(
-                //     selectedRoute: '',
-                //     selectregion: '',
-                //   ),
-                // ),
               );
             },
           ),
@@ -135,8 +131,9 @@ class _MyBusState extends State<MyBus> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                payfee(selectRoute: widget.selectRoute),
+                            builder: (context) => Home(
+                                selectRoute: widget.selectRoute,
+                                fee: widget.fee),
                           ),
                         );
                       } else {
@@ -310,6 +307,11 @@ class _MyBusState extends State<MyBus> {
                                                                         () {
                                                                       seats--;
                                                                     });
+                                                                    final registrationDate =
+                                                                        DateTime
+                                                                            .now();
+                                                                    final registrationDateFormatted =
+                                                                        '${registrationDate.year}-${registrationDate.month}-${registrationDate.day}'; // Format the date as a string
 
                                                                     // Save the registration in Firestore
                                                                     busRegistrationCollection
@@ -323,9 +325,8 @@ class _MyBusState extends State<MyBus> {
                                                                       'Route':
                                                                           widget
                                                                               .selectRoute,
-                                                                      'registrationTimestamp':
-                                                                          FieldValue
-                                                                              .serverTimestamp(),
+                                                                      'registrationDate':
+                                                                          registrationDateFormatted,
                                                                     });
 
                                                                     Navigator.of(

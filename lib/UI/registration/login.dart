@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,10 +11,13 @@ import 'package:test_project/posts/post_Screen.dart';
 
 import '../module/Manager/Dashboard/man dashboard.dart';
 import '../module/Manager/manager_routes/man_region.dart';
+import '../module/Student/HomeScreen/Homee.dart';
 import '../widgets/round_button.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  final String selectRoute;
+
+  LoginScreen({required this.selectRoute});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -41,11 +45,37 @@ class _LoginScreenState extends State<LoginScreen> {
         .signInWithEmailAndPassword(
             email: emailController.text,
             password: passwordController.text.toString())
-        .then((value) {
-      utils().toastMessage(value.user!.email.toString());
+        .then((value) async {
+      // Check if the user is authenticated
+      if (value.user != null) {
+        final userId = value.user!.uid;
+        final busRegistrationCollection =
+            FirebaseFirestore.instance.collection('BusRegistrations');
 
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => regionnnn()));
+        // Check if the user has registered for any bus
+        QuerySnapshot<Map<String, dynamic>> querySnapshot =
+            await busRegistrationCollection
+                .where('userId', isEqualTo: userId)
+                .get();
+
+        if (querySnapshot.size > 0) {
+          // The user is authenticated and has registered for a bus, navigate to the home screen
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Home(
+                      selectRoute: widget.selectRoute,
+                      fee: '',
+                    )), // Replace with your home screen class
+          );
+        } else {
+          // The user is authenticated but has not registered for a bus, navigate to the region screen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => regionnnn()),
+          );
+        }
+      }
       // String userType = "manager";
       // // Change this to "manager" for a manager user
       // if (userType == "student") {
@@ -145,7 +175,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => forgetpassword()));
+                                builder: (context) => forgetpassword(
+                                    selectRoute: widget.selectRoute)));
                       },
                       child: Text("Forgot password")),
                 ),
@@ -161,7 +192,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => register()));
+                                  builder: (context) => register(
+                                        selectRoute: widget.selectRoute,
+                                      )));
                         },
                         child: Text("Sign up"))
                   ],

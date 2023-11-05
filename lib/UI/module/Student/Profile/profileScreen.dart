@@ -345,7 +345,10 @@ class _EditProfileState extends State<EditProfile> {
             Navigator.pop(
               context,
               MaterialPageRoute(
-                builder: (context) => Home(selectRoute: widget.selectRoute),
+                builder: (context) => Home(
+                  selectRoute: widget.selectRoute,
+                  fee: '',
+                ),
               ),
             );
           },

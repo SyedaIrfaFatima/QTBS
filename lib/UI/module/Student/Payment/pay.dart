@@ -7,12 +7,12 @@ import 'jazzcash.dart';
 
 class payfee extends StatefulWidget {
   final String selectRoute;
+  final String fee;
 
   payfee({
     required this.selectRoute,
+    required this.fee,
   });
-
-  // Use an empty string as a default value
 
   @override
   State<payfee> createState() => _payfeeState();
@@ -120,7 +120,7 @@ class _payfeeState extends State<payfee> {
 
 //
                           Text(
-                            ' 8000',
+                            ('${widget.fee}'),
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -178,7 +178,8 @@ class _payfeeState extends State<payfee> {
                                               builder: (context) => voucher(
                                                 db: FirebaseFirestore.instance,
                                                 userId: userId,
-                                                selectRoute: widget.selectRoute,
+                                                route: widget.selectRoute,
+                                                fee: widget.fee,
                                                 // userEmail: userEmail,
                                               ),
                                             ));
@@ -235,6 +236,8 @@ class _payfeeState extends State<payfee> {
                                               builder: (context) =>
                                                   JazzCashPage(
                                                 title: '',
+                                                selectRoute: widget.selectRoute,
+                                                fee: widget.fee,
 
                                                 // userEmail: userEmail,
                                               ),

@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class JazzCashPage extends StatefulWidget {
-  const JazzCashPage({required this.title});
+  final String selectRoute;
+  final String fee;
+
+  const JazzCashPage({
+    required this.title,
+    required this.selectRoute,
+    required this.fee,
+  });
 
   final String title;
 
@@ -153,7 +160,7 @@ class _JazzCashPageState extends State<JazzCashPage> {
                 ),
                 // Add your total amount value here
                 Text(
-                  '10000',
+                  widget.fee,
                   style: TextStyle(
                     fontSize: 15.0,
                     fontWeight: FontWeight.bold,

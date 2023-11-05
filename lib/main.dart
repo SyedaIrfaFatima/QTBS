@@ -58,7 +58,11 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/rollButton',
             page: () => RollButton(role: 'student', email: '')),
-        GetPage(name: '/student', page: () => Start()),
+        GetPage(
+            name: '/student',
+            page: () => Start(
+                  selectRoute: '',
+                )),
         // GetPage(name: '/driver', page: () => DriverScreen()),
         // GetPage(name: '/guardian', page: () => GuardianScreen()),
         GetPage(name: '/manager', page: () => manageRegister()),

@@ -4,7 +4,9 @@ import 'package:test_project/UI/registration/login.dart';
 import 'forgetpassword.dart';
 
 class ResetPassword extends StatefulWidget {
-  const ResetPassword({Key? key}) : super(key: key);
+  final String selectRoute;
+
+  ResetPassword({required this.selectRoute});
 
   @override
   State<ResetPassword> createState() => _ResetPasswordState();
@@ -24,7 +26,8 @@ class _ResetPasswordState extends State<ResetPassword> {
             Navigator.pop(
               context,
               MaterialPageRoute(
-                builder: (context) => LoginScreen(),
+                builder: (context) =>
+                    LoginScreen(selectRoute: widget.selectRoute),
               ),
             );
           },
@@ -96,7 +99,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => forgetpassword(),
+                      builder: (context) =>
+                          forgetpassword(selectRoute: widget.selectRoute),
                     ),
                   );
                 },

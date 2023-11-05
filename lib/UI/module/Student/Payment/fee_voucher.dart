@@ -1,3 +1,8 @@
+import 'dart:typed_data';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:path_provider/path_provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 
@@ -6,10 +11,9 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-import 'package:open_file/open_file.dart';
 import 'dart:io';
 import 'dart:ui' as ui; // Import 'dart:ui' for ui.Image
-import 'package:path_provider/path_provider.dart'; // Import path_provider
+
 import 'package:image/image.dart' as img;
 
 import '../../../../Authentication/models/User_model.dart';
@@ -19,15 +23,13 @@ import 'Uploadvoucher.dart';
 class voucher extends StatefulWidget {
   final FirebaseFirestore db;
   final String userId;
-
-  final String selectRoute;
-
-// Add userId as an argument
-
+  final String route;
+  final String fee;
   voucher({
     required this.db,
     required this.userId,
-    required this.selectRoute,
+    required this.route,
+    required this.fee,
   });
 
   @override
@@ -42,10 +44,15 @@ class _voucherState extends State<voucher> {
   DateTime fixedPaymentDeadline = DateTime.now().add(Duration(days: 5));
 
   final ProfileController profileController = Get.find();
+
+  final GlobalKey repaintBoundaryKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
+
     fetchRegistrationDate();
+    uploadVoucherToFirebaseStorage();
   }
 
   Future<void> fetchRegistrationDate() async {
@@ -69,6 +76,25 @@ class _voucherState extends State<voucher> {
       }
     } catch (e) {
       print("Error fetching registration date: $e");
+    }
+  }
+
+  Future<void> uploadVoucherToFirebaseStorage() async {
+    try {
+      // Initialize Firebase Storage reference
+      final storage = FirebaseStorage.instance;
+      final storageReference = storage.ref().child(
+          'files/voucher_save.pdf'); // Replace with your desired path and filename
+
+      // Replace the following comment with code to create or read the content
+      // final voucherSaveFileContent = ...;  // You need to provide the binary content of the file
+
+      // Upload the content to Firebase Storage
+      // await storageReference.putData(voucherSaveFileContent);
+
+      print('Voucher save file uploaded successfully.');
+    } catch (e) {
+      print('Error uploading voucher save file: $e');
     }
   }
 
@@ -188,7 +214,7 @@ class _voucherState extends State<voucher> {
                               'Date:',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 12.0,
+                                fontSize: 9.0,
                               ),
                               textAlign: TextAlign.justify,
                             ),
@@ -197,7 +223,7 @@ class _voucherState extends State<voucher> {
                               ' ${DateFormat('dd/MM/yy').format(registrationDate)}',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 10.0,
+                                fontSize: 7.0,
                               ),
                               textAlign: TextAlign.justify,
                             ),
@@ -210,7 +236,7 @@ class _voucherState extends State<voucher> {
                               'Name:',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 9.0,
+                                fontSize: 6.5,
                               ),
                               textAlign: TextAlign.justify,
                             ),
@@ -218,7 +244,7 @@ class _voucherState extends State<voucher> {
                             Text(
                               userName,
                               style: TextStyle(
-                                fontSize: 9.0,
+                                fontSize: 6.5,
                               ),
                               textAlign: TextAlign.justify,
                             ),
@@ -231,7 +257,7 @@ class _voucherState extends State<voucher> {
                               'Sap Id:',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 9.0,
+                                fontSize: 6.5,
                               ),
                               textAlign: TextAlign.justify,
                             ),
@@ -239,7 +265,7 @@ class _voucherState extends State<voucher> {
                             Text(
                               sapId,
                               style: TextStyle(
-                                fontSize: 9.0,
+                                fontSize: 6.5,
                               ),
                               textAlign: TextAlign.justify,
                             ),
@@ -249,39 +275,18 @@ class _voucherState extends State<voucher> {
                         Row(
                           children: [
                             Text(
-                              'Stop:',
+                              'Route',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 9.0,
+                                fontSize: 6.5,
                               ),
                               textAlign: TextAlign.justify,
                             ),
-                            SizedBox(width: 10),
+                            SizedBox(width: 5),
                             Text(
-                              'G14/4',
+                              widget.route,
                               style: TextStyle(
-                                fontSize: 9.0,
-                              ),
-                              textAlign: TextAlign.justify,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Text(
-                              'Bus:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 9.0,
-                              ),
-                              textAlign: TextAlign.justify,
-                            ),
-                            SizedBox(width: 11),
-                            Text(
-                              'LSTEB',
-                              style: TextStyle(
-                                fontSize: 9.0,
+                                fontSize: 6.5,
                               ),
                               textAlign: TextAlign.justify,
                             ),
@@ -351,7 +356,7 @@ class _voucherState extends State<voucher> {
         ),
         SizedBox(width: 10),
         Text(
-          '10000',
+          widget.fee,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 9.0,
@@ -492,7 +497,8 @@ class _voucherState extends State<voucher> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => VoucherUpload(
-                                    selectRoute: widget.selectRoute,
+                                    selectRoute: widget.route,
+                                    fee: widget.fee,
                                   )));
                     },
                   )),

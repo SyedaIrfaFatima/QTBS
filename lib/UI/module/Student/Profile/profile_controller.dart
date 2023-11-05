@@ -43,7 +43,6 @@ import 'package:get/get.dart';
 import 'package:test_project/Authentication/Auth_reprository/User_Repository/user_repository.dart';
 import 'package:test_project/Authentication/auth_controller.dart';
 
-
 //
 // class ProfileController extends GetxController {
 //   static ProfileController get instance => Get.find();
@@ -104,7 +103,7 @@ import 'package:test_project/Authentication/models/User_model.dart';
 class ProfileController extends GetxController {
   static ProfileController get instance => Get.find();
 
-  final _authRepo = Get.put(Authcontroller());
+  final _authRepo = Get.put(Authcontroller(selectRoute: ''));
   final _userRepo = Get.put(UserRepository());
 
   final TextEditingController emailController = TextEditingController();

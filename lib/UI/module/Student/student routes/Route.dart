@@ -56,6 +56,9 @@ class _RouteScreenState extends State<RouteScreen> {
                     itemExtent: 70,
                     clipBehavior: Clip.antiAlias,
                     children: routeDataList.map((document) {
+                      final routeName = document.id;
+                      SizedBox(height: 4);
+                      final fee = document.get('fees');
                       return ElevatedButton(
                         onPressed: () {
                           Navigator.push(
@@ -64,19 +67,45 @@ class _RouteScreenState extends State<RouteScreen> {
                               builder: (context) => NearbyStop(
                                 selectedRoute: document.id,
                                 selectregion: widget.selectregion,
+                                fee: fee,
                               ),
                               // MyBus(selectRoute: document.id),
                             ),
                           );
                         },
-                        child: Text(
-                          ' ${document.id}',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        //   child: Text(
+                        //     ' ${document.id}',
+                        //     textAlign: TextAlign.center,
+                        //     style: TextStyle(
+                        //       fontSize: 15,
+                        //       color: Colors.white,
+                        //       fontWeight: FontWeight.bold,
+                        //     ),
+                        //   ),
+                        // );
+                        child: Column(
+                          children: [
+                            Text(
+                              '$routeName',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              'Fee: $fee',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     }).toList(),
