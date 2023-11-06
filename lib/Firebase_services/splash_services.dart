@@ -24,7 +24,10 @@ class SplashServices {
           () => Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => LoginScreen(selectRoute: ''))));
+                  builder: (context) => LoginScreen(
+                        selectRoute: '',
+                        fee: '',
+                      ))));
     }
   }
 }

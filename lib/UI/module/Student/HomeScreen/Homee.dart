@@ -39,6 +39,7 @@ class _HomeState extends State<Home> {
                         MaterialPageRoute(
                             builder: (context) => LoginScreen(
                                   selectRoute: widget.selectRoute,
+                                  fee: widget.fee,
                                 )));
                   }).onError((error, stackTrace) {
                     utils().toastMessage(error.toString());

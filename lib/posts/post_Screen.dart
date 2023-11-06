@@ -25,6 +25,7 @@ class _postscreenState extends State<postscreen> {
                   MaterialPageRoute(
                       builder: (context) => LoginScreen(
                             selectRoute: '',
+                            fee: '',
                           )));
             }).onError((error, stackTrace) {
               utils().toastMessage(error.toString());

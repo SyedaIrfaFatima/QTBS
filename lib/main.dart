@@ -62,6 +62,7 @@ class MyApp extends StatelessWidget {
             name: '/student',
             page: () => Start(
                   selectRoute: '',
+                  fee: '',
                 )),
         // GetPage(name: '/driver', page: () => DriverScreen()),
         // GetPage(name: '/guardian', page: () => GuardianScreen()),

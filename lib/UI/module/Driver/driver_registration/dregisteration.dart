@@ -1,32 +1,31 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/get_instance.dart';
-import 'package:test_project/Authentication/models/User_model.dart';
-import 'package:test_project/UI/registration/Util/utils.dart';
-import 'package:test_project/UI/registration/login.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../../../Authentication/Auth_reprository/User_Repository/user_repository.dart';
+import '../../../../Authentication/models/User_model.dart';
+import '../../Student/student routes/Route.dart';
 import '../../../widgets/round_button.dart';
+import '../../../registration/Util/utils.dart';
+import '../../../registration/login.dart';
 
-class register extends StatefulWidget {
-  final String selectRoute;
-  final String fee;
-
-  register({required this.selectRoute, required this.fee});
+class dregister extends StatefulWidget {
+  const dregister({Key? key}) : super(key: key);
 
   @override
-  State<register> createState() => _registerState();
+  State<dregister> createState() => _dregisterState();
 }
 
-class _registerState extends State<register> {
+class _dregisterState extends State<dregister> {
   bool loading = false;
   bool isFormValid = false;
   final _formkey = GlobalKey<FormState>();
   final fullnameController = TextEditingController();
   final emailController = TextEditingController();
-  final sapidController = TextEditingController();
-  final addressController = TextEditingController();
+
   final phonenoController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmpasswordController = TextEditingController();
@@ -187,28 +186,6 @@ class _registerState extends State<register> {
                           const SizedBox(
                             height: 10,
                           ),
-                          TextFormField(
-                              keyboardType: TextInputType.number,
-                              controller: sapidController,
-                              decoration: const InputDecoration(
-                                  hintText: 'Sap Id',
-                                  suffixIcon: Icon(Icons.numbers)),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Sap Id';
-                                }
-                                // Check if the input is a number.
-                                if (int.tryParse(value) == null) {
-                                  return 'SAP ID number must be valid';
-                                }
-                                if (value.length < 4 || value.length > 7) {
-                                  return 'SAP number must be between 4 and 7 digits';
-                                }
-                                return null;
-                              }),
-                          // const SizedBox(
-                          //   height: 10,
-                          // ),
                           // TextFormField(
                           //   controller: addressController,
                           //   keyboardType: TextInputType.text,
@@ -235,9 +212,9 @@ class _registerState extends State<register> {
                           //     return null;
                           //   },
                           // ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
                           TextFormField(
                               controller: passwordController,
                               keyboardType: TextInputType.text,
@@ -291,15 +268,15 @@ class _registerState extends State<register> {
                       if (_formkey.currentState!.validate()) {
                         isFormValid = true;
                         final user = UserModel(
-                          Sapid: sapidController.text.trim(),
                           fullName: fullnameController.text.trim(),
                           email: emailController.text.trim(),
                           phoneNo: phonenoController.text.trim(),
-                          Address: addressController.text.trim(),
+                          Address: '',
                           Password: passwordController.text.trim(),
                           ConfirmPassword:
                               confirmpasswordController.text.trim(),
-                          role: 'student',
+                          Sapid: '',
+                          role: 'manager',
                         );
 
                         register();
@@ -308,14 +285,10 @@ class _registerState extends State<register> {
                         // Corrected the line here
                       }
 
-                      if (isFormValid) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen(
-                                    selectRoute: widget.selectRoute,
-                                    fee: widget.fee)));
-                      }
+                      // if (isFormValid) {
+                      //   Navigator.push(context,
+                      //       MaterialPageRoute(builder: (context) => mlogin()));
+                      // }
                     },
                   ),
                   Row(
@@ -324,12 +297,10 @@ class _registerState extends State<register> {
                       Text("Already have an account?"),
                       TextButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginScreen(
-                                        selectRoute: widget.selectRoute,
-                                        fee: widget.fee)));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => mlogin()));
                           },
                           child: Text("Login"))
                     ],

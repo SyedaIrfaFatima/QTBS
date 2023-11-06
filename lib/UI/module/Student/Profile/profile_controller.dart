@@ -103,7 +103,7 @@ import 'package:test_project/Authentication/models/User_model.dart';
 class ProfileController extends GetxController {
   static ProfileController get instance => Get.find();
 
-  final _authRepo = Get.put(Authcontroller(selectRoute: ''));
+  final _authRepo = Get.put(Authcontroller(selectRoute: '', fees: ''));
   final _userRepo = Get.put(UserRepository());
 
   final TextEditingController emailController = TextEditingController();

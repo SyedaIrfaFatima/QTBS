@@ -8,8 +8,8 @@ import 'package:test_project/UI/widgets/round_button.dart';
 
 class forgetpassword extends StatefulWidget {
   final String selectRoute;
-
-  forgetpassword({required this.selectRoute});
+  final String fee;
+  forgetpassword({required this.selectRoute, required this.fee});
 
   @override
   State<forgetpassword> createState() => _forgetpasswordState();
@@ -38,6 +38,7 @@ class _forgetpasswordState extends State<forgetpassword> {
                   MaterialPageRoute(
                     builder: (context) => LoginScreen(
                       selectRoute: widget.selectRoute,
+                      fee: widget.fee,
                     ),
                   ),
                 );

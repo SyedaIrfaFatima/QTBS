@@ -52,8 +52,9 @@ import '../UI/module/Manager/manager_routes/man_region.dart';
 
 class Authcontroller extends GetxController {
   final String selectRoute;
+  final String fees;
 
-  Authcontroller({required this.selectRoute});
+  Authcontroller({required this.selectRoute, required this.fees});
   static Authcontroller instance = Get.find();
   late Rx<User?> _user;
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -71,6 +72,7 @@ class Authcontroller extends GetxController {
       print("Login page");
       Get.offAll(() => LoginScreen(
             selectRoute: '',
+            fee: '',
           ));
     } else {
       // Check the email of the logged-in user

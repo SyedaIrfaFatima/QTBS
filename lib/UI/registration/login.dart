@@ -16,8 +16,8 @@ import '../widgets/round_button.dart';
 
 class LoginScreen extends StatefulWidget {
   final String selectRoute;
-
-  LoginScreen({required this.selectRoute});
+  final String fee;
+  LoginScreen({required this.selectRoute, required this.fee});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -58,15 +58,43 @@ class _LoginScreenState extends State<LoginScreen> {
                 .where('userId', isEqualTo: userId)
                 .get();
 
+        //   if (querySnapshot.size > 0) {
+        //     // The user is authenticated and has registered for a bus, navigate to the home screen
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(
+        //           builder: (context) => Home(
+        //                 selectRoute: widget.selectRoute,
+        //                 fee: '',
+        //               )), // Replace with your home screen class
+        //     );
+        //   } else {
+        //     // The user is authenticated but has not registered for a bus, navigate to the region screen
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => regionnnn()),
+        //     );
+        //   }
+        // }
+
         if (querySnapshot.size > 0) {
-          // The user is authenticated and has registered for a bus, navigate to the home screen
+          // The user is authenticated and has registered for a bus, fetch the route and fee from Firebase
+          final data = querySnapshot.docs.first.data() as Map<String, dynamic>;
+          print("Data: $data");
+          final route = data[
+              'Route']; // Replace 'route' with the actual field name in your Firestore document
+          final fee = data['fees'];
+          print("Fee: $fee");
+// Replace 'fee' with the actual field name in your Firestore document
+
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => Home(
-                      selectRoute: widget.selectRoute,
-                      fee: '',
-                    )), // Replace with your home screen class
+              builder: (context) => Home(
+                selectRoute: route ?? widget.selectRoute,
+                fee: fee ?? widget.fee,
+              ),
+            ),
           );
         } else {
           // The user is authenticated but has not registered for a bus, navigate to the region screen
@@ -75,19 +103,20 @@ class _LoginScreenState extends State<LoginScreen> {
             MaterialPageRoute(builder: (context) => regionnnn()),
           );
         }
+
+        // String userType = "manager";
+        // // Change this to "manager" for a manager user
+        // if (userType == "student") {
+        //   Navigator.push(
+        //       context, MaterialPageRoute(builder: (context) => regionnnn()));
+        // } else if (userType == "manager") {
+        //   Navigator.push(
+        //       context, MaterialPageRoute(builder: (context) => regionnnn()));
+        // }
+        setState(() {
+          loading = false;
+        });
       }
-      // String userType = "manager";
-      // // Change this to "manager" for a manager user
-      // if (userType == "student") {
-      //   Navigator.push(
-      //       context, MaterialPageRoute(builder: (context) => regionnnn()));
-      // } else if (userType == "manager") {
-      //   Navigator.push(
-      //       context, MaterialPageRoute(builder: (context) => regionnnn()));
-      // }
-      setState(() {
-        loading = false;
-      });
     }).onError((error, stackTrace) {
       debugPrint(error.toString());
       utils().toastMessage(error.toString());
@@ -176,7 +205,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => forgetpassword(
-                                    selectRoute: widget.selectRoute)));
+                                      selectRoute: widget.selectRoute,
+                                      fee: widget.fee,
+                                    )));
                       },
                       child: Text("Forgot password")),
                 ),
@@ -193,8 +224,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => register(
-                                        selectRoute: widget.selectRoute,
-                                      )));
+                                      selectRoute: widget.selectRoute,
+                                      fee: widget.fee)));
                         },
                         child: Text("Sign up"))
                   ],

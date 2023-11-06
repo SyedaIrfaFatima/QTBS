@@ -4,8 +4,8 @@ import 'package:test_project/UI/module/Student/student%20registration/stu-regist
 
 class Start extends StatelessWidget {
   final String selectRoute;
-
-  Start({required this.selectRoute});
+  final String fee;
+  Start({required this.selectRoute, required this.fee});
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +86,8 @@ class Start extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => register(
-                        selectRoute: selectRoute,
-                      ),
+                      builder: (context) =>
+                          register(selectRoute: selectRoute, fee: fee),
                     ),
                   );
                 },

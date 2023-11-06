@@ -8,7 +8,7 @@ import 'package:test_project/UI/registration/forgetpassword.dart';
 import 'package:test_project/UI/module/Student/student%20registration/stu-registration.dart';
 import 'package:test_project/UI/widgets/round_button.dart';
 
-import 'man_registration.dart';
+import 'dregisteration.dart';
 
 class mlogin extends StatefulWidget {
   const mlogin({Key? key}) : super(key: key);
@@ -162,7 +162,7 @@ class _mloginState extends State<mlogin> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => manageRegister()));
+                                  builder: (context) => dregister()));
                         },
                         child: Text("Sign up"))
                   ],

@@ -8,8 +8,9 @@ import 'forgetpassword.dart';
 
 class crtnewpass extends StatelessWidget {
   final String selectRoute;
+  final String fee;
 
-  crtnewpass({required this.selectRoute});
+  crtnewpass({required this.selectRoute, required this.fee});
 
   // This widget is the root of your application.
   @override
@@ -29,7 +30,7 @@ class crtnewpass extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      forgetpassword(selectRoute: selectRoute),
+                      forgetpassword(selectRoute: selectRoute, fee: fee),
                 ),
               );
             },

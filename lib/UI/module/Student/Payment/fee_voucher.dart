@@ -25,6 +25,7 @@ class voucher extends StatefulWidget {
   final String userId;
   final String route;
   final String fee;
+
   voucher({
     required this.db,
     required this.userId,
@@ -39,11 +40,10 @@ class voucher extends StatefulWidget {
 class _voucherState extends State<voucher> {
   String userName = ''; // Store the user's name
   String sapId = '';
+  final ProfileController profileController = Get.find();
 
   DateTime registrationDate = DateTime.now();
   DateTime fixedPaymentDeadline = DateTime.now().add(Duration(days: 5));
-
-  final ProfileController profileController = Get.find();
 
   final GlobalKey repaintBoundaryKey = GlobalKey();
 
