@@ -6,7 +6,7 @@ import 'UI/module/Student/Profile/profile_controller.dart';
 import 'UI/module/Student/student registration/Start.dart';
 import 'UI/module/Student/student registration/Users.dart';
 import 'UI/module/Manager/manager_registration/man_registration.dart';
-
+//
 // void main() async {
 //   WidgetsFlutterBinding.ensureInitialized();
 //   await Firebase.initializeApp().then((value) => Get.put(Authcontroller()));

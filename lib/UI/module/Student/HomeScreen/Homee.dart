@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,15 +9,18 @@ import '../../../registration/Util/utils.dart';
 import '../../../registration/login.dart';
 import '../Discussion Form/discussion form.dart';
 import '../FeedBack/feedback.dart';
+import '../Payment/Voucher_status.dart';
 import '../Payment/pay.dart';
 import '../Profile/profileScreen.dart';
 import '../Profile/profile_controller.dart';
 
 class Home extends StatefulWidget {
   final String selectRoute;
-  final String fee;
+  final String fees;
+  final String busnumber;
 
-  Home({required this.selectRoute, required this.fee});
+  Home(
+      {required this.selectRoute, required this.fees, required this.busnumber});
 
   @override
   State<Home> createState() => _HomeState();
@@ -26,6 +30,7 @@ class _HomeState extends State<Home> {
   final auth = FirebaseAuth.instance;
   String userName = '';
   final ProfileController profileController = Get.find();
+
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -39,7 +44,7 @@ class _HomeState extends State<Home> {
                         MaterialPageRoute(
                             builder: (context) => LoginScreen(
                                   selectRoute: widget.selectRoute,
-                                  fee: widget.fee,
+                                  fee: widget.fees,
                                 )));
                   }).onError((error, stackTrace) {
                     utils().toastMessage(error.toString());
@@ -103,8 +108,9 @@ class _HomeState extends State<Home> {
                         MaterialPageRoute(
                           builder: (context) => payfee(
                               selectRoute: widget.selectRoute,
-                              fee: widget
-                                  .fee), // Replace PaymentScreen with your actual payment screen
+                              fee: widget.fees,
+                              busnumber: widget
+                                  .busnumber), // Replace PaymentScreen with your actual payment screen
                         ),
                       ); // Update the UI to show that item 1 was selected
                     },
@@ -113,6 +119,17 @@ class _HomeState extends State<Home> {
                     title: Text('Refund fee'),
                     onTap: () {
                       // Update the UI to show that item 2 was selected
+                    },
+                  ),
+                  ListTile(
+                    title: Text('Voucher Status '),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              voucherstatus(), // Replace PaymentScreen with your actual payment screen
+                        ),
+                      ); // Update the UI to show that item 1 was selected
                     },
                   ),
                   ListTile(

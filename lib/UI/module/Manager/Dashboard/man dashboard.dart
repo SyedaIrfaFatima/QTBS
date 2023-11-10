@@ -9,6 +9,7 @@ import '../../../../Authentication/models/User_model.dart';
 import '../../Student/Profile/profileScreen.dart';
 import '../../Student/Profile/profile_controller.dart';
 import '../DiscussionForm/mandiscussion.dart';
+import '../Payment_handler/student_voucher_check.dart';
 import '../manager_busesdetails/bus registration record.dart';
 import '../manager_routes/man_region.dart';
 
@@ -27,7 +28,7 @@ class _mdashboardState extends State<mdashboard> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Track Live Location'),
+          title: Text('Dashboard'),
         ),
         drawer: Drawer(
           child: ListView(
@@ -88,13 +89,12 @@ class _mdashboardState extends State<mdashboard> {
               ListTile(
                 title: Text('Payment'),
                 onTap: () {
-                  // Navigator.of(context).push(
-                  // // MaterialPageRoute(
-                  // // builder: (context) => payfee(
-                  // // selectRoute: widget
-                  // //     .selectRoute), // Replace PaymentScreen with your actual payment screen
-                  // // ),
-                  // ); // Update the UI to show that item 1 was selected
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          Vouchercheck(), // Replace PaymentScreen with your actual payment screen
+                    ),
+                  ); // Update the UI to show that item 1 was selected
                 },
               ),
               ListTile(

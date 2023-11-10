@@ -278,6 +278,7 @@ class _manageRegisterState extends State<manageRegister> {
                               confirmpasswordController.text.trim(),
                           Sapid: '',
                           role: 'manager',
+                          profileImageUrl: '',
                         );
 
                         register();

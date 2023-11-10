@@ -8,10 +8,11 @@ import 'jazzcash.dart';
 class payfee extends StatefulWidget {
   final String selectRoute;
   final String fee;
-
+  final String busnumber;
   payfee({
     required this.selectRoute,
     required this.fee,
+    required this.busnumber,
   });
 
   @override
@@ -180,6 +181,7 @@ class _payfeeState extends State<payfee> {
                                                 userId: userId,
                                                 route: widget.selectRoute,
                                                 fee: widget.fee,
+                                                bus: widget.busnumber,
                                                 // userEmail: userEmail,
                                               ),
                                             ));
