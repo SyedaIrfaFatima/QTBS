@@ -9,10 +9,10 @@ import 'package:test_project/UI/module/Student/student%20registration/stu-regist
 import 'package:test_project/UI/registration/resetpassword.dart';
 import 'package:test_project/posts/post_Screen.dart';
 
-import '../module/Manager/Dashboard/man dashboard.dart';
-import '../module/Manager/manager_routes/man_region.dart';
-import '../module/Student/HomeScreen/Homee.dart';
-import '../widgets/round_button.dart';
+import '../../Manager/Dashboard/man dashboard.dart';
+import '../../Manager/manager_routes/man_region.dart';
+import '../HomeScreen/Homee.dart';
+import '../../../widgets/round_button.dart';
 
 class LoginScreen extends StatefulWidget {
   final String selectRoute;
@@ -76,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
         //     );
         //   }
         // }
+        print("Query Snapshot Size: ${querySnapshot.size}");
 
         if (querySnapshot.size > 0) {
           // The user is authenticated and has registered for a bus, fetch the route and fee from Firebase
@@ -85,14 +86,16 @@ class _LoginScreenState extends State<LoginScreen> {
               'Route']; // Replace 'route' with the actual field name in your Firestore document
           final fee = data['fees'];
           print("Fee: $fee");
-// Replace 'fee' with the actual field name in your Firestore document
+
+          // Replace 'fee' with the actual field name in your Firestore document
 
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => Home(
                 selectRoute: route ?? widget.selectRoute,
-                fee: fee ?? widget.fee,
+                fees: fee ?? widget.fee,
+                busnumber: '',
               ),
             ),
           );
@@ -104,15 +107,6 @@ class _LoginScreenState extends State<LoginScreen> {
           );
         }
 
-        // String userType = "manager";
-        // // Change this to "manager" for a manager user
-        // if (userType == "student") {
-        //   Navigator.push(
-        //       context, MaterialPageRoute(builder: (context) => regionnnn()));
-        // } else if (userType == "manager") {
-        //   Navigator.push(
-        //       context, MaterialPageRoute(builder: (context) => regionnnn()));
-        // }
         setState(() {
           loading = false;
         });
@@ -125,6 +119,68 @@ class _LoginScreenState extends State<LoginScreen> {
       });
     });
   }
+
+  // void login() {
+  //   setState(() {
+  //     loading = true;
+  //   });
+  //   _auth
+  //       .signInWithEmailAndPassword(
+  //           email: emailController.text,
+  //           password: passwordController.text.toString())
+  //       .then((value) async {
+  //     // Check if the user is authenticated
+  //     if (value.user != null) {
+  //       final userId = value.user!.uid;
+  //       final usersCollection = FirebaseFirestore.instance.collection('Users');
+  //
+  //       // Retrieve the user's role from Firestore
+  //       DocumentSnapshot<Map<String, dynamic>> userDoc =
+  //           await usersCollection.doc(userId).get();
+  //
+  //       if (userDoc.exists) {
+  //         final userRole = userDoc.data()?['role'];
+  //
+  //         if (userRole == 'manager') {
+  //           // Navigate to manager screen
+  //           Navigator.push(
+  //             context,
+  //             MaterialPageRoute(
+  //               builder: (context) => mdashboard(),
+  //             ),
+  //           );
+  //         } else if (userRole == 'student') {
+  //           // Navigate to student screen
+  //           Navigator.push(
+  //             context,
+  //             MaterialPageRoute(
+  //               builder: (context) => Home(
+  //                 selectRoute: widget.selectRoute,
+  //                 fees: widget.fee,
+  //                 busnumber: '',
+  //               ),
+  //             ),
+  //           );
+  //         } else {
+  //           // Handle other roles if needed
+  //           print("Unknown role: $userRole");
+  //         }
+  //       } else {
+  //         print("User document not found");
+  //       }
+  //
+  //       setState(() {
+  //         loading = false;
+  //       });
+  //     }
+  //   }).onError((error, stackTrace) {
+  //     debugPrint(error.toString());
+  //     utils().toastMessage(error.toString());
+  //     setState(() {
+  //       loading = false;
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

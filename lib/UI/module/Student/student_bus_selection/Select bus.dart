@@ -132,8 +132,10 @@ class _MyBusState extends State<MyBus> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => Home(
-                                selectRoute: widget.selectRoute,
-                                fee: widget.fee),
+                              selectRoute: widget.selectRoute,
+                              fees: widget.fee,
+                              busnumber: '',
+                            ),
                           ),
                         );
                       } else {
@@ -327,6 +329,9 @@ class _MyBusState extends State<MyBus> {
                                                                               .selectRoute,
                                                                       'registrationDate':
                                                                           registrationDateFormatted,
+                                                                      'fees':
+                                                                          widget
+                                                                              .fee,
                                                                     });
 
                                                                     Navigator.of(

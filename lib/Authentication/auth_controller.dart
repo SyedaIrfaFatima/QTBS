@@ -4,7 +4,7 @@ import 'package:test_project/Authentication/models/User_model.dart';
 import 'package:test_project/UI/module/Student/student%20registration/Users.dart';
 
 import 'package:test_project/UI/module/Student/student%20routes/regionn.dart';
-import 'package:test_project/UI/registration/login.dart';
+import 'package:test_project/UI/module/Student/student%20registration/login.dart';
 import 'package:get/get.dart';
 
 import '../UI/module/Manager/manager_routes/man_region.dart';

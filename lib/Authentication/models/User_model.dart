@@ -9,6 +9,7 @@ class UserModel {
   final String Password;
   final String ConfirmPassword;
   final String role;
+  final String profileImageUrl;
 
   UserModel({
     required this.fullName,
@@ -19,6 +20,7 @@ class UserModel {
     required this.Password,
     required this.ConfirmPassword,
     required this.role,
+    required this.profileImageUrl,
   });
 
   Map<String, dynamic> toJson() {
@@ -45,6 +47,7 @@ class UserModel {
       Password: data["Password"] ?? "",
       ConfirmPassword: data["ConfirmPassword"] ?? "",
       role: data["Role"] ?? "",
+      profileImageUrl: data['profileImageUrl'] ?? '',
     );
   }
 }

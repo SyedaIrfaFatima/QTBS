@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:test_project/UI/registration/login.dart';
+import 'package:test_project/UI/module/Student/student%20registration/login.dart';
 import 'package:test_project/posts/post_Screen.dart';
 
 class SplashServices {

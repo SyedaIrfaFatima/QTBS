@@ -121,23 +121,6 @@ class _mdashboardState extends State<mdashboard> {
                 },
               ),
               ListTile(
-                title: Text('discussion'),
-                onTap: () {
-                  {
-                    // Navigator.of(context).push(
-                    //   MaterialPageRoute(
-                    //     builder: (context) =>
-                    //         DiscussionForumManager(), // Replace PaymentScreen with your actual payment screen
-                    //   ),
-                    // );
-                    // Update the UI to show that item 2 was selected
-                  }
-                  ;
-
-                  // Update the UI to show that item 2 was selected
-                },
-              ),
-              ListTile(
                 title: Text('Setting '),
                 onTap: () {
                   // Update the UI to show that item 2 was selected

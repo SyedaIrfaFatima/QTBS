@@ -10,7 +10,7 @@ import '../../../../Authentication/models/User_model.dart';
 import '../../Student/student routes/Route.dart';
 import '../../../widgets/round_button.dart';
 import '../../../registration/Util/utils.dart';
-import '../../../registration/login.dart';
+import '../../Student/student registration/login.dart';
 
 class dregister extends StatefulWidget {
   const dregister({Key? key}) : super(key: key);
@@ -276,7 +276,8 @@ class _dregisterState extends State<dregister> {
                           ConfirmPassword:
                               confirmpasswordController.text.trim(),
                           Sapid: '',
-                          role: 'manager',
+                          role: 'driver',
+                          profileImageUrl: '',
                         );
 
                         register();

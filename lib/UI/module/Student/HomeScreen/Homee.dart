@@ -6,7 +6,9 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../Authentication/models/User_model.dart';
 import '../../../registration/Util/utils.dart';
-import '../../../registration/login.dart';
+import '../Payment/StudentvoucherDisplayScreen.dart';
+import '../Payment/Uploadvoucher.dart';
+import '../student registration/login.dart';
 import '../Discussion Form/discussion form.dart';
 import '../FeedBack/feedback.dart';
 import '../Payment/Voucher_status.dart';
@@ -29,6 +31,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final auth = FirebaseAuth.instance;
   String userName = '';
+  String? uploadedVoucherURL;
+
   final ProfileController profileController = Get.find();
 
   Widget build(BuildContext context) {
@@ -115,6 +119,57 @@ class _HomeState extends State<Home> {
                       ); // Update the UI to show that item 1 was selected
                     },
                   ),
+                  ListTile(
+                    title: Text(
+                      uploadedVoucherURL == null
+                          ? 'Upload Voucher'
+                          : 'Uploaded Voucher',
+                    ),
+                    onTap: () async {
+                      final updatedVoucherURL =
+                          await Navigator.of(context).push<String?>(
+                        MaterialPageRoute(
+                          builder: (context) => VoucherUpload(
+                            selectRoute: 'yourRoute',
+                            fee: 'yourFee',
+                            uploadedVoucherURL: uploadedVoucherURL,
+                            onVoucherUploaded: (String voucherURL) {
+                              setState(() {
+                                uploadedVoucherURL = voucherURL;
+                              });
+                            },
+                            onStatusChanged: (String status) {
+                              // Handle the status change here
+                              print('Voucher status changed: $status');
+                              // You can update UI or take other actions based on the status change
+                            },
+                          ),
+                        ),
+                      );
+
+                      // Handle the updated voucher URL, if needed
+                      if (updatedVoucherURL != null) {
+                        setState(() {
+                          uploadedVoucherURL = updatedVoucherURL;
+                        });
+                      }
+                    },
+                  ),
+
+                  // ListTile(
+                  //   title: Text('Uploaded Voucher'),
+                  //   onTap: () {
+                  //     // Navigate to the StudentVoucherDisplayScreen with the student's UID
+                  //     Navigator.of(context).push(
+                  // MaterialPageRoute(
+                  //   builder: (context) => StudentVoucherDisplayScreen(
+                  //     studentId:
+                  //         FirebaseAuth.instance.currentUser?.uid ?? '',
+                  //   ),
+                  // ),
+                  // );
+                  // },
+                  // ),
                   ListTile(
                     title: Text('Refund fee'),
                     onTap: () {

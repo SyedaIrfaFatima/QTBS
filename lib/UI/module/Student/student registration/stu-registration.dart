@@ -4,7 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:test_project/Authentication/models/User_model.dart';
 import 'package:test_project/UI/registration/Util/utils.dart';
-import 'package:test_project/UI/registration/login.dart';
+import 'package:test_project/UI/module/Student/student%20registration/login.dart';
 
 import '../../../../Authentication/Auth_reprository/User_Repository/user_repository.dart';
 import '../../../widgets/round_button.dart';
@@ -24,6 +24,7 @@ class _registerState extends State<register> {
   bool isFormValid = false;
   final _formkey = GlobalKey<FormState>();
   final fullnameController = TextEditingController();
+  final useridController = TextEditingController();
   final emailController = TextEditingController();
   final sapidController = TextEditingController();
   final addressController = TextEditingController();
@@ -300,6 +301,7 @@ class _registerState extends State<register> {
                           ConfirmPassword:
                               confirmpasswordController.text.trim(),
                           role: 'student',
+                          profileImageUrl: '',
                         );
 
                         register();

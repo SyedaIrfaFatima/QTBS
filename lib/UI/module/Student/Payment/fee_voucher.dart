@@ -21,11 +21,14 @@ import 'dart:io';
 import 'dart:ui' as ui; // Import 'dart:ui' for ui.Image
 
 import 'package:image/image.dart' as img;
+import 'package:test_project/UI/module/Student/notification_services/linkedscreen.dart';
 
 import '../../../../Authentication/models/User_model.dart';
+import '../../../../main.dart';
 import '../Profile/profile_controller.dart';
 import 'Uploadvoucher.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 class voucher extends StatefulWidget {
   final FirebaseFirestore db;
@@ -58,6 +61,24 @@ class _voucherState extends State<voucher> {
   final busRegistrationCollection =
       FirebaseFirestore.instance.collection('BusRegistrations');
   String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  @override
+  void initState() {
+    super.initState();
+    initNotifications();
+    // Fetch the registration date
+    // fetchRegistrationData();
+    // DateTime parsedDate = DateTime.now();
+    //
+    // // Schedule the first payment notification
+    // schedulePaymentNotification(parsedDate);
+
+    fetchRegistrationData().then((registrationDate) {
+      // Schedule the first payment notification
+      schedulePaymentNotification(registrationDate);
+    });
+  }
 
   Future<void> _captureAndSavePdf(GlobalKey repaintKey) async {
     try {
@@ -86,38 +107,28 @@ class _voucherState extends State<voucher> {
 
       // Display a download link
       print('PDF saved to: $filePath');
-
-      // You can use this file path to share or open the file as needed
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Voucher PDF saved successfully!'),
+        ),
+      );
     } catch (e) {
       print('Error capturing and saving PDF: $e');
     }
   }
 
   Future<void> initNotifications() async {
+    tz.initializeTimeZones();
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
-      'fee_channel', // ID
-      'Fee Notifications', // Title
+      'fee_channel',
+      'Fee Notifications',
       description: 'Notifications for fee payments',
     );
-
-    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // Fetch the registration date
-    fetchRegistrationData();
-    DateTime parsedDate = DateTime.now();
-
-    // Schedule the first payment notification
-    schedulePaymentNotification(parsedDate);
   }
 
   Future<DateTime> fetchRegistrationData() async {
@@ -228,11 +239,65 @@ class _voucherState extends State<voucher> {
     int fine = 0;
     if (daysDifference < 0) {
       fine = -daysDifference * 100;
+      sendPaymentDeadlineNotification();
     }
 
+    // Remove commas from the fee string and parse it into an integer
+    int initialFee = int.parse(widget.fee.replaceAll(',', ''));
+
     // Calculate the total fee by adding the fine to the initial fee
-    int totalFee = int.parse(widget.fee) + fine;
+    int totalFee = initialFee + fine;
     return totalFee;
+  }
+
+  bool isPaymentDeadlineExceeded(DateTime registrationDate) {
+    DateTime paymentDeadline = registrationDate.add(Duration(days: 5));
+
+    if (registrationDate.weekday == DateTime.saturday ||
+        registrationDate.weekday == DateTime.sunday) {
+      paymentDeadline = paymentDeadline.add(Duration(days: 2));
+    }
+
+    DateTime today = DateTime.now();
+    int daysDifference = paymentDeadline.difference(today).inDays;
+
+    return daysDifference < 0;
+  }
+
+  void sendPaymentDeadlineNotification() async {
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      1,
+      'Payment Deadline Exceeded',
+      'Please pay your monthly fee to avoid additional charges.',
+      tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'fee_channel',
+          'Fee Notifications',
+        ),
+      ),
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+    );
+  }
+
+  Future<void> _showTestNotification() async {
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      2, // Use a unique ID for each notification
+      'Test Notification',
+      'This is a test notification.',
+      tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'test_channel', // Use a unique channel ID for testing
+          'Test Notifications',
+        ),
+      ),
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+    );
   }
 
   Widget buildVoucherContent() {
@@ -409,26 +474,26 @@ class _voucherState extends State<voucher> {
                           ],
                         ),
                         SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Text(
-                              'Bus:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 6.5,
-                              ),
-                              textAlign: TextAlign.justify,
-                            ),
-                            SizedBox(width: 5),
-                            Text(
-                              widget.bus,
-                              style: TextStyle(
-                                fontSize: 6.5,
-                              ),
-                              textAlign: TextAlign.justify,
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   children: [
+                        //     Text(
+                        //       'Bus:',
+                        //       style: TextStyle(
+                        //         fontWeight: FontWeight.bold,
+                        //         fontSize: 6.5,
+                        //       ),
+                        //       textAlign: TextAlign.justify,
+                        //     ),
+                        //     SizedBox(width: 5),
+                        //     Text(
+                        //       widget.bus,
+                        //       style: TextStyle(
+                        //         fontSize: 6.5,
+                        //       ),
+                        //       textAlign: TextAlign.justify,
+                        //     ),
+                        //   ],
+                        // ),
                         SizedBox(height: 10),
                         Row(
                           children: [
@@ -502,6 +567,7 @@ class _voucherState extends State<voucher> {
   }
 
   Widget tranferfee() {
+    int totalFee = calculateTotalFee(parsedDate);
     return Row(
       children: [
         Text(
@@ -514,7 +580,7 @@ class _voucherState extends State<voucher> {
         ),
         SizedBox(width: 10),
         Text(
-          widget.fee,
+          '$totalFee',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 9.0,
@@ -526,7 +592,8 @@ class _voucherState extends State<voucher> {
     );
   }
 
-  Widget paymentdeadline(String currentDate) {
+  Widget paymentdeadline(currentDateStr, isDeadlineExceeded) {
+    bool isDeadlineExceeded = isPaymentDeadlineExceeded(parsedDate);
     return Row(
       children: [
         Padding(
@@ -598,6 +665,8 @@ class _voucherState extends State<voucher> {
 
     // Format dates as strings
     final currentDateStr = DateFormat('dd/MM/yyyy').format(currentDateTime);
+    // Check if the payment deadline is exceeded
+    bool isDeadlineExceeded = isPaymentDeadlineExceeded(parsedDate);
 
     return MaterialApp(
       color: Colors.blue,
@@ -677,9 +746,22 @@ class _voucherState extends State<voucher> {
                               builder: (context) => VoucherUpload(
                                     selectRoute: widget.route,
                                     fee: widget.fee,
-                                  )));
+                                    onVoucherUploaded: (String voucherURL) {},
+                                    onStatusChanged: (String status) {},
+                                  ))
+                          //
+                          // MaterialPageRoute(
+                          //     builder: (context) => linkedscreen())
+                          );
                     },
                   )),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Trigger a test notification
+                _showTestNotification();
+              },
+              child: Text('Test Notification'),
             ),
             Center(
               child: Container(
@@ -780,7 +862,7 @@ class _voucherState extends State<voucher> {
                     ]),
                     Row(children: [
                       for (int i = 0; i < 3; i++)
-                        paymentdeadline(currentDateStr),
+                        paymentdeadline(currentDateStr, isDeadlineExceeded),
                     ]),
                     SizedBox(
                       height: 20,

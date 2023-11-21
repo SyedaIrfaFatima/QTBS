@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:test_project/UI/module/Driver/driver_registration/dregisteration.dart';
 import 'package:test_project/UI/module/Student/student%20registration/stu-registration.dart';
 
 import '../../Manager/manager_registration/man_registration.dart';
@@ -195,28 +196,28 @@ class RollButton extends StatelessWidget {
                   RoleButton(
                     role: "Student",
                     onPressed: () {
-                      navigateToRole("student");
+                      navigateToRole("student", context);
                     },
                   ),
                   SizedBox(height: 10),
                   RoleButton(
                     role: "Driver",
                     onPressed: () {
-                      navigateToRole("driver");
+                      navigateToRole("driver", context);
                     },
                   ),
                   SizedBox(height: 10),
                   RoleButton(
                     role: "Guardian",
                     onPressed: () {
-                      navigateToRole("guardian");
+                      navigateToRole("guardian", context);
                     },
                   ),
                   SizedBox(height: 10),
                   RoleButton(
                     role: "Manager",
                     onPressed: () {
-                      navigateToRole("manager");
+                      navigateToRole("manager", context);
                     },
                   ),
                 ],
@@ -228,45 +229,61 @@ class RollButton extends StatelessWidget {
     );
   }
 
-  // void navigateToRole(String role, BuildContext context) {
-  //   // You can handle navigation here based on the selected role
+  void navigateToRole(String role, BuildContext context) {
+    // You can handle navigation here based on the selected role
+    if (role == "student") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Start(
+                  selectRoute: '',
+                  fee: '',
+                )),
+      );
+    } else if (role == "driver") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => dregister()),
+      );
+    } else if (role == "guardian") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => dregister()),
+      );
+    } else if (role == "manager") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => manageRegister()),
+      );
+    }
+  }
+
+  // void navigateToRole(String role) {
+  //   // Use Get.toNamed to navigate to the specified route
   //   if (role == "student") {
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => register()),
-  //     );
-  //   }
-  //   // } else if (role == "driver") {
-  //   //   Navigator.push(
-  //   //     context,
-  //   //     MaterialPageRoute(builder: (context) => DriverScreen()),
-  //   //   );
-  //   // } else if (role == "guardian") {
-  //   //   Navigator.push(
-  //   //     context,
-  //   //     MaterialPageRoute(builder: (context) => GuardianScreen()),
-  //   //   );
-  //   // }
-  //   else if (role == "manager") {
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => manageRegister()),
-  //     );
+  //     Get.toNamed('/student');
+  //   } else if (role == "driver") {
+  //     Get.toNamed('/driver');
+  //   } else if (role == "guardian") {
+  //     Get.toNamed('/guardian');
+  //   } else if (role == "manager") {
+  //     Get.toNamed('/manager');
   //   }
   // }
 
-  void navigateToRole(String role) {
-    // Use Get.toNamed to navigate to the specified route
-    if (role == "student") {
-      Get.toNamed('/student');
-    } else if (role == "driver") {
-      Get.toNamed('/driver');
-    } else if (role == "guardian") {
-      Get.toNamed('/guardian');
-    } else if (role == "manager") {
-      Get.toNamed('/manager');
-    }
-  }
+//   void navigateToRole(
+//     String role,
+//   ) {
+//     if (role == "student") {
+//       Get.toNamed('/student');
+//     } else if (role == "driver") {
+//       Get.toNamed('/driver');
+//     } else if (role == "guardian") {
+//       Get.toNamed('/guardian');
+//     } else if (role == "manager") {
+//       Get.toNamed('/manager');
+//     }
+//   }
 }
 
 class RoleButton extends StatelessWidget {

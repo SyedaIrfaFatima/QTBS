@@ -10,7 +10,7 @@ import '../../../../Authentication/models/User_model.dart';
 import '../../Student/student routes/Route.dart';
 import '../../../widgets/round_button.dart';
 import '../../../registration/Util/utils.dart';
-import '../../../registration/login.dart';
+import '../../Student/student registration/login.dart';
 import 'man_login.dart';
 
 class manageRegister extends StatefulWidget {
