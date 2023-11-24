@@ -3,9 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:test_project/UI/module/Student/Payment/BoardingPass.dart';
 
 import '../../../../Authentication/models/User_model.dart';
 import '../../../registration/Util/utils.dart';
+import '../../Manager/Payment_handler/authentic_user_voucher.dart';
 import '../Payment/StudentvoucherDisplayScreen.dart';
 import '../Payment/Uploadvoucher.dart';
 import '../student registration/login.dart';
@@ -20,9 +22,15 @@ class Home extends StatefulWidget {
   final String selectRoute;
   final String fees;
   final String busnumber;
+  final String voucherDocumentID;
+  final String voucherURL;
 
   Home(
-      {required this.selectRoute, required this.fees, required this.busnumber});
+      {required this.selectRoute,
+      required this.fees,
+      required this.busnumber,
+      required this.voucherDocumentID,
+      required this.voucherURL});
 
   @override
   State<Home> createState() => _HomeState();
@@ -120,60 +128,56 @@ class _HomeState extends State<Home> {
                     },
                   ),
                   ListTile(
-                    title: Text(
-                      uploadedVoucherURL == null
-                          ? 'Upload Voucher'
-                          : 'Uploaded Voucher',
-                    ),
+                    title: Text('Voucher'),
                     onTap: () async {
-                      final updatedVoucherURL =
-                          await Navigator.of(context).push<String?>(
+                      Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => VoucherUpload(
-                            selectRoute: 'yourRoute',
-                            fee: 'yourFee',
-                            uploadedVoucherURL: uploadedVoucherURL,
-                            onVoucherUploaded: (String voucherURL) {
-                              setState(() {
-                                uploadedVoucherURL = voucherURL;
-                              });
-                            },
-                            onStatusChanged: (String status) {
-                              // Handle the status change here
-                              print('Voucher status changed: $status');
-                              // You can update UI or take other actions based on the status change
-                            },
-                          ),
+                          builder: (context) {
+                            return VoucherUpload(
+                              selectRoute: widget.selectRoute,
+                              fee: widget.fees,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: Text('Boarding pass'),
+                    onTap: () async {
+                      // Navigate to the VoucherDisplayScreen and wait for a result
+                      bool isVoucherAccepted = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return VoucherDisplayScreen(
+                              voucherDocumentID: widget.voucherDocumentID,
+                              voucherURL: widget.voucherURL,
+                            );
+                          },
                         ),
                       );
 
-                      // Handle the updated voucher URL, if needed
-                      if (updatedVoucherURL != null) {
-                        setState(() {
-                          uploadedVoucherURL = updatedVoucherURL;
-                        });
+                      if (isVoucherAccepted == true) {
+                        // Navigate to the BoardingPass screen if the voucher is accepted
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BoardingPass(
+                              selectRoute: '', // Replace with actual route
+                              fee: '', // Replace with actual fee
+                            ),
+                          ),
+                        );
+                      } else {
+                        // Show a message for rejected voucher
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:
+                                Text('Please submit an authentic voucher.'),
+                          ),
+                        );
                       }
-                    },
-                  ),
-
-                  // ListTile(
-                  //   title: Text('Uploaded Voucher'),
-                  //   onTap: () {
-                  //     // Navigate to the StudentVoucherDisplayScreen with the student's UID
-                  //     Navigator.of(context).push(
-                  // MaterialPageRoute(
-                  //   builder: (context) => StudentVoucherDisplayScreen(
-                  //     studentId:
-                  //         FirebaseAuth.instance.currentUser?.uid ?? '',
-                  //   ),
-                  // ),
-                  // );
-                  // },
-                  // ),
-                  ListTile(
-                    title: Text('Refund fee'),
-                    onTap: () {
-                      // Update the UI to show that item 2 was selected
                     },
                   ),
                   ListTile(
@@ -240,6 +244,10 @@ class _HomeState extends State<Home> {
                     image: AssetImage('assets/map live location.png'),
                   ),
                 ),
+                SizedBox(height: 20),
+
+                // Display the "Upload Voucher" button if no voucher is uploaded
+
                 Container(
                   padding: EdgeInsets.all(16.0), // Adjust padding as needed
                   child: Column(

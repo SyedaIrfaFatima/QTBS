@@ -746,8 +746,6 @@ class _voucherState extends State<voucher> {
                               builder: (context) => VoucherUpload(
                                     selectRoute: widget.route,
                                     fee: widget.fee,
-                                    onVoucherUploaded: (String voucherURL) {},
-                                    onStatusChanged: (String status) {},
                                   ))
                           //
                           // MaterialPageRoute(

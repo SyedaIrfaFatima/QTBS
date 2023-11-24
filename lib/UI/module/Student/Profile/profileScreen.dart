@@ -213,6 +213,8 @@ class _EditProfileState extends State<EditProfile> {
                   selectRoute: widget.selectRoute,
                   fees: widget.fees,
                   busnumber: '',
+                  voucherDocumentID: '',
+                  voucherURL: '',
                 ),
               ),
             );

@@ -135,6 +135,8 @@ class _MyBusState extends State<MyBus> {
                               selectRoute: widget.selectRoute,
                               fees: widget.fee,
                               busnumber: '',
+                              voucherDocumentID: '',
+                              voucherURL: '',
                             ),
                           ),
                         );

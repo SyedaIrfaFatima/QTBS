@@ -96,6 +96,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 selectRoute: route ?? widget.selectRoute,
                 fees: fee ?? widget.fee,
                 busnumber: '',
+                voucherDocumentID: '',
+                voucherURL: '',
               ),
             ),
           );
