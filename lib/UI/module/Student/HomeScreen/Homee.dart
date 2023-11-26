@@ -30,7 +30,9 @@ class Home extends StatefulWidget {
       required this.fees,
       required this.busnumber,
       required this.voucherDocumentID,
-      required this.voucherURL});
+      required this.voucherURL}) {
+    assert(voucherDocumentID != null);
+  }
 
   @override
   State<Home> createState() => _HomeState();
@@ -43,11 +45,67 @@ class _HomeState extends State<Home> {
 
   final ProfileController profileController = Get.find();
 
+  // Future<String> getVoucherStatus() async {
+  //   // Replace with your Firestore logic to get the voucher status
+  //   DocumentSnapshot voucherSnapshot = await FirebaseFirestore.instance
+  //       .collection('Vouchers')
+  //       .doc(widget.voucherDocumentID)
+  //       .get();
+  //
+  //   if (voucherSnapshot.exists) {
+  //     return voucherSnapshot['status'] ?? 'pending';
+  //   } else {
+  //     return 'pending';
+  //   }
+  // }
+
+  // Future<String> getVoucherStatus() async {
+  //   // Replace with your Firestore logic to get the voucher status
+  //   DocumentSnapshot voucherSnapshot = await FirebaseFirestore.instance
+  //       .collection('Vouchers')
+  //       .doc(widget.voucherDocumentID)
+  //       .get();
+  //
+  //   if (voucherSnapshot.exists) {
+  //     String status = voucherSnapshot['status'] ?? 'pending';
+  //     print('Voucher Status: $status'); // Add this line to print the status
+  //     return status;
+  //   } else {
+  //     print(
+  //         'Voucher Status: pending'); // Add this line to print the default status
+  //     return 'pending';
+  //   }
+  // }
+
+  Future<String> getVoucherStatus() async {
+    print('Voucher Document ID: ${widget.voucherDocumentID}');
+    // Check if the voucherDocumentID is valid
+    if (widget.voucherDocumentID == null || widget.voucherDocumentID.isEmpty) {
+      print('Voucher Document ID is null or empty.');
+      return 'pending';
+    }
+
+    // Replace with your Firestore logic to get the voucher status
+    DocumentSnapshot voucherSnapshot = await FirebaseFirestore.instance
+        .collection('Vouchers')
+        .doc(widget.voucherDocumentID)
+        .get();
+
+    if (voucherSnapshot.exists) {
+      String status = voucherSnapshot['status'] ?? 'pending';
+      print('Voucher Status: $status');
+      return status;
+    } else {
+      print('Voucher Status: pending');
+      return 'pending';
+    }
+  }
+
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-            appBar: AppBar(title: Text('Post'), actions: [
+            appBar: AppBar(title: Text('Home'), actions: [
               IconButton(
                 onPressed: () {
                   auth.signOut().then((value) {
@@ -143,34 +201,25 @@ class _HomeState extends State<Home> {
                     },
                   ),
                   ListTile(
-                    title: Text('Boarding pass'),
+                    title: Text('Boarding pass '),
                     onTap: () async {
-                      // Navigate to the VoucherDisplayScreen and wait for a result
-                      bool isVoucherAccepted = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return VoucherDisplayScreen(
-                              voucherDocumentID: widget.voucherDocumentID,
-                              voucherURL: widget.voucherURL,
-                            );
-                          },
-                        ),
-                      );
+                      // Check voucher status from Firestore
+                      String voucherStatus = await getVoucherStatus();
 
-                      if (isVoucherAccepted == true) {
+                      if (voucherStatus == 'accepted') {
                         // Navigate to the BoardingPass screen if the voucher is accepted
-                        Navigator.pushReplacement(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => BoardingPass(
-                              selectRoute: '', // Replace with actual route
-                              fee: '', // Replace with actual fee
+                              selectRoute: widget
+                                  .selectRoute, // Replace with actual route
+                              fee: widget.fees, // Replace with actual fee
                             ),
                           ),
                         );
                       } else {
-                        // Show a message for rejected voucher
+                        // Show a message for rejected or pending voucher
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content:
@@ -180,6 +229,65 @@ class _HomeState extends State<Home> {
                       }
                     },
                   ),
+
+                  // ListTile(
+                  //   title: Text('Boarding pass'),
+                  //   onTap: () async {
+                  //     // Navigate to the VoucherDisplayScreen and wait for a result
+                  //     bool isVoucherAccepted = await Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) {
+                  //           return VoucherDisplayScreen(
+                  //             voucherDocumentID: widget.voucherDocumentID,
+                  //             voucherURL: widget.voucherURL,
+                  //           );
+                  //         },
+                  //       ),
+                  //     );
+                  //
+                  //     if (isVoucherAccepted == true) {
+                  //       // Navigate to the BoardingPass screen if the voucher is accepted
+                  //       Navigator.pushReplacement(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //           builder: (context) => BoardingPass(
+                  //             selectRoute: '', // Replace with actual route
+                  //             fee: '', // Replace with actual fee
+                  //           ),
+                  //         ),
+                  //       );
+                  //     } else {
+                  //       // Show a message for rejected voucher
+                  //       ScaffoldMessenger.of(context).showSnackBar(
+                  //         SnackBar(
+                  //           content:
+                  //               Text('Please submit an authentic voucher.'),
+                  //         ),
+                  //       );
+                  //     }
+                  //   },
+                  // ),
+
+                  // ListView(
+                  //   children: [
+                  //     ListTile(
+                  //       title: Text('Boarding Pass'),
+                  //       onTap: () {
+                  //         Navigator.push(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //             builder: (context) => VoucherDisplayScreen(
+                  //               voucherDocumentID: '', // Replace with your data
+                  //               voucherURL: '', // Replace with your data
+                  //             ),
+                  //           ),
+                  //         );
+                  //       },
+                  //     ),
+                  //   ],
+                  // ),
+
                   ListTile(
                     title: Text('Voucher Status '),
                     onTap: () {
