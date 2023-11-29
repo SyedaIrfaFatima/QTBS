@@ -1,13 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_project/UI/module/Manager/Dashboard/man%20dashboard.dart';
-
-import 'package:test_project/UI/module/Student/student%20routes/regionn.dart';
-import 'package:test_project/UI/registration/Util/utils.dart';
-import 'package:test_project/UI/registration/forgetpassword.dart';
+import 'package:test_project/UI/module/all_user_usage_interface/forgetpassword.dart';
 import 'package:test_project/UI/module/Student/student%20registration/stu-registration.dart';
 import 'package:test_project/UI/widgets/round_button.dart';
 
+import '../../all_user_usage_interface/Util/utils.dart';
 import 'dregisteration.dart';
 
 class mlogin extends StatefulWidget {
@@ -146,6 +144,7 @@ class _mloginState extends State<mlogin> {
                                 builder: (context) => forgetpassword(
                                       selectRoute: '',
                                       fee: '',
+                                      voucherDocumentID: '',
                                     )));
                       },
                       child: Text("Forgot password")),

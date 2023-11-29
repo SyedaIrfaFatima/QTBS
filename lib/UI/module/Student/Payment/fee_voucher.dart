@@ -1,9 +1,6 @@
 import 'dart:typed_data';
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:open_file/open_file.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
@@ -21,8 +18,6 @@ import 'dart:io';
 import 'dart:ui' as ui; // Import 'dart:ui' for ui.Image
 
 import 'package:image/image.dart' as img;
-import 'package:test_project/UI/module/Student/notification_services/linkedscreen.dart';
-
 import '../../../../Authentication/models/User_model.dart';
 import '../../../../main.dart';
 import '../Profile/profile_controller.dart';
@@ -281,24 +276,24 @@ class _voucherState extends State<voucher> {
           UILocalNotificationDateInterpretation.absoluteTime,
     );
   }
-
-  Future<void> _showTestNotification() async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      2, // Use a unique ID for each notification
-      'Test Notification',
-      'This is a test notification.',
-      tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
-      const NotificationDetails(
-        android: AndroidNotificationDetails(
-          'test_channel', // Use a unique channel ID for testing
-          'Test Notifications',
-        ),
-      ),
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-    );
-  }
+  //
+  // Future<void> _showTestNotification() async {
+  //   await flutterLocalNotificationsPlugin.zonedSchedule(
+  //     2, // Use a unique ID for each notification
+  //     'Test Notification',
+  //     'This is a test notification.',
+  //     tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+  //     const NotificationDetails(
+  //       android: AndroidNotificationDetails(
+  //         'test_channel', // Use a unique channel ID for testing
+  //         'Test Notifications',
+  //       ),
+  //     ),
+  //     androidAllowWhileIdle: true,
+  //     uiLocalNotificationDateInterpretation:
+  //         UILocalNotificationDateInterpretation.absoluteTime,
+  //   );
+  // }
 
   Widget buildVoucherContent() {
     return RepaintBoundary(
@@ -473,7 +468,7 @@ class _voucherState extends State<voucher> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        // SizedBox(height: 10),
                         // Row(
                         //   children: [
                         //     Text(
@@ -757,7 +752,7 @@ class _voucherState extends State<voucher> {
             ElevatedButton(
               onPressed: () {
                 // Trigger a test notification
-                _showTestNotification();
+                // _showTestNotification();
               },
               child: Text('Test Notification'),
             ),

@@ -411,6 +411,7 @@ class _EditProfileState extends State<EditProfile> {
                                             confirmpassword.text.trim(),
                                         role: '',
                                         profileImageUrl: '',
+                                        license: '',
                                       );
                                     },
                                     style: ElevatedButton.styleFrom(

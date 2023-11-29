@@ -6,7 +6,11 @@ import 'forgetpassword.dart';
 class ResetPassword extends StatefulWidget {
   final String selectRoute;
   final String fee;
-  ResetPassword({required this.selectRoute, required this.fee});
+  final String voucherDocumentID;
+  ResetPassword(
+      {required this.selectRoute,
+      required this.fee,
+      required this.voucherDocumentID});
 
   @override
   State<ResetPassword> createState() => _ResetPasswordState();
@@ -29,6 +33,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 builder: (context) => LoginScreen(
                   selectRoute: widget.selectRoute,
                   fee: widget.fee,
+                  voucherDocumentID: widget.voucherDocumentID,
                 ),
               ),
             );
@@ -104,6 +109,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       builder: (context) => forgetpassword(
                         selectRoute: widget.selectRoute,
                         fee: widget.fee,
+                        voucherDocumentID: widget.voucherDocumentID,
                       ),
                     ),
                   );

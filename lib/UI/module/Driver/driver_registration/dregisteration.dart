@@ -9,8 +9,7 @@ import '../../../../Authentication/Auth_reprository/User_Repository/user_reposit
 import '../../../../Authentication/models/User_model.dart';
 import '../../Student/student routes/Route.dart';
 import '../../../widgets/round_button.dart';
-import '../../../registration/Util/utils.dart';
-import '../../Student/student registration/login.dart';
+import '../../all_user_usage_interface/Util/utils.dart';
 
 class dregister extends StatefulWidget {
   const dregister({Key? key}) : super(key: key);
@@ -25,7 +24,7 @@ class _dregisterState extends State<dregister> {
   final _formkey = GlobalKey<FormState>();
   final fullnameController = TextEditingController();
   final emailController = TextEditingController();
-
+  final liceneseNoController = TextEditingController();
   final phonenoController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmpasswordController = TextEditingController();
@@ -186,6 +185,30 @@ class _dregisterState extends State<dregister> {
                           const SizedBox(
                             height: 10,
                           ),
+                          TextFormField(
+                            controller: liceneseNoController,
+                            keyboardType: TextInputType.text,
+                            decoration: const InputDecoration(
+                              hintText: 'MH-XX-X',
+                              suffixIcon: Icon(Icons.no_adult_content),
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Enter license number';
+                              }
+
+                              // Define a regular expression to match the license number format.
+                              final RegExp licenseRegExp =
+                                  RegExp(r'^[A-Z]{2}-[A-Z0-9]{2}-[A-Z0-9]$');
+
+                              if (!licenseRegExp.hasMatch(value)) {
+                                return 'Invalid license number format. Use MH-XX-X';
+                              }
+
+                              return null;
+                            },
+                          ),
+
                           // TextFormField(
                           //   controller: addressController,
                           //   keyboardType: TextInputType.text,
@@ -278,6 +301,7 @@ class _dregisterState extends State<dregister> {
                           Sapid: '',
                           role: 'driver',
                           profileImageUrl: '',
+                          license: liceneseNoController.text.trim(),
                         );
 
                         register();

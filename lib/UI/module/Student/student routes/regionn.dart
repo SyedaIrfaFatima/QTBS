@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 import 'Route.dart';
 
 class regionnnn extends StatefulWidget {
-  const regionnnn({Key? key}) : super(key: key);
-
+  //
+  // final String voucherDocumentID;
+  // const regionnnn({Key? key}) : super(key: key);
+  // regionnn({
+  //   required this.voucherDocumentID,
+  // });
+  //
   @override
   State<regionnnn> createState() => _regionnnnState();
 }
@@ -73,6 +78,7 @@ class _regionnnnState extends State<regionnnn> {
                               MaterialPageRoute(
                                 builder: (context) => RouteScreen(
                                   selectregion: document.id,
+                                  voucherDocumentID: 'widget.voucherDocumentID',
                                 ),
                               ),
                             );

@@ -666,13 +666,17 @@ class _mandetailsState extends State<mandetails> {
                                                     ),
                                                     ElevatedButton(
                                                       onPressed: () {
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                bdescription(),
-                                                          ),
-                                                        );
+                                                        // Navigator.push(
+                                                        //   context,
+                                                        //   MaterialPageRoute(
+                                                        //     builder: (context) =>
+                                                        //         bdescription(
+                                                        //       busName: '',
+                                                        //       busColor: '',
+                                                        //       totalSeats: null,
+                                                        //     ),
+                                                        //   ),
+                                                        // );
                                                       },
                                                       child: Text(
                                                         'description',

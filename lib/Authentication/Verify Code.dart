@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:test_project/UI/registration/Util/utils.dart';
 import 'package:test_project/UI/widgets/round_button.dart';
 import 'package:test_project/posts/post_Screen.dart';
+
+import '../UI/module/all_user_usage_interface/Util/utils.dart';
 
 class verifycode extends StatefulWidget {
   final String verificationId;

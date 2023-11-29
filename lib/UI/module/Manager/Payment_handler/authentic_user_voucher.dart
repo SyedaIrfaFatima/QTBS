@@ -363,6 +363,10 @@ class _VoucherDisplayScreenState extends State<VoucherDisplayScreen> {
                 child: Text('Accept'),
               ),
 
+              SizedBox(
+                width: 20,
+              ),
+
               ElevatedButton(
                 onPressed: () {
                   // Implement your reject logic here

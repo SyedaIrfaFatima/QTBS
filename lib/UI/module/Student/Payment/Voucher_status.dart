@@ -3,10 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class voucherstatus extends StatefulWidget {
   const voucherstatus({Key? key}) : super(key: key);
 
@@ -33,7 +29,7 @@ class _voucherstatusState extends State<voucherstatus> {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || (snapshot.data as List).isEmpty) {
-            return Center(child: Text('No bus registrations found.'));
+            return Center(child: Text('No bus registrations found'));
           } else {
             List<Map<String, dynamic>> busRegistrations =
                 snapshot.data as List<Map<String, dynamic>>;

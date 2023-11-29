@@ -6,8 +6,10 @@ class UserModel {
   final String phoneNo;
   final String Sapid;
   final String Address;
+  final String license;
   final String Password;
   final String ConfirmPassword;
+
   final String role;
   final String profileImageUrl;
 
@@ -17,6 +19,7 @@ class UserModel {
     required this.phoneNo,
     required this.Sapid,
     required this.Address,
+    required this.license,
     required this.Password,
     required this.ConfirmPassword,
     required this.role,
@@ -29,6 +32,7 @@ class UserModel {
       "Email": email,
       "phone": phoneNo,
       "SapId": Sapid,
+      "License no": license,
       "Address": Address,
       "Password": Password,
       "ConfirmPassword": ConfirmPassword,
@@ -44,6 +48,7 @@ class UserModel {
       phoneNo: data["phone"] ?? "",
       Sapid: data["SapId"] ?? "",
       Address: data["Address"] ?? "",
+      license: data["license no"] ?? "",
       Password: data["Password"] ?? "",
       ConfirmPassword: data["ConfirmPassword"] ?? "",
       role: data["Role"] ?? "",

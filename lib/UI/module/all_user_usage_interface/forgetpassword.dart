@@ -1,15 +1,19 @@
 import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:test_project/UI/registration/Util/utils.dart';
-import 'package:test_project/UI/registration/creatpass.dart';
 import 'package:test_project/UI/module/Student/student%20registration/login.dart';
 import 'package:test_project/UI/widgets/round_button.dart';
+
+import 'Util/utils.dart';
 
 class forgetpassword extends StatefulWidget {
   final String selectRoute;
   final String fee;
-  forgetpassword({required this.selectRoute, required this.fee});
+  final String voucherDocumentID;
+  forgetpassword(
+      {required this.selectRoute,
+      required this.fee,
+      required this.voucherDocumentID});
 
   @override
   State<forgetpassword> createState() => _forgetpasswordState();
@@ -39,6 +43,7 @@ class _forgetpasswordState extends State<forgetpassword> {
                     builder: (context) => LoginScreen(
                       selectRoute: widget.selectRoute,
                       fee: widget.fee,
+                      voucherDocumentID: widget.voucherDocumentID,
                     ),
                   ),
                 );

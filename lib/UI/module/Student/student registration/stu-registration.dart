@@ -3,17 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:test_project/Authentication/models/User_model.dart';
-import 'package:test_project/UI/registration/Util/utils.dart';
+
 import 'package:test_project/UI/module/Student/student%20registration/login.dart';
 
 import '../../../../Authentication/Auth_reprository/User_Repository/user_repository.dart';
 import '../../../widgets/round_button.dart';
+import '../../all_user_usage_interface/Util/utils.dart';
 
 class register extends StatefulWidget {
   final String selectRoute;
   final String fee;
+  final String voucherDocumentID;
 
-  register({required this.selectRoute, required this.fee});
+  register(
+      {required this.selectRoute,
+      required this.fee,
+      required this.voucherDocumentID});
 
   @override
   State<register> createState() => _registerState();
@@ -302,6 +307,7 @@ class _registerState extends State<register> {
                               confirmpasswordController.text.trim(),
                           role: 'student',
                           profileImageUrl: '',
+                          license: '',
                         );
 
                         register();
@@ -315,8 +321,11 @@ class _registerState extends State<register> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => LoginScreen(
-                                    selectRoute: widget.selectRoute,
-                                    fee: widget.fee)));
+                                      selectRoute: widget.selectRoute,
+                                      fee: widget.fee,
+                                      voucherDocumentID:
+                                          widget.voucherDocumentID,
+                                    )));
                       }
                     },
                   ),
@@ -330,8 +339,11 @@ class _registerState extends State<register> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => LoginScreen(
-                                        selectRoute: widget.selectRoute,
-                                        fee: widget.fee)));
+                                          selectRoute: widget.selectRoute,
+                                          fee: widget.fee,
+                                          voucherDocumentID:
+                                              widget.voucherDocumentID,
+                                        )));
                           },
                           child: Text("Login"))
                     ],

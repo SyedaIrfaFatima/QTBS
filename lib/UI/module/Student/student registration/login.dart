@@ -3,21 +3,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:test_project/UI/module/Student/student%20routes/regionn.dart';
-import 'package:test_project/UI/registration/Util/utils.dart';
-import 'package:test_project/UI/registration/forgetpassword.dart';
+import 'package:test_project/UI/module/all_user_usage_interface/forgetpassword.dart';
 import 'package:test_project/UI/module/Student/student%20registration/stu-registration.dart';
-import 'package:test_project/UI/registration/resetpassword.dart';
-import 'package:test_project/posts/post_Screen.dart';
 
 import '../../Manager/Dashboard/man dashboard.dart';
 import '../../Manager/manager_routes/man_region.dart';
+import '../../all_user_usage_interface/Util/utils.dart';
 import '../HomeScreen/Homee.dart';
 import '../../../widgets/round_button.dart';
 
 class LoginScreen extends StatefulWidget {
   final String selectRoute;
+  final String voucherDocumentID;
   final String fee;
-  LoginScreen({required this.selectRoute, required this.fee});
+  LoginScreen(
+      {required this.selectRoute,
+      required this.fee,
+      required this.voucherDocumentID});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -88,7 +90,8 @@ class _LoginScreenState extends State<LoginScreen> {
           print("Fee: $fee");
 
           // Replace 'fee' with the actual field name in your Firestore document
-
+          print(
+              'Voucher Document ID before navigation: ${widget.voucherDocumentID}');
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -96,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 selectRoute: route ?? widget.selectRoute,
                 fees: fee ?? widget.fee,
                 busnumber: '',
-                voucherDocumentID: '',
+                voucherDocumentID: widget.voucherDocumentID,
                 voucherURL: '',
               ),
             ),
@@ -186,6 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print('Voucher Document ID in Home: ${widget.voucherDocumentID}');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -265,6 +269,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 builder: (context) => forgetpassword(
                                       selectRoute: widget.selectRoute,
                                       fee: widget.fee,
+                                      voucherDocumentID:
+                                          widget.voucherDocumentID,
                                     )));
                       },
                       child: Text("Forgot password")),
@@ -282,8 +288,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => register(
-                                      selectRoute: widget.selectRoute,
-                                      fee: widget.fee)));
+                                        selectRoute: widget.selectRoute,
+                                        fee: widget.fee,
+                                        voucherDocumentID:
+                                            widget.voucherDocumentID,
+                                      )));
                         },
                         child: Text("Sign up"))
                   ],

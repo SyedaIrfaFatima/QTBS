@@ -7,11 +7,13 @@ class NearbyStop extends StatefulWidget {
   final String selectedRoute;
   final String selectregion;
   final String fee;
+  final String voucherDocumentID;
 
   NearbyStop({
     required this.selectedRoute,
     required this.selectregion,
     required this.fee,
+    required this.voucherDocumentID,
   });
 
   @override
@@ -153,8 +155,15 @@ class _NearbyStopState extends State<NearbyStop> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => MyBus(
-                                              selectRoute: widget.selectedRoute,
-                                              fee: widget.fee),
+                                            selectRoute: widget.selectedRoute,
+                                            fee: widget.fee,
+                                            busname: '',
+                                            color: '',
+                                            totalseats: 87,
+                                            selectregion: widget.selectregion,
+                                            voucherDocumentID:
+                                                widget.voucherDocumentID,
+                                          ),
                                         ),
                                       );
                                     },

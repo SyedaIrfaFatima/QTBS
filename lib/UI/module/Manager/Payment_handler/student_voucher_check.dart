@@ -279,7 +279,7 @@ class _VouchercheckState extends State<Vouchercheck> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Bus Registrations"),
+        title: Text("Check Voucher"),
       ),
       body: FutureBuilder(
         future: fetchBusRegistrations(),

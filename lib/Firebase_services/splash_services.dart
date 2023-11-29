@@ -27,6 +27,7 @@ class SplashServices {
                   builder: (context) => LoginScreen(
                         selectRoute: '',
                         fee: '',
+                        voucherDocumentID: '',
                       ))));
     }
   }

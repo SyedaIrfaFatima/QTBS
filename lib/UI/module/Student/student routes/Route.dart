@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../student_bus_selection/Select bus.dart';
 import 'Nearbystop.dart';
 
 class RouteScreen extends StatefulWidget {
   final String selectregion;
+  final String voucherDocumentID;
 
-  RouteScreen({required this.selectregion});
+  RouteScreen({required this.selectregion, required this.voucherDocumentID});
 
   @override
   _RouteScreenState createState() => _RouteScreenState();
@@ -68,6 +68,7 @@ class _RouteScreenState extends State<RouteScreen> {
                                 selectedRoute: document.id,
                                 selectregion: widget.selectregion,
                                 fee: fee,
+                                voucherDocumentID: widget.voucherDocumentID,
                               ),
                               // MyBus(selectRoute: document.id),
                             ),

@@ -73,6 +73,7 @@ class Authcontroller extends GetxController {
       Get.offAll(() => LoginScreen(
             selectRoute: '',
             fee: '',
+            voucherDocumentID: '',
           ));
     } else {
       // Check the email of the logged-in user
