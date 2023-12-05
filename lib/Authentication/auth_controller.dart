@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_project/Authentication/models/User_model.dart';
-import 'package:test_project/UI/module/Student/student%20registration/Users.dart';
+import 'package:test_project/UI/module/all_user_usage_interface/Users.dart';
 
 import 'package:test_project/UI/module/Student/student%20routes/regionn.dart';
 import 'package:test_project/UI/module/Student/student%20registration/login.dart';

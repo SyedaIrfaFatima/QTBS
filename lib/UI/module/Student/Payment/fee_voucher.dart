@@ -53,6 +53,7 @@ class _voucherState extends State<voucher> {
 
   final GlobalKey repaintBoundaryKey = GlobalKey();
   final _auth = FirebaseAuth.instance;
+
   final busRegistrationCollection =
       FirebaseFirestore.instance.collection('BusRegistrations');
   String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
@@ -73,6 +74,27 @@ class _voucherState extends State<voucher> {
       // Schedule the first payment notification
       schedulePaymentNotification(registrationDate);
     });
+  }
+
+  Future<void> saveDataToFirestore() async {
+    // final userId =
+
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      await widget.db.collection('VouchersStatus').add({
+        'userId': user?.uid,
+        'name': userName,
+        'sapid': sapId,
+        'route': widget.route,
+        'date': registrationDate,
+        'fee': widget.fee,
+        'fine': calculateFineAfterDeadline(parsedDate).toString(),
+      });
+
+      print('Data saved to Firestore successfully!');
+    } catch (error) {
+      print('Error saving data to Firestore: $error');
+    }
   }
 
   Future<void> _captureAndSavePdf(GlobalKey repaintKey) async {
@@ -245,6 +267,27 @@ class _voucherState extends State<voucher> {
     return totalFee;
   }
 
+  int calculateFineAfterDeadline(DateTime registrationDate) {
+    DateTime paymentDeadline = registrationDate.add(Duration(days: 5));
+
+    if (registrationDate.weekday == DateTime.saturday ||
+        registrationDate.weekday == DateTime.sunday) {
+      paymentDeadline = paymentDeadline.add(Duration(days: 2));
+    }
+
+    // Calculate the number of days between today and the payment deadline
+    DateTime today = DateTime.now();
+    int daysDifference = paymentDeadline.difference(today).inDays;
+
+    // If the payment deadline is exceeded, calculate the fine after the deadline
+    if (daysDifference < 0) {
+      int dailyFine = 100; // Adjust the fine amount as needed
+      return -daysDifference * dailyFine;
+    }
+
+    return 0; // No fine if the payment is not overdue
+  }
+
   bool isPaymentDeadlineExceeded(DateTime registrationDate) {
     DateTime paymentDeadline = registrationDate.add(Duration(days: 5));
 
@@ -276,24 +319,6 @@ class _voucherState extends State<voucher> {
           UILocalNotificationDateInterpretation.absoluteTime,
     );
   }
-  //
-  // Future<void> _showTestNotification() async {
-  //   await flutterLocalNotificationsPlugin.zonedSchedule(
-  //     2, // Use a unique ID for each notification
-  //     'Test Notification',
-  //     'This is a test notification.',
-  //     tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
-  //     const NotificationDetails(
-  //       android: AndroidNotificationDetails(
-  //         'test_channel', // Use a unique channel ID for testing
-  //         'Test Notifications',
-  //       ),
-  //     ),
-  //     androidAllowWhileIdle: true,
-  //     uiLocalNotificationDateInterpretation:
-  //         UILocalNotificationDateInterpretation.absoluteTime,
-  //   );
-  // }
 
   Widget buildVoucherContent() {
     return RepaintBoundary(
@@ -468,6 +493,7 @@ class _voucherState extends State<voucher> {
                             ),
                           ],
                         ),
+
                         // SizedBox(height: 10),
                         // Row(
                         //   children: [
@@ -583,6 +609,33 @@ class _voucherState extends State<voucher> {
           textAlign: TextAlign.justify,
         ),
         SizedBox(width: 20),
+      ],
+    );
+  }
+
+  Widget fineaddedd() {
+    int fineAfterDeadline = calculateFineAfterDeadline(parsedDate);
+
+    return Row(
+      children: [
+        Text(
+          ' Fine',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 8.0,
+          ),
+          textAlign: TextAlign.justify,
+        ),
+        SizedBox(width: 40),
+        Text(
+          '$fineAfterDeadline',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 8.0,
+          ),
+          textAlign: TextAlign.justify,
+        ),
+        SizedBox(width: 40),
       ],
     );
   }
@@ -734,7 +787,8 @@ class _voucherState extends State<voucher> {
                       Icons.arrow_forward_ios,
                       color: Colors.white,
                     ),
-                    onPressed: () {
+                    onPressed: () async {
+                      await saveDataToFirestore();
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -748,13 +802,6 @@ class _voucherState extends State<voucher> {
                           );
                     },
                   )),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Trigger a test notification
-                // _showTestNotification();
-              },
-              child: Text('Test Notification'),
             ),
             Center(
               child: Container(
@@ -853,6 +900,15 @@ class _voucherState extends State<voucher> {
                     Row(children: [
                       for (int i = 0; i < 3; i++) tranferfee(),
                     ]),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(children: [
+                      for (int i = 0; i < 3; i++) fineaddedd(),
+                    ]),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Row(children: [
                       for (int i = 0; i < 3; i++)
                         paymentdeadline(currentDateStr, isDeadlineExceeded),

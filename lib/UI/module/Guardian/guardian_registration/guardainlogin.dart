@@ -5,16 +5,16 @@ import 'package:test_project/UI/module/all_user_usage_interface/forgetpassword.d
 import 'package:test_project/UI/widgets/round_button.dart';
 
 import '../../all_user_usage_interface/Util/utils.dart';
-import 'man_registration.dart';
+import '../guardian_student_sapid/student_sap.dart';
 
-class mlogin extends StatefulWidget {
-  const mlogin({Key? key}) : super(key: key);
+class glogin extends StatefulWidget {
+  const glogin({Key? key}) : super(key: key);
 
   @override
-  State<mlogin> createState() => _mloginState();
+  State<glogin> createState() => _gloginState();
 }
 
-class _mloginState extends State<mlogin> {
+class _gloginState extends State<glogin> {
   bool loading = false;
   final _formkey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -40,7 +40,7 @@ class _mloginState extends State<mlogin> {
       utils().toastMessage(value.user!.email.toString());
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => mdashboard()));
+          context, MaterialPageRoute(builder: (context) => Studentsapid()));
       setState(() {
         loading = false;
       });
@@ -151,7 +151,7 @@ class _mloginState extends State<mlogin> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => manageRegister()));
+                                  builder: (context) => Studentsapid()));
                         },
                         child: Text("Sign up"))
                   ],

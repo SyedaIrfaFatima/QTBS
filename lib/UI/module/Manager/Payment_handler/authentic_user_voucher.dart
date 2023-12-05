@@ -289,9 +289,6 @@ import '../../Student/Payment/BoardingPass.dart';
 //   }
 // }
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
 class VoucherDisplayScreen extends StatefulWidget {
   final String voucherDocumentID;
   final String voucherURL;
@@ -319,7 +316,7 @@ class _VoucherDisplayScreenState extends State<VoucherDisplayScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('Voucher Document ID: ${widget.voucherDocumentID}'),
+            // Text('Voucher Document ID: ${widget.voucherDocumentID}'),
             SizedBox(height: 20),
             Image.network(
               widget.voucherURL,

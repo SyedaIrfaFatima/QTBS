@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:test_project/UI/module/Student/student%20registration/Users.dart';
 import 'package:test_project/UI/module/Student/student%20registration/stu-registration.dart';
 
 class Start extends StatelessWidget {

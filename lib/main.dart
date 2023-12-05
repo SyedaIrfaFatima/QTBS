@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:test_project/UI/module/Driver/driver_registration/dregisteration.dart';
+import 'package:test_project/UI/module/Guardian/guardian_registration/gregistration.dart';
 
 import 'UI/module/Student/Profile/profile_controller.dart';
 import 'UI/module/Student/student registration/Start.dart';
-import 'UI/module/Student/student registration/Users.dart';
+import 'UI/module/all_user_usage_interface/Users.dart';
 import 'UI/module/Manager/manager_registration/man_registration.dart';
 import 'UI/module/Student/student registration/stu-registration.dart';
 //
@@ -182,7 +183,10 @@ class MyApp extends StatelessWidget {
               voucherDocumentID: '',
             ),
         '/driver': (context) => dregister(),
-        '/guardian': (context) => dregister(),
+        '/guardian': (context) => gregisteration(
+              selectRoute: '',
+              fee: '',
+            ),
         '/manager': (context) => manageRegister(),
       },
     );
