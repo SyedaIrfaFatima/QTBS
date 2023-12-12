@@ -37,6 +37,8 @@ class crtnewpass extends StatelessWidget {
                     selectRoute: selectRoute,
                     fee: fee,
                     voucherDocumentID: '',
+                    voucherURL: '',
+                    bus: '',
                   ),
                 ),
               );

@@ -11,7 +11,6 @@ import 'package:test_project/Authentication/models/User_model.dart';
 import 'package:test_project/UI/module/Student/HomeScreen/Homee.dart';
 
 import 'package:test_project/UI/module/Student/Profile/profile_controller.dart';
-// import 'package:firebase_storage/firebase_storage.dart' as fStorage;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class profile extends StatefulWidget {
@@ -32,6 +31,8 @@ class _profileState extends State<profile> {
       home: EditProfile(
         selectRoute: '',
         fees: '',
+        voucherDocumentID: '',
+        voucherURL: '',
       ),
     );
   }
@@ -40,8 +41,14 @@ class _profileState extends State<profile> {
 class EditProfile extends StatefulWidget {
   final String selectRoute;
   final String fees;
+  final String voucherDocumentID;
+  final String voucherURL;
 
-  EditProfile({required this.selectRoute, required this.fees});
+  EditProfile(
+      {required this.selectRoute,
+      required this.fees,
+      required this.voucherDocumentID,
+      required this.voucherURL});
 
   @override
   _EditProfileState createState() => _EditProfileState();
@@ -126,19 +133,6 @@ class _EditProfileState extends State<EditProfile> {
     }
   }
 
-  // Future<void> _uploadImageToStorage(File imageFile) async {
-  //   try {
-  //     final storageRef = firebase_storage.FirebaseStorage.instance
-  //         .ref()
-  //         .child('user_images/${DateTime.now().millisecondsSinceEpoch}');
-  //
-  //     await storageRef.putFile(imageFile);
-  //   } catch (e) {
-  //     print('Error uploading image to storage: $e');
-  //     // Handle error as needed
-  //   }
-  // }
-
   Future<void> _uploadImageToStorage(File imageFile) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
@@ -154,10 +148,16 @@ class _EditProfileState extends State<EditProfile> {
         final imageUrl = await storageRef.getDownloadURL();
 
         // Update user data in Firestore with the new image URL
-        await FirebaseFirestore.instance
-            .collection('Users')
-            .doc(user.uid)
-            .update({
+        // await FirebaseFirestore.instance
+        //     .collection('Vouchers')
+        //     .doc(user.uid)
+        //     .set({
+        //   'studentId': user.uid,
+        //   'profileURL': downloadURL,
+        //   'status': 'pending', // Add a status field to track voucher status
+        // });
+
+        await FirebaseFirestore.instance.collection('Users').doc(user.uid).set({
           'profileImageUrl': imageUrl,
         });
       }
@@ -213,8 +213,8 @@ class _EditProfileState extends State<EditProfile> {
                   selectRoute: widget.selectRoute,
                   fees: widget.fees,
                   busnumber: '',
-                  voucherDocumentID: '',
-                  voucherURL: '',
+                  voucherDocumentID: widget.voucherDocumentID,
+                  voucherURL: widget.voucherURL,
                 ),
               ),
             );

@@ -81,6 +81,8 @@ class RollButton extends StatelessWidget {
                   selectRoute: '',
                   fee: '',
                   voucherDocumentID: '',
+                  voucherURL: '',
+                  bus: '',
                 )),
       );
     } else if (role == "driver") {

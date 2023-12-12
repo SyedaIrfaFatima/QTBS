@@ -238,6 +238,148 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// class Vouchercheck extends StatefulWidget {
+//   @override
+//   State<Vouchercheck> createState() => _VouchercheckState();
+// }
+//
+// class _VouchercheckState extends State<Vouchercheck> {
+//   late CollectionReference busesCollection;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     busesCollection = FirebaseFirestore.instance.collection('BusRegistrations');
+//   }
+//
+//   Future<List<Map<String, dynamic>>?> fetchBusRegistrations() async {
+//     try {
+//       QuerySnapshot querySnapshot = await busesCollection.get();
+//
+//       if (querySnapshot.docs.isNotEmpty) {
+//         List<Map<String, dynamic>> busRegistrations = [];
+//         querySnapshot.docs.forEach((doc) {
+//           Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+//           data['id'] = doc.id;
+//           data['voucherURL'] =
+//               data['voucherURL'] ?? ''; // Null check for voucherURL
+//           busRegistrations.add(data);
+//         });
+//         return busRegistrations;
+//       } else {
+//         return null;
+//       }
+//     } catch (e) {
+//       print('Error fetching bus registrations: $e');
+//       return null;
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("Check Voucher"),
+//       ),
+//       body: FutureBuilder(
+//         future: fetchBusRegistrations(),
+//         builder:
+//             (context, AsyncSnapshot<List<Map<String, dynamic>>?> snapshot) {
+//           if (snapshot.connectionState == ConnectionState.waiting) {
+//             return CircularProgressIndicator();
+//           } else if (snapshot.hasError) {
+//             return Text('Error: ${snapshot.error}');
+//           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+//             return Text('No bus registrations found.');
+//           } else {
+//             List<Map<String, dynamic>> busRegistrations = snapshot.data!;
+//
+//             return SingleChildScrollView(
+//               scrollDirection: Axis.vertical,
+//               child: SingleChildScrollView(
+//                 scrollDirection: Axis.horizontal,
+//                 child: DataTable(
+//                   dataRowHeight: 60,
+//                   columns: <DataColumn>[
+//                     DataColumn(
+//                       label: Text('Email'),
+//                     ),
+//                     DataColumn(
+//                       label: Text('Bus Number'),
+//                     ),
+//                     DataColumn(
+//                       label: Text('Route'),
+//                     ),
+//                     DataColumn(
+//                       label: Text('Voucher'),
+//                     )
+//                   ],
+//                   rows: busRegistrations.map((registration) {
+//                     return DataRow(
+//                       cells: <DataCell>[
+//                         DataCell(Text(registration['userEmail'].toString())),
+//                         DataCell(Text(registration['busNumber'].toString())),
+//                         DataCell(Text(registration['Route'].toString())),
+//                         DataCell(
+//                           ElevatedButton(
+//                             onPressed: () async {
+//                               print('userId: ${registration['userId']}');
+//
+//                               // Check if there is a voucher for the user in the 'Vouchers' collection
+//                               DocumentSnapshot voucherSnapshot =
+//                                   await FirebaseFirestore.instance
+//                                       .collection('Vouchers')
+//                                       .doc(registration['userId'])
+//                                       .get();
+//
+//                               if (voucherSnapshot.exists) {
+//                                 Navigator.push(
+//                                   context,
+//                                   MaterialPageRoute(
+//                                     builder: (context) => VoucherDisplayScreen(
+//                                       voucherDocumentID: voucherSnapshot.id,
+//                                       voucherURL: voucherSnapshot['voucherURL'],
+//                                     ),
+//                                   ),
+//                                 );
+//                               } else {
+//                                 // Handle the case where there is no voucher for the user
+//                                 showDialog(
+//                                   context: context,
+//                                   builder: (context) {
+//                                     return AlertDialog(
+//                                       title: Text('Error'),
+//                                       content: Text(
+//                                           'No voucher found for this user.'),
+//                                       actions: [
+//                                         TextButton(
+//                                           onPressed: () {
+//                                             Navigator.pop(context);
+//                                           },
+//                                           child: Text('OK'),
+//                                         ),
+//                                       ],
+//                                     );
+//                                   },
+//                                 );
+//                               }
+//                             },
+//                             child: Text('Upload Voucher'),
+//                           ),
+//                         ),
+//                       ],
+//                     );
+//                   }).toList(),
+//                 ),
+//               ),
+//             );
+//           }
+//         },
+//       ),
+//     );
+//   }
+// }
+
 class Vouchercheck extends StatefulWidget {
   @override
   State<Vouchercheck> createState() => _VouchercheckState();

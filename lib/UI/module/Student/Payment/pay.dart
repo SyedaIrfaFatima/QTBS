@@ -91,48 +91,101 @@ class _payfeeState extends State<payfee> {
               ),
             ),
             const SizedBox(height: 16),
-            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Column(
                   children: [
-                    Padding(padding: EdgeInsets.only(top: 300)),
+                    Padding(padding: EdgeInsets.only(top: 280)),
+//                     Container(
+//                       alignment: Alignment.center,
+//                       margin: const EdgeInsets.only(right: 40),
+//                       padding: const EdgeInsets.all(8),
+//                       decoration: BoxDecoration(
+//                         color: Colors.blue,
+//                         borderRadius: BorderRadius.circular(8),
+//                       ),
+//                       child: Row(
+//                         children: [
+//                           Text(
+//                             ('${widget.selectRoute}'),
+//                             style: TextStyle(
+//                               fontWeight: FontWeight.bold,
+//                               fontSize: 14,
+//                             ),
+//                           ),
+//                           SizedBox(
+//                             width: 100,
+//                           ),
+//
+// //
+//                           Text(
+//                             ('${widget.fee}'),
+//                             style: TextStyle(
+//                               fontSize: 14,
+//                               fontWeight: FontWeight.bold,
+//                             ),
+//                           ),
+// //
+//                         ],
+//                       ),
+//                     ),
                     Container(
                       alignment: Alignment.center,
                       margin: const EdgeInsets.only(right: 40),
                       padding: const EdgeInsets.all(8),
+                      // decoration: BoxDecoration(
+                      //   color: Colors.white,
+                      //   borderRadius: BorderRadius.circular(8),
+                      //   border: Border.all(
+                      //     width: 2.0,
+                      //     gradient: LinearGradient(
+                      //       colors: [
+                      //         Colors.blue[800]!,
+                      //         Colors.blue[300]!,
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+
                       decoration: BoxDecoration(
-                        color: Colors.blue,
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.white, width: 2.0),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.blueGrey[600]!,
+                            Colors.blue[400]!,
+                          ],
+                        ),
                       ),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            ('${widget.selectRoute}'),
+                            '${widget.selectRoute}',
                             style: TextStyle(
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              color: Colors.white,
                             ),
                           ),
                           SizedBox(
-                            width: 100,
+                            width: 20,
                           ),
-
-//
                           Text(
-                            ('${widget.fee}'),
+                            ' ${widget.fee}',
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           ),
-//
                         ],
                       ),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 30,
                     ),
                     Row(
                       children: [
@@ -140,52 +193,80 @@ class _payfeeState extends State<payfee> {
                           opacity: 0.8,
                           child: Container(
                             margin: const EdgeInsets.only(right: 30),
-                            width: 132,
-                            height: 132,
+                            width: 140,
+                            height: 160,
                             decoration: BoxDecoration(
-                              color: Colors.blue,
+                              color: Colors
+                                  .white, // Use a slightly lighter blue for better contrast
+                              borderRadius: BorderRadius.circular(
+                                  10.0), // Add subtle rounded corners
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  offset: Offset(0, 2),
+                                  blurRadius: 4.0,
+                                  spreadRadius: 2.0,
+                                ),
+                              ],
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.asset(
-                                  'assets/voucher.png',
-                                  width: 80,
-                                  height: 80,
+                                  'assets/Cash.png',
+                                  width: 112,
+                                  height: 112,
                                 ),
-                                const SizedBox(height: 4),
                                 Row(
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 30),
-                                      child: Text(
-                                        'Cash',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 20),
+                                        child: Text(
+                                          'Cash ', // Use a more descriptive label
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 2),
-                                      child: IconButton(
-                                          icon: Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Colors.white,
+                                    IconButton(
+                                      icon: Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                              color: Colors.white, width: 2.0),
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                            colors: [
+                                              Colors.blueGrey[600]!,
+                                              Colors.blue[400]!,
+                                            ],
                                           ),
-                                          onPressed: () {
-                                            Navigator.of(context)
-                                                .push(MaterialPageRoute(
-                                              builder: (context) => voucher(
-                                                db: FirebaseFirestore.instance,
-                                                userId: userId,
-                                                route: widget.selectRoute,
-                                                fee: widget.fee,
-                                                bus: widget.busnumber,
-                                                // userEmail: userEmail,
-                                              ),
-                                            ));
-                                          }),
+                                        ),
+                                        padding: EdgeInsets.only(left: 2.0),
+                                        child: Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: Colors.white,
+                                          size: 25.0,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                          builder: (context) => voucher(
+                                            db: FirebaseFirestore.instance,
+                                            userId: userId,
+                                            route: widget.selectRoute,
+                                            fee: widget.fee,
+                                            bus: widget.busnumber,
+                                            // userEmail: userEmail,
+                                          ),
+                                        ));
+                                      },
                                     ),
                                   ],
                                 ),
@@ -193,89 +274,87 @@ class _payfeeState extends State<payfee> {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 20),
+                        const SizedBox(width: 15),
                         Opacity(
                           opacity: 0.8,
                           child: Container(
-                            margin: const EdgeInsets.only(right: 20),
-                            width: 132,
-                            height: 132,
+                            margin: const EdgeInsets.only(right: 30),
+                            width: 140,
+                            height: 160,
                             decoration: BoxDecoration(
-                              color: Colors.blue,
+                              color: Colors
+                                  .white, // Use a slightly lighter blue for better contrast
+                              borderRadius: BorderRadius.circular(
+                                  10.0), // Add subtle rounded corners
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  offset: Offset(0, 2),
+                                  blurRadius: 4.0,
+                                  spreadRadius: 2.0,
+                                ),
+                              ],
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.asset(
-                                  'assets/jazzcash.png',
-                                  width: 80,
-                                  height: 80,
+                                  'assets/jazz cash.png',
+                                  width: 115,
+                                  height: 108,
                                 ),
                                 const SizedBox(height: 4),
-
                                 Row(
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 10),
-                                      child: Text(
-                                        'Jazz cash',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Jazz Cash ', // Use a more descriptive label
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 0),
-                                      child: IconButton(
-                                          icon: Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Colors.white,
+                                    IconButton(
+                                      icon: Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                              color: Colors.white, width: 2.0),
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                            colors: [
+                                              Colors.blueGrey[600]!,
+                                              Colors.blue[400]!,
+                                            ],
                                           ),
-                                          onPressed: () {
-                                            Navigator.of(context)
-                                                .push(MaterialPageRoute(
-                                              builder: (context) =>
-                                                  JazzCashPage(
-                                                title: '',
-                                                selectRoute: widget.selectRoute,
-                                                fee: widget.fee,
-
-                                                // userEmail: userEmail,
-                                              ),
-                                            ));
-                                          }),
+                                        ),
+                                        padding: EdgeInsets.only(left: 2.0),
+                                        child: Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: Colors.white,
+                                          size: 25.0,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                          builder: (context) => JazzCashPage(
+                                            title: '',
+                                            selectRoute: widget.selectRoute,
+                                            fee: widget.fee,
+                                            // userEmail: userEmail,
+                                          ),
+                                        ));
+                                      },
                                     ),
                                   ],
                                 ),
-
-                                // Padding(
-                                //   padding: EdgeInsets.only(right: 30),
-                                //   child: Text(
-                                //     'JazzCash',
-                                //     style: TextStyle(
-                                //         color: Colors.white,
-                                //         fontWeight: FontWeight.bold),
-                                //   ),
-                                // ),
-
-                                // Padding(
-                                //   padding: EdgeInsets.only(left: 0),
-                                //   child: IconButton(
-                                //       icon: Icon(
-                                //         Icons.arrow_forward_ios,
-                                //         color: Colors.white,
-                                //       ),
-                                //       onPressed: () {
-                                //         Navigator.of(context)
-                                //             .push(MaterialPageRoute(
-                                //           builder: (context) => JazzCashPage(
-                                //             title: '',
-                                //           ),
-                                //         ));
-                                //       }),
-                                // ),
-                                // Icon(Icons.upload, color: Colors.white),
                               ],
                             ),
                           ),

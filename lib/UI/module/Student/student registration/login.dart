@@ -1,13 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:test_project/UI/module/Student/Payment/fee_voucher.dart';
 
 import 'package:test_project/UI/module/Student/student%20routes/regionn.dart';
 import 'package:test_project/UI/module/all_user_usage_interface/forgetpassword.dart';
 import 'package:test_project/UI/module/Student/student%20registration/stu-registration.dart';
-
-import '../../Manager/Dashboard/man dashboard.dart';
-import '../../Manager/manager_routes/man_region.dart';
 import '../../all_user_usage_interface/Util/utils.dart';
 import '../HomeScreen/Homee.dart';
 import '../../../widgets/round_button.dart';
@@ -15,11 +13,15 @@ import '../../../widgets/round_button.dart';
 class LoginScreen extends StatefulWidget {
   final String selectRoute;
   final String voucherDocumentID;
+  final String voucherURL;
   final String fee;
+  final String bus;
   LoginScreen(
       {required this.selectRoute,
       required this.fee,
-      required this.voucherDocumentID});
+      required this.bus,
+      required this.voucherDocumentID,
+      required this.voucherURL});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -88,6 +90,12 @@ class _LoginScreenState extends State<LoginScreen> {
               'Route']; // Replace 'route' with the actual field name in your Firestore document
           final fee = data['fees'];
           print("Fee: $fee");
+          final bus = data['busNumber'];
+          print("bus: $bus");
+          final voucherDocumentID = data['voucher'];
+          print("voucher: $voucherDocumentID");
+          final voucherURl = data['voucherurl'];
+          print("voucherURL: $voucherURl");
 
           // Replace 'fee' with the actual field name in your Firestore document
           print(
@@ -98,9 +106,10 @@ class _LoginScreenState extends State<LoginScreen> {
               builder: (context) => Home(
                 selectRoute: route ?? widget.selectRoute,
                 fees: fee ?? widget.fee,
-                busnumber: '',
-                voucherDocumentID: widget.voucherDocumentID,
-                voucherURL: '',
+                busnumber: bus ?? widget.bus,
+                voucherDocumentID:
+                    voucherDocumentID ?? widget.voucherDocumentID,
+                voucherURL: voucherURl ?? widget.voucherURL,
               ),
             ),
           );
@@ -271,6 +280,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       fee: widget.fee,
                                       voucherDocumentID:
                                           widget.voucherDocumentID,
+                                      voucherURL: widget.voucherURL,
+                                      bus: widget.bus,
                                     )));
                       },
                       child: Text("Forgot password")),
@@ -292,6 +303,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         fee: widget.fee,
                                         voucherDocumentID:
                                             widget.voucherDocumentID,
+                                        voucherURL: widget.voucherURL,
+                                        bus: widget.bus,
                                       )));
                         },
                         child: Text("Sign up"))

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:test_project/UI/module/Student/HomeScreen/Homee.dart';
 import 'package:test_project/UI/module/Student/Payment/voucher_functionality.dart';
@@ -321,8 +322,10 @@ import 'package:timezone/timezone.dart' as tz;
 class BoardingPass extends StatefulWidget {
   final String selectRoute;
   final String fee;
+  final String bus;
 
-  BoardingPass({required this.selectRoute, required this.fee});
+  BoardingPass(
+      {required this.selectRoute, required this.fee, required this.bus});
 
   @override
   State<BoardingPass> createState() => _BoardingPassState();
@@ -366,54 +369,13 @@ class _BoardingPassState extends State<BoardingPass> {
     schedulePaymentNotification(parsedDate);
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // Fetch the startDate when the widget is initialized
-  //   fetchRegistrationData();
-  // }
-
   // Function to fetch Firestore data and set the registrationDate
   Future<void> fetchUserData() async {
     final user = _auth.currentUser;
     if (user == null) {
       return; // User not authenticated, handle this case accordingly
     }
-
-    // Here, you can access user details like email, display name, etc.
-    // Example: String userEmail = user.email;
   }
-
-  // Function to fetch Firestore data and set the registrationDate
-  // Future<void> fetchRegistrationData() async {
-  //   final user = _auth.currentUser;
-  //   if (user == null) {
-  //     return; // User not authenticated, handle this case accordingly
-  //   }
-  //
-  //   final userId = user.uid;
-  //
-  //   try {
-  //     final querySnapshot = await busRegistrationCollection
-  //         .where('userId', isEqualTo: userId)
-  //         .get();
-  //
-  //     if (querySnapshot.docs.isNotEmpty) {
-  //       final data = querySnapshot.docs.first.data() as Map<String, dynamic>;
-  //       final dateFromFirestore = data['registrationDate'];
-  //       final parsedDate = DateFormat('yyyy-MM-dd').parse(dateFromFirestore);
-  //       // Calculate the next notification date as one month after the registration date
-  //       final nextNotificationDate = parsedDate.add(Duration(days: 30));
-  //
-  //       setState(() {
-  //         registrationDate = DateFormat('yyyy-MM-dd').format(parsedDate);
-  //       });
-  //     }
-  //   } catch (error) {
-  //     // Handle errors here if needed
-  //     print('Error fetching Firestore data: $error');
-  //   }
-  // }
 
   Future<DateTime> fetchRegistrationData() async {
     final user = _auth.currentUser;
@@ -479,8 +441,6 @@ class _BoardingPassState extends State<BoardingPass> {
     return null; // Invalid date
   }
 
-// ...
-
   void schedulePaymentNotification(DateTime registrationDate) async {
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     final now = tz.TZDateTime.now(tz.local);
@@ -524,17 +484,185 @@ class _BoardingPassState extends State<BoardingPass> {
     int fine = 0;
     if (daysDifference < 0) {
       fine = -daysDifference * 100;
+      // sendPaymentDeadlineNotification();
     }
 
+    // Remove commas from the fee string and parse it into an integer
+    int initialFee = int.parse(widget.fee.replaceAll(',', ''));
+
     // Calculate the total fee by adding the fine to the initial fee
-    int totalFee = int.parse(widget.fee) + fine;
+    int totalFee = initialFee + fine;
     return totalFee;
+  }
+
+  int calculateFineAfterDeadline(DateTime registrationDate) {
+    DateTime paymentDeadline = registrationDate.add(Duration(days: 5));
+
+    if (registrationDate.weekday == DateTime.saturday ||
+        registrationDate.weekday == DateTime.sunday) {
+      paymentDeadline = paymentDeadline.add(Duration(days: 2));
+    }
+
+    // Calculate the number of days between today and the payment deadline
+    DateTime today = DateTime.now();
+    int daysDifference = paymentDeadline.difference(today).inDays;
+
+    // If the payment deadline is exceeded, calculate the fine after the deadline
+    if (daysDifference < 0) {
+      int dailyFine = 100; // Adjust the fine amount as needed
+      return -daysDifference * dailyFine;
+    }
+
+    return 0; // No fine if the payment is not overdue
+  }
+
+  Widget buildSingleCard() {
+    int totalFee = calculateTotalFee(parsedDate);
+    return Row(
+      children: [
+        Card(
+          margin: EdgeInsets.all(2),
+          child: FutureBuilder(
+            future: profileController.getUserData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
+                  UserModel user = snapshot.data as UserModel;
+
+                  userName = user.fullName;
+                  sapId = user.Sapid;
+
+                  return Padding(
+                    padding: EdgeInsets.all(1),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              'Name:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 9.0,
+                              ),
+                              textAlign: TextAlign.justify,
+                            ),
+                            SizedBox(width: 35),
+                            Text(
+                              userName,
+                              style: TextStyle(
+                                fontSize: 9,
+                              ),
+                              textAlign: TextAlign.justify,
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Text(
+                              'Sap Id:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 9,
+                              ),
+                              textAlign: TextAlign.justify,
+                            ),
+                            SizedBox(width: 35),
+                            Text(
+                              sapId,
+                              style: TextStyle(
+                                fontSize: 9,
+                              ),
+                              textAlign: TextAlign.justify,
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Text(
+                              'Fees:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 9.0,
+                              ),
+                              textAlign: TextAlign.justify,
+                            ),
+                            SizedBox(width: 40),
+                            Text(
+                              '$totalFee',
+                              style: TextStyle(
+                                fontSize: 9.0,
+                              ),
+                              textAlign: TextAlign.justify,
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Text(
+                              'Valid Upto:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 9.0,
+                              ),
+                              textAlign: TextAlign.justify,
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              registrationDate,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 9.0,
+                              ),
+                              textAlign: TextAlign.justify,
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Text(
+                              'Route',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 9.5,
+                              ),
+                              textAlign: TextAlign.justify,
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              widget.selectRoute,
+                              style: TextStyle(
+                                fontSize: 9.5,
+                              ),
+                              textAlign: TextAlign.justify,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              }
+              // Return a loading indicator or error message if needed
+              return CircularProgressIndicator(); // Change this to suit your UI
+            },
+          ),
+        ),
+        SizedBox(
+          width: 18,
+        ),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.cyan[100],
+      // backgroundColor: Colors.cyan[100],
       appBar: AppBar(
         title: Text('Boarding Pass'),
         leading: IconButton(
@@ -604,15 +732,16 @@ class _BoardingPassState extends State<BoardingPass> {
                             Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.rectangle,
-                                color: Colors.blue,
+                                // color: Colors.blue,
                               ),
-                              child: Text(
-                                'BOARDING PASS',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
-                                ),
-                              ),
+                              child: Text('BOARDING PASS',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black)),
+                            ),
+                            SizedBox(
+                              width: 10,
                             ),
                             Container(
                               width: 60,
@@ -628,160 +757,16 @@ class _BoardingPassState extends State<BoardingPass> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.only(left: 40),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Column(
                                 children: [
-                                  FutureBuilder(
-                                    future: profileController.getUserData(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.done) {
-                                        if (snapshot.hasData) {
-                                          UserModel user =
-                                              snapshot.data as UserModel;
-
-                                          userName = user.fullName;
-                                          sapId = user.Sapid;
-                                          return Column(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    'Student Name: ',
-                                                    style: TextStyle(
-                                                      fontSize: 10.0,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    userName,
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 10.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    'Sap Id: ',
-                                                    style: TextStyle(
-                                                      fontSize: 10.0,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    sapId,
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 10.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          );
-                                        }
-                                      }
-                                      // Return a loading indicator or error message if needed
-                                      return CircularProgressIndicator(); // Change this to suit your UI
-                                    },
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Stop: ',
-                                        style: TextStyle(
-                                          fontSize: 10.0,
-                                        ),
-                                      ),
-                                      Text(
-                                        'G14/4 Islamabad',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 10.0,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Bus No: ',
-                                        style: TextStyle(
-                                          fontSize: 10.0,
-                                        ),
-                                      ),
-                                      Text(
-                                        'LDY467',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 10.0,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
                                   Row(children: [
-                                    Text(
-                                      'Fee: ',
-                                      style: TextStyle(
-                                        fontSize: 10.0,
-                                      ),
-                                    ),
-                                    Text(
-                                      widget.fee,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 10.0,
-                                      ),
-                                    ),
+                                    for (int i = 0; i < 1; i++)
+                                      buildSingleCard(),
                                   ]),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Payment deadline: ',
-                                        style: TextStyle(
-                                          fontSize: 10.0,
-                                        ),
-                                      ),
-                                      Text(
-                                        // DateFormat('yyyy-MM-dd').format(
-                                        //   calculatePaymentDeadline(
-                                        //       DateTime.parse(registrationDate)),
-                                        // ),
-                                        DateFormat('yyyy-MM-dd').format(
-                                          DateTime.parse(registrationDate)
-                                              .add(Duration(days: 5)),
-                                        ),
-
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 10.0,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Start Date: ',
-                                        style: TextStyle(
-                                          fontSize: 10.0,
-                                        ),
-                                      ),
-                                      Text(
-                                        registrationDate,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 10.0,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
                                 ],
                               )
                             ]),

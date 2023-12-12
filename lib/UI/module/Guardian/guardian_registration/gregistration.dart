@@ -285,6 +285,8 @@ class _gregisterationState extends State<gregisteration> {
                                           selectRoute: widget.selectRoute,
                                           fee: widget.fee,
                                           voucherDocumentID: '',
+                                          voucherURL: '',
+                                          bus: '',
                                         )));
                           },
                           child: Text("Login"))

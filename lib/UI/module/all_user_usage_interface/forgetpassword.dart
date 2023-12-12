@@ -9,11 +9,15 @@ import 'Util/utils.dart';
 class forgetpassword extends StatefulWidget {
   final String selectRoute;
   final String fee;
+  final String bus;
   final String voucherDocumentID;
+  final String voucherURL;
   forgetpassword(
       {required this.selectRoute,
       required this.fee,
-      required this.voucherDocumentID});
+      required this.bus,
+      required this.voucherDocumentID,
+      required this.voucherURL});
 
   @override
   State<forgetpassword> createState() => _forgetpasswordState();
@@ -44,6 +48,8 @@ class _forgetpasswordState extends State<forgetpassword> {
                       selectRoute: widget.selectRoute,
                       fee: widget.fee,
                       voucherDocumentID: widget.voucherDocumentID,
+                      voucherURL: widget.voucherURL,
+                      bus: widget.bus,
                     ),
                   ),
                 );

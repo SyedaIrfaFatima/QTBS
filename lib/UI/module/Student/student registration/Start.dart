@@ -4,11 +4,15 @@ import 'package:test_project/UI/module/Student/student%20registration/stu-regist
 class Start extends StatelessWidget {
   final String selectRoute;
   final String fee;
+  final String bus;
   final String voucherDocumentID;
+  final String voucherURL;
   Start(
       {required this.selectRoute,
       required this.fee,
-      required this.voucherDocumentID});
+      required this.bus,
+      required this.voucherDocumentID,
+      required this.voucherURL});
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +97,8 @@ class Start extends StatelessWidget {
                         selectRoute: selectRoute,
                         fee: fee,
                         voucherDocumentID: voucherDocumentID,
+                        voucherURL: voucherURL,
+                        bus: bus,
                       ),
                     ),
                   );

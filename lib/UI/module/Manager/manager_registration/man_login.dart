@@ -135,6 +135,8 @@ class _mloginState extends State<mlogin> {
                                       selectRoute: '',
                                       fee: '',
                                       voucherDocumentID: '',
+                                      voucherURL: '',
+                                      bus: '',
                                     )));
                       },
                       child: Text("Forgot password")),

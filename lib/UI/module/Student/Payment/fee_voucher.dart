@@ -63,12 +63,6 @@ class _voucherState extends State<voucher> {
   void initState() {
     super.initState();
     initNotifications();
-    // Fetch the registration date
-    // fetchRegistrationData();
-    // DateTime parsedDate = DateTime.now();
-    //
-    // // Schedule the first payment notification
-    // schedulePaymentNotification(parsedDate);
 
     fetchRegistrationData().then((registrationDate) {
       // Schedule the first payment notification
@@ -776,33 +770,76 @@ class _voucherState extends State<voucher> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 250, top: 190),
-              child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.blue,
+                padding: EdgeInsets.only(left: 250, top: 190),
+                // child: Container(
+                //     decoration: BoxDecoration(
+                //       shape: BoxShape.circle,
+                //       color: Colors.blue,
+                //     ),
+                //     child: IconButton(
+                //       icon: Icon(
+                //         Icons.arrow_forward_ios,
+                //         color: Colors.white,
+                //       ),
+                //       onPressed: () async {
+                //         await saveDataToFirestore();
+                //         Navigator.push(
+                //             context,
+                //             MaterialPageRoute(
+                //                 builder: (context) => VoucherUpload(
+                //                       selectRoute: widget.route,
+                //                       fee: widget.fee,
+                //                       bus: widget.bus,
+                //                     ))
+                //             //
+                //             // MaterialPageRoute(
+                //             //     builder: (context) => linkedscreen())
+                //             );
+                //       },
+                //     )),
+
+                child: ClipRRect(
+                    child: Align(
+                  alignment: Alignment.topRight,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50.0),
+                    child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 5.0),
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Colors.blue[600]!,
+                              Colors.blue[400]!,
+                            ],
+                          ),
+                        ),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.white,
+                            size: 32.0,
+                          ),
+                          onPressed: () async {
+                            await saveDataToFirestore();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => VoucherUpload(
+                                          selectRoute: widget.route,
+                                          fee: widget.fee,
+                                          bus: widget.bus,
+                                        ))
+                                //
+                                // MaterialPageRoute(
+                                //     builder: (context) => linkedscreen())
+                                );
+                          },
+                        )),
                   ),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.arrow_forward_ios,
-                      color: Colors.white,
-                    ),
-                    onPressed: () async {
-                      await saveDataToFirestore();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => VoucherUpload(
-                                    selectRoute: widget.route,
-                                    fee: widget.fee,
-                                  ))
-                          //
-                          // MaterialPageRoute(
-                          //     builder: (context) => linkedscreen())
-                          );
-                    },
-                  )),
-            ),
+                ))),
             Center(
               child: Container(
                 margin: EdgeInsets.only(top: 180),

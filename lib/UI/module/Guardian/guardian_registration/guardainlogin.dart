@@ -135,6 +135,8 @@ class _gloginState extends State<glogin> {
                                       selectRoute: '',
                                       fee: '',
                                       voucherDocumentID: '',
+                                      voucherURL: '',
+                                      bus: '',
                                     )));
                       },
                       child: Text("Forgot password")),

@@ -13,12 +13,16 @@ import '../../all_user_usage_interface/Util/utils.dart';
 class register extends StatefulWidget {
   final String selectRoute;
   final String fee;
+  final String bus;
   final String voucherDocumentID;
+  final String voucherURL;
 
   register(
       {required this.selectRoute,
       required this.fee,
-      required this.voucherDocumentID});
+      required this.bus,
+      required this.voucherDocumentID,
+      required this.voucherURL});
 
   @override
   State<register> createState() => _registerState();
@@ -323,9 +327,12 @@ class _registerState extends State<register> {
                                 builder: (context) => LoginScreen(
                                       selectRoute: widget.selectRoute,
                                       fee: widget.fee,
+                                      bus: widget.bus,
                                       voucherDocumentID:
                                           widget.voucherDocumentID,
-                                    )));
+                                      voucherURL: widget.voucherURL,
+                                    ))
+                        );
                       }
                     },
                   ),
@@ -343,6 +350,8 @@ class _registerState extends State<register> {
                                           fee: widget.fee,
                                           voucherDocumentID:
                                               widget.voucherDocumentID,
+                                          voucherURL: widget.voucherURL,
+                                          bus: widget.bus,
                                         )));
                           },
                           child: Text("Login"))

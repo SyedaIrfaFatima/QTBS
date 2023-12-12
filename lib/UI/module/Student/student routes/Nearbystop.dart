@@ -163,6 +163,7 @@ class _NearbyStopState extends State<NearbyStop> {
                                             selectregion: widget.selectregion,
                                             voucherDocumentID:
                                                 widget.voucherDocumentID,
+                                            voucherURL: '',
                                           ),
                                         ),
                                       );

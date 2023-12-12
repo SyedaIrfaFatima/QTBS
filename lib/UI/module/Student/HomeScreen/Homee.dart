@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:test_project/UI/module/Manager/Driver_panel/businformation.dart';
+
 import 'package:test_project/UI/module/Student/Payment/BoardingPass.dart';
 
 import '../../../../Authentication/models/User_model.dart';
@@ -967,7 +967,7 @@ class Home extends StatefulWidget {
       required this.busnumber,
       required this.voucherDocumentID,
       required this.voucherURL}) {
-    assert(voucherDocumentID != null);
+    // assert(voucherDocumentID != null);
   }
 
   @override
@@ -977,22 +977,24 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final auth = FirebaseAuth.instance;
   String userName = '';
-  String? uploadedVoucherURL;
+  // String? uploadedVoucherURL;
+  // String? voucherDocumentID;
+  // String? VoucherURL;
 
   final ProfileController profileController = Get.find();
 
   Future<String> getVoucherStatus() async {
     // Check if the voucherDocumentID is null or empty
-    // if (widget.voucherDocumentID == null || widget.voucherDocumentID.isEmpty) {
-    //   print('Voucher Document ID is null or empty.');
-    //   return 'pending';
-    // }
+    if (widget.voucherDocumentID == null || widget.voucherDocumentID.isEmpty) {
+      print('Voucher Document ID is null or empty.');
+      return 'pending';
+    }
 
     try {
       // Replace with your Firestore logic to get the voucher status
       DocumentSnapshot voucherSnapshot = await FirebaseFirestore.instance
           .collection('Vouchers')
-          .doc('RN6K06591fezbSkCDPyjsoXYIJx1')
+          .doc(widget.voucherDocumentID)
           .get();
 
       if (voucherSnapshot.exists) {
@@ -1012,7 +1014,6 @@ class _HomeState extends State<Home> {
   }
 
   Widget build(BuildContext context) {
-    // print('Voucher Document ID: ${widget.voucherDocumentID}');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -1028,6 +1029,8 @@ class _HomeState extends State<Home> {
                               fee: widget.fees,
                               // voucherDocumentID: widget.voucherDocumentID,
                               voucherDocumentID: (widget.voucherDocumentID),
+                              voucherURL: widget.voucherURL,
+                              bus: widget.busnumber,
                             )));
               }).onError((error, stackTrace) {
                 utils().toastMessage(error.toString());
@@ -1105,103 +1108,13 @@ class _HomeState extends State<Home> {
                         return VoucherUpload(
                           selectRoute: widget.selectRoute,
                           fee: widget.fees,
+                          bus: widget.busnumber,
                         );
                       },
                     ),
                   );
                 },
               ),
-              // ListTile(
-              //   title: Text('Boarding pass '),
-              //   onTap: () async {
-              //     // Check voucher status from Firestore
-              //     String voucherStatus = await getVoucherStatus();
-              //
-              //     if (voucherStatus == 'accepted') {
-              //       // Navigate to the BoardingPass screen if the voucher is accepted
-              //       Navigator.push(
-              //         context,
-              //         MaterialPageRoute(
-              //           builder: (context) => BoardingPass(
-              //             selectRoute: widget.selectRoute,
-              //             fee: widget.fees,
-              //           ),
-              //         ),
-              //       );
-              //     } else {
-              //       // Show a message for rejected or pending voucher
-              //       if (voucherStatus == 'rejected') {
-              //         // Show dialog for rejected voucher
-              //         showDialog(
-              //           context: context,
-              //           builder: (BuildContext context) {
-              //             return AlertDialog(
-              //               title: Text('Voucher Rejected'),
-              //               content: Text(
-              //                   'Your voucher has been rejected. Please submit an authentic voucher.'),
-              //               actions: <Widget>[
-              //                 TextButton(
-              //                   onPressed: () {
-              //                     Navigator.of(context).pop();
-              //                   },
-              //                   child: Text('OK'),
-              //                 ),
-              //               ],
-              //             );
-              //           },
-              //         );
-              //       } else if (voucherStatus == 'pending') {
-              //         // Show dialog for pending voucher
-              //         showDialog(
-              //           context: context,
-              //           builder: (BuildContext context) {
-              //             return AlertDialog(
-              //               title: Text('Voucher Pending'),
-              //               content: Text(
-              //                   'Your voucher is pending. Please wait for approval.'),
-              //               actions: <Widget>[
-              //                 TextButton(
-              //                   onPressed: () {
-              //                     Navigator.of(context).pop();
-              //                   },
-              //                   child: Text('OK'),
-              //                 ),
-              //               ],
-              //             );
-              //           },
-              //         );
-              //       } else if (voucherStatus == 'no_voucher') {
-              //         // Show dialog for no voucher uploaded
-              //         showDialog(
-              //           context: context,
-              //           builder: (BuildContext context) {
-              //             return AlertDialog(
-              //               title: Text('No Voucher Uploaded'),
-              //               content: Text(
-              //                 'You have not uploaded a voucher yet. Please upload a voucher.',
-              //               ),
-              //               actions: <Widget>[
-              //                 TextButton(
-              //                   onPressed: () {
-              //                     Navigator.of(context).pop();
-              //                   },
-              //                   child: Text('OK'),
-              //                 ),
-              //               ],
-              //             );
-              //           },
-              //         );
-              //       } else {
-              //         // Show a SnackBar for pending voucher
-              //         ScaffoldMessenger.of(context).showSnackBar(
-              //           SnackBar(
-              //             content: Text('Voucher status is pending.'),
-              //           ),
-              //         );
-              //       }
-              //     }
-              //   },
-              // ),
               ListTile(
                 title: Text('Boarding pass '),
                 onTap: () async {
@@ -1216,6 +1129,7 @@ class _HomeState extends State<Home> {
                         builder: (context) => BoardingPass(
                           selectRoute: widget.selectRoute,
                           fee: widget.fees,
+                          bus: widget.busnumber,
                         ),
                       ),
                     );
@@ -1424,46 +1338,6 @@ class _HomeState extends State<Home> {
                           ),
                         ],
                       ),
-
-                      // Check voucher status from Firestore
-                      // FutureBuilder(
-                      //   future: getVoucherStatus(),
-                      //   builder: (context, snapshot) {
-                      //     if (snapshot.connectionState ==
-                      //         ConnectionState.done) {
-                      //       String voucherStatus = snapshot.data as String;
-                      //
-                      //       // Show the Boarding Pass screen or a message based on the voucher status
-                      //       if (voucherStatus == 'accepted') {
-                      //         return ElevatedButton(
-                      //           onPressed: () {
-                      //             Navigator.push(
-                      //               context,
-                      //               MaterialPageRoute(
-                      //                 builder: (context) => BoardingPass(
-                      //                   selectRoute: widget.selectRoute,
-                      //                   fee: widget.fees,
-                      //                 ),
-                      //               ),
-                      //             );
-                      //           },
-                      //           child: Text('Go to Boarding Pass'),
-                      //         );
-                      //       } else {
-                      //         return Text(
-                      //           'Voucher Status: $voucherStatus',
-                      //           style: TextStyle(
-                      //             color: Colors.red,
-                      //             fontWeight: FontWeight.bold,
-                      //           ),
-                      //         );
-                      //       }
-                      //     } else {
-                      //       // Return a loading indicator or error message if needed
-                      //       return CircularProgressIndicator();
-                      //     }
-                      //   },
-                      // ),
                     ],
                   ),
                 ),

@@ -28,6 +28,8 @@ class SplashServices {
                         selectRoute: '',
                         fee: '',
                         voucherDocumentID: '',
+                        voucherURL: '',
+                        bus: '',
                       ))));
     }
   }

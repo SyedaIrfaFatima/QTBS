@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:test_project/UI/module/Driver/driver_registration/dregisteration.dart';
 import 'package:test_project/UI/module/Guardian/guardian_registration/gregistration.dart';
 
@@ -181,6 +180,8 @@ class MyApp extends StatelessWidget {
               selectRoute: '',
               fee: '',
               voucherDocumentID: '',
+              voucherURL: '',
+              bus: '',
             ),
         '/driver': (context) => dregister(),
         '/guardian': (context) => gregisteration(

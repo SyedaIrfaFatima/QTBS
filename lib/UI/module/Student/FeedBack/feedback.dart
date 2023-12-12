@@ -62,13 +62,13 @@ class _feedbackState extends State<feedback> {
             // Wrap with Container
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/feedbackk.png'),
+                image: AssetImage('assets/feed.png'),
                 fit: BoxFit.cover,
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 60, top: 280),
+            padding: EdgeInsets.only(left: 60, top: 300),
             child: FutureBuilder(
               future: profileController.getUserData(),
               builder: (context, snapshot) {
@@ -88,20 +88,39 @@ class _feedbackState extends State<feedback> {
                               children: [
                                 Container(
                                   padding: EdgeInsets.all(
-                                      8), // Adjust the padding as needed
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(50),
-                                      border: Border.all(
-                                        color: Colors.blue,
-                                      )),
+                                    8.0,
+                                  ), // Adjust the padding as needed
 
-                                  child: Text(
-                                    Email,
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                      color: Colors
-                                          .black, // Change text color to make it visible
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    border: Border.all(
+                                        color: Colors.white, width: 2.0),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.blueGrey[600]!,
+                                        Colors.blue[400]!,
+                                      ],
                                     ),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.email,
+                                        color: Colors.white,
+                                        size: 24.0,
+                                      ),
+                                      SizedBox(width: 8.0),
+                                      Text(
+                                        Email,
+                                        style: TextStyle(
+                                          fontSize:
+                                              18.0, // Adjust font size as needed
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
@@ -144,63 +163,152 @@ class _feedbackState extends State<feedback> {
                                 ),
                               ],
                             ),
+                            // Padding(
+                            //   padding: EdgeInsets.only(right: 210),
+                            //   child: Text(
+                            //     'Comment',
+                            //     style: TextStyle(
+                            //       fontSize: 20.0,
+                            //       color: Colors.black,
+                            //     ),
+                            //   ),
+                            // ),
+                            // Center(
+                            //   child: TextField(
+                            //     controller: commentController,
+                            //     maxLength: 300,
+                            //     maxLines: 5,
+                            //     decoration: InputDecoration(
+                            //       hintText: 'Enter your feedback here',
+                            //       border: OutlineInputBorder(
+                            //         borderRadius: BorderRadius.circular(10.0),
+                            //       ),
+                            //       focusedBorder: OutlineInputBorder(
+                            //         borderSide: BorderSide(
+                            //           color: Colors
+                            //               .blue, // Change the border color when focused
+                            //         ),
+                            //         borderRadius: BorderRadius.circular(10.0),
+                            //       ),
+                            //       contentPadding: EdgeInsets.all(10.0),
+                            //     ),
+                            //     style: TextStyle(
+                            //       fontSize: 16.0,
+                            //       color: Colors.black,
+                            //     ),
+                            //   ),
+                            // ),
+                            SizedBox(
+                              height: 10,
+                            ),
                             Padding(
-                              padding: EdgeInsets.only(right: 210),
+                              padding: EdgeInsets.only(right: 200),
                               child: Text(
-                                ' Comment',
+                                'Comment',
                                 style: TextStyle(
                                   fontSize: 20.0,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            Center(
-                              child: TextField(
-                                controller: commentController,
-                                maxLength: 300,
-                                maxLines: 5,
-                                decoration: InputDecoration(
-                                  hintText: 'Enter your feedback here',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Colors
-                                          .blue, // Change the border color when focused
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  contentPadding: EdgeInsets.all(10.0),
-                                ),
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: Colors.black,
+                                  color: Colors
+                                      .black, // Change text color to make it visible
                                 ),
                               ),
                             ),
                             Padding(
-                                padding: EdgeInsets.only(top: 10, right: 90),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    if (commentController.text.isNotEmpty) {
-                                      saveFeedback();
-                                    } else {
+                              padding: EdgeInsets.only(right: 50),
+                              child: Column(
+                                children: [
+                                  Center(
+                                    child: TextField(
+                                      controller: commentController,
+                                      maxLength: 300,
+                                      maxLines: 5,
+                                      decoration: InputDecoration(
+                                        hintText:
+                                            'Share your thoughts and suggestions here',
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.blue,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        contentPadding: EdgeInsets.all(10),
+                                      ),
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            // Padding(
+                            //     padding: EdgeInsets.only(top: 10, right: 90),
+                            //     child: ElevatedButton(
+                            //       onPressed: () {
+                            //         if (commentController.text.isNotEmpty) {
+                            //           saveFeedback();
+                            //         } else {
+                            //           SnackBar(
+                            //             content: Text(
+                            //                 'Please enter a comment before sending.'),
+                            //             duration: Duration(seconds: 3),
+                            //           );
+                            //         }
+                            //       },
+                            //       style: ElevatedButton.styleFrom(
+                            //         padding: EdgeInsets.symmetric(
+                            //           horizontal: 40,
+                            //           vertical: 12,
+                            //         ), // Adjust the padding to make the button bigger
+                            //       ),
+                            //       child: Text('Send'),
+                            //     )),
+
+                            Padding(
+                              padding: EdgeInsets.only(top: 10, right: 90),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  if (commentController.text.isNotEmpty) {
+                                    saveFeedback();
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
                                             'Please enter a comment before sending.'),
                                         duration: Duration(seconds: 3),
-                                      );
-                                    }
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 40,
-                                      vertical: 12,
-                                    ), // Adjust the padding to make the button bigger
+                                      ),
+                                    );
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue[
+                                      800], // Changed background color to a darker blue
+                                  foregroundColor: Colors
+                                      .white, // Changed text color to white for better contrast
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 40,
+                                    vertical: 15,
+                                  ), // Adjusted padding for better proportions
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        20.0), // Added rounded corners
                                   ),
-                                  child: Text('Send'),
-                                )),
+                                  textStyle: TextStyle(
+                                    fontSize:
+                                        15.0, // Increased font size for emphasis
+                                    fontWeight: FontWeight
+                                        .w500, // Increased font weight for clarity
+                                  ),
+                                ),
+                                child: Text(
+                                    'Submit Feedback'), // Changed text to be more descriptive and clear
+                              ),
+                            ),
                           ],
                         ),
                       ),

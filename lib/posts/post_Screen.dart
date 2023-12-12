@@ -28,6 +28,8 @@ class _postscreenState extends State<postscreen> {
                             selectRoute: '',
                             fee: '',
                             voucherDocumentID: '',
+                            voucherURL: '',
+                            bus: '',
                           )));
             }).onError((error, stackTrace) {
               utils().toastMessage(error.toString());

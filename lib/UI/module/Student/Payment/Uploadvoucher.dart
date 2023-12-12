@@ -229,8 +229,10 @@ import 'package:image_picker/image_picker.dart';
 class VoucherUpload extends StatefulWidget {
   final String selectRoute;
   final String fee;
+  final String bus;
 
-  VoucherUpload({required this.selectRoute, required this.fee});
+  VoucherUpload(
+      {required this.selectRoute, required this.fee, required this.bus});
 
   @override
   State<VoucherUpload> createState() => _VoucherUploadState();
@@ -259,8 +261,6 @@ class _VoucherUploadState extends State<VoucherUpload> {
     }
   }
 
-
-
   Future<void> _uploadVoucher() async {
     setState(() {
       _isVerifying = true;
@@ -275,7 +275,6 @@ class _VoucherUploadState extends State<VoucherUpload> {
         // Upload image to Firebase Cloud Storage
         if (_image != null) {
           await storageReference.putFile(_image!);
-
           // Get the download URL of the uploaded image
           final downloadURL = await storageReference.getDownloadURL();
           print('Image uploaded. Download URL: $downloadURL');
@@ -312,8 +311,11 @@ class _VoucherUploadState extends State<VoucherUpload> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  BoardingPass(selectRoute: 'selectRoute', fee: 'fee'),
+              builder: (context) => BoardingPass(
+                selectRoute: 'selectRoute',
+                fee: 'fee',
+                bus: 'bus',
+              ),
             ),
           );
         } else if (status == 'rejected') {
@@ -396,5 +398,3 @@ class _VoucherUploadState extends State<VoucherUpload> {
     );
   }
 }
-
-
