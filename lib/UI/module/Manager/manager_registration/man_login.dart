@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:test_project/UI/module/Manager/Dashboard/man%20dashboard.dart';
 import 'package:test_project/UI/module/all_user_usage_interface/forgetpassword.dart';
 import 'package:test_project/UI/widgets/round_button.dart';
@@ -39,8 +40,17 @@ class _mloginState extends State<mlogin> {
         .then((value) {
       utils().toastMessage(value.user!.email.toString());
 
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => mdashboard()));
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => mdashboard()));
+        context,
+        PageTransition(
+          child: mdashboard(),
+          type: PageTransitionType
+              .rightToLeft, // or any other transition type you prefer
+          duration: Duration(seconds: 1), // Specify your desired duration
+        ),
+      );
       setState(() {
         loading = false;
       });

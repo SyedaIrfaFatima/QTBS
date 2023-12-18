@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../../Authentication/Auth_reprository/User_Repository/user_repository.dart';
 import '../../../../Authentication/models/User_model.dart';
@@ -73,13 +74,11 @@ class _manageRegisterState extends State<manageRegister> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue,
-          title: Text(
-            'Registration',
+          title: Text('Registration',
               style: GoogleFonts.poppins(
                   fontSize: 20,
                   // fontWeight: FontWeight.bold,
-                  color: Colors.white)
-          ),
+                  color: Colors.white)),
         ),
         body: Stack(children: [
           Container(
@@ -293,8 +292,18 @@ class _manageRegisterState extends State<manageRegister> {
                       }
 
                       if (isFormValid) {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => mlogin()));
+                        // Navigator.push(context,
+                        //     MaterialPageRoute(builder: (context) => mlogin()));
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            child: mlogin(),
+                            type: PageTransitionType
+                                .rightToLeft, // or any other transition type you prefer
+                            duration: Duration(
+                                seconds: 2), // Specify your desired duration
+                          ),
+                        );
                       }
                     },
                   ),

@@ -19,6 +19,7 @@ import 'dart:io';
 import 'dart:ui' as ui; // Import 'dart:ui' for ui.Image
 
 import 'package:image/image.dart' as img;
+import 'package:test_project/UI/module/Student/HomeScreen/Homee.dart';
 import '../../../../Authentication/models/User_model.dart';
 import '../../../../main.dart';
 import '../Profile/profile_controller.dart';
@@ -617,16 +618,16 @@ class _voucherState extends State<voucher> {
           ' Fine',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 8.0,
+            fontSize: 7.0,
           ),
           textAlign: TextAlign.justify,
         ),
-        SizedBox(width: 40),
+        SizedBox(width: 50),
         Text(
           '$fineAfterDeadline',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 8.0,
+            fontSize: 7.0,
           ),
           textAlign: TextAlign.justify,
         ),
@@ -774,82 +775,82 @@ class _voucherState extends State<voucher> {
                 ),
               ),
             ),
-            Padding(
-                padding: EdgeInsets.only(left: 250, top: 190),
-                // child: Container(
-                //     decoration: BoxDecoration(
-                //       shape: BoxShape.circle,
-                //       color: Colors.blue,
-                //     ),
-                //     child: IconButton(
-                //       icon: Icon(
-                //         Icons.arrow_forward_ios,
-                //         color: Colors.white,
-                //       ),
-                //       onPressed: () async {
-                //         await saveDataToFirestore();
-                //         Navigator.push(
-                //             context,
-                //             MaterialPageRoute(
-                //                 builder: (context) => VoucherUpload(
-                //                       selectRoute: widget.route,
-                //                       fee: widget.fee,
-                //                       bus: widget.bus,
-                //                     ))
-                //             //
-                //             // MaterialPageRoute(
-                //             //     builder: (context) => linkedscreen())
-                //             );
-                //       },
-                //     )),
-
-                child: ClipRRect(
-                    child: Align(
-                  alignment: Alignment.topRight,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50.0),
-                    child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 5.0),
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.blueGrey[600]!,
-                              Colors.blue[400]!,
-                            ],
-                          ),
-                        ),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.white,
-                            size: 32.0,
-                          ),
-                          onPressed: () async {
-                            await saveDataToFirestore();
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => VoucherUpload(
-                                          selectRoute: widget.route,
-                                          fee: widget.fee,
-                                          bus: widget.bus,
-                                        ))
-                                //
-                                // MaterialPageRoute(
-                                //     builder: (context) => linkedscreen())
-                                );
-                          },
-                        )),
-                  ),
-                ))),
+            // Padding(
+            //     padding: EdgeInsets.only(left: 250, top: 190),
+            //     // child: Container(
+            //     //     decoration: BoxDecoration(
+            //     //       shape: BoxShape.circle,
+            //     //       color: Colors.blue,
+            //     //     ),
+            //     //     child: IconButton(
+            //     //       icon: Icon(
+            //     //         Icons.arrow_forward_ios,
+            //     //         color: Colors.white,
+            //     //       ),
+            //     //       onPressed: () async {
+            //     //         await saveDataToFirestore();
+            //     //         Navigator.push(
+            //     //             context,
+            //     //             MaterialPageRoute(
+            //     //                 builder: (context) => VoucherUpload(
+            //     //                       selectRoute: widget.route,
+            //     //                       fee: widget.fee,
+            //     //                       bus: widget.bus,
+            //     //                     ))
+            //     //             //
+            //     //             // MaterialPageRoute(
+            //     //             //     builder: (context) => linkedscreen())
+            //     //             );
+            //     //       },
+            //     //     )),
+            //
+            //     child: ClipRRect(
+            //         child: Align(
+            //       alignment: Alignment.topRight,
+            //       child: ClipRRect(
+            //         borderRadius: BorderRadius.circular(50.0),
+            //         child: Container(
+            //             decoration: BoxDecoration(
+            //               shape: BoxShape.circle,
+            //               border: Border.all(color: Colors.white, width: 5.0),
+            //               gradient: LinearGradient(
+            //                 begin: Alignment.topLeft,
+            //                 end: Alignment.bottomRight,
+            //                 colors: [
+            //                   Colors.blueGrey[600]!,
+            //                   Colors.blue[400]!,
+            //                 ],
+            //               ),
+            //             ),
+            //             child: IconButton(
+            //               icon: Icon(
+            //                 Icons.arrow_forward_ios,
+            //                 color: Colors.white,
+            //                 size: 32.0,
+            //               ),
+            //               onPressed: () async {
+            //                 await saveDataToFirestore();
+            //                 Navigator.push(
+            //                     context,
+            //                     MaterialPageRoute(
+            //                         builder: (context) => VoucherUpload(
+            //                               selectRoute: widget.route,
+            //                               fee: widget.fee,
+            //                               bus: widget.bus,
+            //                             ))
+            //                     //
+            //                     // MaterialPageRoute(
+            //                     //     builder: (context) => linkedscreen())
+            //                     );
+            //               },
+            //             )),
+            //       ),
+            //     ))),
             Center(
               child: Container(
-                margin: EdgeInsets.only(top: 180),
+                margin: EdgeInsets.only(top: 130),
                 width: 360,
-                height: 340,
+                height: 330,
                 padding: EdgeInsets.all(4.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -971,30 +972,52 @@ class _voucherState extends State<voucher> {
                 ),
               ),
             ),
-
-
-            // bottomNavigationBar: BottomNavigationBar(
-            //   currentIndex: 0,
-            //   items: [
-            //     BottomNavigationBarItem(
-            //       icon: Icon(Icons.home),
-            //       label: 'Home',
-            //       backgroundColor: Colors.blue,
-            //     ),
-            //     BottomNavigationBarItem(
-            //       icon: Icon(Icons.upload),
-            //       label: 'Upload Voucher',
-            //       backgroundColor: Colors.blue,
-            //     ),
-            //     BottomNavigationBarItem(
-            //       icon: Icon(Icons.boarding_pass),
-            //       label: 'Boarding pass',
-            //       backgroundColor: Colors.blue,
-            //     ),
-            //   ],
-            // ),
-
-
+            Padding(
+              padding: EdgeInsets.only(top: 613),
+              child: BottomNavigationBar(
+                currentIndex: 0,
+                onTap: (int index) {
+                  if (index == 1) {
+                    saveDataToFirestore();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => VoucherUpload(
+                          selectRoute: widget.route,
+                          fee: widget.fee,
+                          bus: widget.bus,
+                        ),
+                      ),
+                    );
+                  } else if (index == 0) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Home(
+                          selectRoute: widget.route,
+                          fees: widget.fee,
+                          busnumber: '',
+                          voucherDocumentID: '',
+                          voucherURL: '',
+                        ),
+                      ),
+                    );
+                  }
+                },
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: 'Home',
+                    backgroundColor: Colors.blue,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.upload),
+                    label: 'Upload Voucher',
+                    backgroundColor: Colors.blue,
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),

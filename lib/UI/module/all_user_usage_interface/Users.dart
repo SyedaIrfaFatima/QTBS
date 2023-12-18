@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'package:test_project/UI/module/Driver/driver_registration/dregisteration.dart';
 import 'package:test_project/UI/module/Guardian/guardian_registration/gregistration.dart';
@@ -74,33 +75,82 @@ class RollButton extends StatelessWidget {
   void navigateToRole(String role, BuildContext context) {
     // You can handle navigation here based on the selected role
     if (role == "student") {
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //
+      //       builder: (context) => Start(
+      //             selectRoute: '',
+      //             fee: '',
+      //             voucherDocumentID: '',
+      //             voucherURL: '',
+      //             bus: '',
+      //           )
+      //   ),
+      // );
       Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => Start(
-                  selectRoute: '',
-                  fee: '',
-                  voucherDocumentID: '',
-                  voucherURL: '',
-                  bus: '',
-                )),
+        PageTransition(
+          child: Start(
+            selectRoute: '',
+            fee: '',
+            voucherDocumentID: '',
+            voucherURL: '',
+            bus: '',
+          ), // Replace with the screen you want to navigate to
+          type: PageTransitionType
+              .rightToLeft, // or any other transition type you prefer
+          duration: Duration(seconds: 1), // Specify your desired duration
+        ),
       );
     } else if (role == "driver") {
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => dregister()),
+      // );
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => dregister()),
+        PageTransition(
+          child: dregister(), // Replace with the screen you want to navigate to
+          type: PageTransitionType
+              .rightToLeft, // or any other transition type you prefer
+          duration: Duration(seconds: 1), // Specify your desired duration
+        ),
       );
     } else if (role == "guardian") {
+      // Navigator.push(
+      //   context,
+      //   // MaterialPageRoute(
+      //   //     builder: (context) => gregisteration(selectRoute: "", fee: "")),\
+      //
+      // );
       Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => gregisteration(selectRoute: "", fee: "")),
+        PageTransition(
+          child: gregisteration(
+              selectRoute: "",
+              fee: ""), // Replace with the screen you want to navigate to
+          type: PageTransitionType
+              .rightToLeft, // or any other transition type you prefer
+          duration: Duration(seconds: 1), // Specify your desired duration
+        ),
       );
     } else if (role == "manager") {
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => manageRegister()),
+      // );
+
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => manageRegister()),
-      );
+        PageTransition(
+          child:
+              manageRegister(), // Replace with the screen you want to navigate to
+          type: PageTransitionType
+              .rightToLeft, // or any other transition type you prefer
+          duration: Duration(seconds: 1), // Specify your desired duration
+        ),
+      ); // Update the UI to show that item 1 was selected
     }
   }
 
