@@ -43,7 +43,7 @@ class _StopManagerScreenState extends State<StopManagerScreen> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Confirm Deletion'),
+          title: Text('Confirm Deletion',),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -76,7 +76,7 @@ class _StopManagerScreenState extends State<StopManagerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Select Stop'),
+        title: const Text('Select Stop',),
       ),
       body: SingleChildScrollView(
         child: Column(

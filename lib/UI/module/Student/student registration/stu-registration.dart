@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:test_project/Authentication/models/User_model.dart';
 
 import 'package:test_project/UI/module/Student/student%20registration/login.dart';
@@ -51,6 +53,17 @@ class _registerState extends State<register> {
     passwordController.dispose();
   }
 
+  // Widget buildTransitions(BuildContext context, Animation<double> animation,
+  //     Animation<double> secondaryAnimation, Widget child) {
+  //   return SlideTransition(
+  //     position: Tween<Offset>(
+  //       begin: Offset(-1, 0),
+  //       end: Offset.zero,
+  //     ).animate(animation),
+  //     child: child,
+  //   );
+  // }
+
   void register() {
     setState(() {
       loading = true;
@@ -82,10 +95,11 @@ class _registerState extends State<register> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue,
-          title: Text(
-            'Registration',
-            style: TextStyle(color: Colors.white),
-          ),
+          title: Text('Registration',
+              style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  // fontWeight: FontWeight.bold,
+                  color: Colors.white)),
         ),
         body: Stack(children: [
           Container(
@@ -322,16 +336,20 @@ class _registerState extends State<register> {
 
                       if (isFormValid) {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen(
-                                      selectRoute: widget.selectRoute,
-                                      fee: widget.fee,
-                                      bus: widget.bus,
-                                      voucherDocumentID:
-                                          widget.voucherDocumentID,
-                                      voucherURL: widget.voucherURL,
-                                    ))
+                          context,
+                          PageTransition(
+                            child: LoginScreen(
+                              selectRoute: widget.selectRoute,
+                              fee: widget.fee,
+                              bus: widget.bus,
+                              voucherDocumentID: widget.voucherDocumentID,
+                              voucherURL: widget.voucherURL,
+                            ),
+                            type: PageTransitionType
+                                .rightToLeft, // or any other transition type you prefer
+                            duration: Duration(
+                                seconds: 2), // Specify your desired duration
+                          ),
                         );
                       }
                     },

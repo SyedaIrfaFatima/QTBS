@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:test_project/UI/module/Student/Payment/BoardingPass.dart';
 
 import '../../Manager/Payment_handler/student_voucher_check.dart';
@@ -352,7 +353,11 @@ class _VoucherUploadState extends State<VoucherUpload> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Upload Voucher'),
+        title: Text('Upload Voucher',
+            style: GoogleFonts.poppins(
+                fontSize: 20,
+                // fontWeight: FontWeight.bold,
+                color: Colors.white)),
       ),
       body: Center(
         child: Padding(

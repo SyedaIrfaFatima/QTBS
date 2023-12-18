@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:swipeable_button_view/swipeable_button_view.dart';
 import 'package:test_project/UI/module/Student/student%20registration/stu-registration.dart';
 
-class Start extends StatelessWidget {
+class Start extends StatefulWidget {
   final String selectRoute;
   final String fee;
   final String bus;
@@ -14,6 +17,13 @@ class Start extends StatelessWidget {
       required this.voucherDocumentID,
       required this.voucherURL});
 
+  @override
+  State<Start> createState() => _StartState();
+}
+
+class _StartState extends State<Start> {
+  bool isFinished = false;
+  final PageTransitionType _pageTransitionType = PageTransitionType.fade;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -80,42 +90,93 @@ class Start extends StatelessWidget {
             height: 10,
           ),
 
-          Padding(
-            padding: EdgeInsets.only(left: 100, right: 10, top: 690),
-            child: Container(
-              height: 50,
-              width: 150,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.indigo),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => register(
-                        selectRoute: selectRoute,
-                        fee: fee,
-                        voucherDocumentID: voucherDocumentID,
-                        voucherURL: voucherURL,
-                        bus: bus,
+          // Padding(
+          //   padding: EdgeInsets.only(left: 100, right: 10, top: 690),
+          //   child: Container(
+          //     height: 50,
+          //     width: 150,
+          //     decoration: BoxDecoration(
+          //         borderRadius: BorderRadius.circular(10),
+          //         color: Colors.indigo),
+          //     child: ElevatedButton(
+          //       onPressed: () {
+          //         Navigator.push(
+          //           context,
+          //           MaterialPageRoute(
+          //             builder: (context) => register(
+          //               selectRoute: selectRoute,
+          //               fee: fee,
+          //               voucherDocumentID: voucherDocumentID,
+          //               voucherURL: voucherURL,
+          //               bus: bus,
+          //             ),
+          //           ),
+          //         );
+          //       },
+          //       child: const Center(
+          //         child: Text(
+          //           'Get Started',
+          //           textAlign: TextAlign.center,
+          //           style: TextStyle(
+          //               fontSize: 18,
+          //               fontFamily: "Oswald",
+          //               color: Colors.white),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // )
+
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                    padding: EdgeInsets.only(left: 70, right: 30, top: 690),
+                    child: SwipeableButtonView(
+                      activeColor: Color(0xff3398f6),
+                      buttonText: 'Get Started',
+                      //   style:GoogleFonts.poppins(
+                      //   fontSize: 20,
+                      // fontWeight: FontWeight.bold,
+                      // color: Colors.white),
+
+                      buttonWidget: Container(
+                        child: Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                  );
-                },
-                child: const Center(
-                  child: Text(
-                    'Get Started',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: "Oswald",
-                        color: Colors.white),
-                  ),
-                ),
-              ),
+                      isFinished: isFinished,
+                      onWaitingProcess: () {
+                        Future.delayed(Duration(seconds: 2), () {
+                          setState(() {
+                            isFinished = true;
+                          });
+                        });
+                      },
+                      onFinish: () async {
+                        await Navigator.push(
+                          context,
+                          PageTransition(
+                            type: _pageTransitionType,
+                            child: register(
+                              selectRoute: widget.selectRoute,
+                              fee: widget.fee,
+                              voucherDocumentID: widget.voucherDocumentID,
+                              voucherURL: widget.voucherURL,
+                              bus: widget.bus,
+                            ),
+                          ),
+                        );
+                        setState(() {
+                          isFinished = false;
+                        });
+                      },
+                    )),
+              ],
             ),
-          )
+          ),
         ]),
       ),
     );

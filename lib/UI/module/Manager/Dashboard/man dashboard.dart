@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:test_project/UI/module/Manager/Feed%20back/feedback.dart';
 
 import '../../../../Authentication/models/User_model.dart';
@@ -13,6 +14,8 @@ import '../Driver_panel/businformation.dart';
 import '../Payment_handler/student_voucher_check.dart';
 import '../manager_busesdetails/bus registration record.dart';
 import '../manager_routes/man_region.dart';
+import '../xyz/abc.dart';
+import '../xyz/abccc.dart';
 
 class mdashboard extends StatefulWidget {
   const mdashboard({Key? key}) : super(key: key);
@@ -29,7 +32,11 @@ class _mdashboardState extends State<mdashboard> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Dashboard'),
+          title: Text('Dashboard',
+              style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  // fontWeight: FontWeight.bold,
+                  color: Colors.white)),
         ),
         drawer: Drawer(
           child: ListView(
@@ -99,10 +106,6 @@ class _mdashboardState extends State<mdashboard> {
                 },
               ),
               ListTile(
-                title: Text('Refund fee'),
-                onTap: () {},
-              ),
-              ListTile(
                 title: Text('Notification'),
                 onTap: () {
                   // Update the UI to show that item 2 was selected
@@ -114,7 +117,7 @@ class _mdashboardState extends State<mdashboard> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) =>
-                          mfeedback(), // Replace PaymentScreen with your actual payment screen
+                          abc(), // Replace PaymentScreen with your actual payment screen
                     ),
                   ); // Update the U
                 },
@@ -259,4 +262,3 @@ class _mdashboardState extends State<mdashboard> {
     );
   }
 }
-

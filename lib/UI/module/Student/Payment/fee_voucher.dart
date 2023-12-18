@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:open_file/open_file.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
@@ -715,7 +716,11 @@ class _voucherState extends State<voucher> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Voucher'),
+          title: Text('Voucher',
+              style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  // fontWeight: FontWeight.bold,
+                  color: Colors.white)),
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
@@ -811,7 +816,7 @@ class _voucherState extends State<voucher> {
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                             colors: [
-                              Colors.blue[600]!,
+                              Colors.blueGrey[600]!,
                               Colors.blue[400]!,
                             ],
                           ),
@@ -966,6 +971,30 @@ class _voucherState extends State<voucher> {
                 ),
               ),
             ),
+
+
+            // bottomNavigationBar: BottomNavigationBar(
+            //   currentIndex: 0,
+            //   items: [
+            //     BottomNavigationBarItem(
+            //       icon: Icon(Icons.home),
+            //       label: 'Home',
+            //       backgroundColor: Colors.blue,
+            //     ),
+            //     BottomNavigationBarItem(
+            //       icon: Icon(Icons.upload),
+            //       label: 'Upload Voucher',
+            //       backgroundColor: Colors.blue,
+            //     ),
+            //     BottomNavigationBarItem(
+            //       icon: Icon(Icons.boarding_pass),
+            //       label: 'Boarding pass',
+            //       backgroundColor: Colors.blue,
+            //     ),
+            //   ],
+            // ),
+
+
           ],
         ),
       ),

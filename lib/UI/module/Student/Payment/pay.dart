@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'fee_voucher.dart';
 import 'jazzcash.dart';
@@ -69,7 +71,11 @@ class _payfeeState extends State<payfee> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Voucher'),
+          title: Text('Payment selection',
+              style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  // fontWeight: FontWeight.bold,
+                  color: Colors.white)),
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
@@ -255,17 +261,36 @@ class _payfeeState extends State<payfee> {
                                         ),
                                       ),
                                       onPressed: () {
-                                        Navigator.of(context)
-                                            .push(MaterialPageRoute(
-                                          builder: (context) => voucher(
-                                            db: FirebaseFirestore.instance,
-                                            userId: userId,
-                                            route: widget.selectRoute,
-                                            fee: widget.fee,
-                                            bus: widget.busnumber,
-                                            // userEmail: userEmail,
+                                        // Navigator.of(context)
+                                        //     .push(MaterialPageRoute(
+                                        //   builder: (context) => voucher(
+                                        //     db: FirebaseFirestore.instance,
+                                        //     userId: userId,
+                                        //     route: widget.selectRoute,
+                                        //     fee: widget.fee,
+                                        //     bus: widget.busnumber,
+                                        //     // userEmail: userEmail,
+                                        //   ),
+                                        // )
+                                        // );
+                                        Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            child: voucher(
+                                              db: FirebaseFirestore.instance,
+                                              userId: userId,
+                                              route: widget.selectRoute,
+                                              fee: widget.fee,
+                                              bus: widget.busnumber,
+                                              // userEmail: userEmail,
+                                            ), // Replace with the screen you want to navigate to
+                                            type: PageTransitionType
+                                                .topToBottom, // or any other transition type you prefer
+                                            duration: Duration(
+                                                seconds:
+                                                    1), // Specify your desired duration
                                           ),
-                                        ));
+                                        );
                                       },
                                     ),
                                   ],

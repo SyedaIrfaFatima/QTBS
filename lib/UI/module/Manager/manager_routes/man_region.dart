@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'man_route.dart';
 
@@ -309,7 +310,11 @@ class _RegionManagerScreenState extends State<RegionManagerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Region Manager'),
+        title: Text('Region Manager',
+            style: GoogleFonts.poppins(
+                fontSize: 20,
+                // fontWeight: FontWeight.bold,
+                color: Colors.white)),
       ),
       body: Stack(
         children: [

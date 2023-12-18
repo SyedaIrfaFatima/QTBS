@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RoundButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -26,10 +27,11 @@ class RoundButton extends StatelessWidget {
                   strokeWidth: 3,
                   color: Colors.white,
                 )
-              : Text(
-                  title,
-                  style: TextStyle(color: Colors.white),
-                ),
+              : Text(title,
+                  style: GoogleFonts.lato(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
         ),
       ),
     );

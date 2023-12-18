@@ -313,7 +313,8 @@ class _RouteManagerScreenState extends State<RouteManagerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Route manager"),
+        title: const Text("Route manager",
+        ),
         backgroundColor: Colors.blue,
       ),
       body: FutureBuilder<List<QueryDocumentSnapshot>>(

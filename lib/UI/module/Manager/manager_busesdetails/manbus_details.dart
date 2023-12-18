@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../Student/student_bus_selection/bus description.dart';
 
@@ -316,7 +317,10 @@ class _mandetailsState extends State<mandetails> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Manage Bus'),
+          title: Text('Manage Bus',  style: GoogleFonts.poppins(
+              fontSize: 20,
+              // fontWeight: FontWeight.bold,
+              color: Colors.white)),
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,

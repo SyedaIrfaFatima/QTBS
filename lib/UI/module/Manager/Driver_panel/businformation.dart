@@ -183,7 +183,7 @@ class _BusInformationPageState extends State<BusInformationPage> {
         title: Text('Bus Information',
             style: GoogleFonts.poppins(
                 fontSize: 20,
-                fontWeight: FontWeight.bold,
+                // fontWeight: FontWeight.bold,
                 color: Colors.white)),
         centerTitle: true,
         backgroundColor: Colors.blue[900],

@@ -1444,7 +1444,7 @@ class _MyBusState extends State<MyBus> {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
-                          Colors.blue[600]!,
+                          Colors.blueGrey[600]!,
                           Colors.blue[400]!,
                         ],
                       ),
@@ -1555,18 +1555,43 @@ class _MyBusState extends State<MyBus> {
 
                                       return Column(
                                         children: [
+                                          // Row(
+                                          //   mainAxisAlignment:
+                                          //       MainAxisAlignment.center,
+                                          //   children: [
+                                          //     const SizedBox(height: 3),
+                                          //     Image.asset(
+                                          //       'assets/bus_icon.png',
+                                          //       width: 60,
+                                          //       height: 60,
+                                          //     ),
+                                          //     SizedBox(
+                                          //       width: 15,
+                                          //     ),
+                                          //     Text(
+                                          //       busNumber,
+                                          //       style: TextStyle(
+                                          //         color: Colors.black,
+                                          //         fontSize: 19,
+                                          //         fontWeight: FontWeight.bold,
+                                          //       ),
+                                          //     ),
+                                          //   ],
+                                          // ),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
                                             children: [
-                                              const SizedBox(height: 3),
-                                              Image.asset(
-                                                'assets/bus_icon.png',
-                                                width: 60,
-                                                height: 60,
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left:
+                                                        16.0), // Added padding
+                                                child: Image.asset(
+                                                  'assets/bus_icon.png',
+                                                  width: 60,
+                                                  height: 60,
+                                                ),
                                               ),
                                               SizedBox(
-                                                width: 15,
+                                                width: 10.0, // Added spacing
                                               ),
                                               Text(
                                                 busNumber,
@@ -1771,10 +1796,11 @@ class _MyBusState extends State<MyBus> {
 
                                           Container(
                                             width: 350,
+                                            height: 140,
                                             margin:
                                                 const EdgeInsets.only(top: 0),
                                             decoration: BoxDecoration(
-                                              color: Colors.lightBlue[400],
+                                              color: Colors.white,
                                               borderRadius:
                                                   BorderRadius.circular(20),
                                             ),

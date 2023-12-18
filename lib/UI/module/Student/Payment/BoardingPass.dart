@@ -1,323 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:test_project/UI/module/Student/HomeScreen/Homee.dart';
-import 'package:test_project/UI/module/Student/Payment/voucher_functionality.dart';
-
 import '../../../../Authentication/models/User_model.dart';
 import '../Profile/profile_controller.dart';
 import 'package:timezone/timezone.dart' as tz;
-
-// class BoardingPass extends StatefulWidget {
-//   final String selectRoute;
-//   final String fee;
-//
-//   BoardingPass({required this.selectRoute, required this.fee});
-//
-//   @override
-//   State<BoardingPass> createState() => _BoardingPassState();
-// }
-//
-// class _BoardingPassState extends State<BoardingPass> {
-//   String userName = '';
-//   String sapId = '';
-//   String registrationDate = '';
-//   final BoardingPassFunctionality boardingPassFunctionality =
-//       BoardingPassFunctionality();
-//
-//   final ProfileController profileController = Get.find();
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     // Initialize notifications
-//     boardingPassFunctionality.initNotifications();
-//
-//     // Fetch the registration date
-//     fetchRegistrationData();
-//   }
-//
-//   void fetchRegistrationData() async {
-//     DateTime nextNotificationDate =
-//         await boardingPassFunctionality.fetchRegistrationData();
-//
-//     setState(() {
-//       registrationDate = DateFormat('yyyy-MM-dd').format(nextNotificationDate);
-//     });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.cyan[100],
-//       appBar: AppBar(
-//         title: Text('Boarding Pass'),
-//         leading: IconButton(
-//           icon: Icon(
-//             Icons.arrow_back,
-//             color: Colors.white,
-//           ),
-//           onPressed: () {
-//             Navigator.pop(context);
-//           },
-//         ),
-//         actions: [
-//           IconButton(
-//             icon: Icon(
-//               Icons.download,
-//               color: Colors.white,
-//             ),
-//             onPressed: () {},
-//           ),
-//           IconButton(
-//             icon: Icon(
-//               Icons.share,
-//               color: Colors.white,
-//             ),
-//             onPressed: () {},
-//           ),
-//         ],
-//       ),
-//       body: Stack(
-//         children: [
-//           Container(
-//             decoration: BoxDecoration(
-//               image: DecorationImage(
-//                 image: AssetImage('assets/Bus background.png'),
-//                 fit: BoxFit.cover,
-//               ),
-//             ),
-//           ),
-//           Align(
-//             alignment: Alignment.topRight,
-//             child: Center(
-//               child: Padding(
-//                 padding: EdgeInsets.all(20.0),
-//                 child: Container(
-//                   width: 360,
-//                   height: 200,
-//                   decoration: BoxDecoration(
-//                     color: Colors.white,
-//                     borderRadius: BorderRadius.circular(8.0),
-//                     boxShadow: [
-//                       BoxShadow(
-//                         color: Colors.grey.withOpacity(0.5),
-//                         spreadRadius: 2,
-//                         blurRadius: 5,
-//                         offset: Offset(0, 3),
-//                       ),
-//                     ],
-//                   ),
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Padding(
-//                         padding: EdgeInsets.all(10),
-//                         child: Row(
-//                           mainAxisAlignment: MainAxisAlignment.center,
-//                           children: [
-//                             Container(
-//                               decoration: BoxDecoration(
-//                                 shape: BoxShape.rectangle,
-//                                 color: Colors.blue,
-//                               ),
-//                               child: Text(
-//                                 'BOARDING PASS',
-//                                 style: TextStyle(
-//                                   fontWeight: FontWeight.bold,
-//                                   fontSize: 16.0,
-//                                 ),
-//                               ),
-//                             ),
-//                             Container(
-//                               width: 60,
-//                               height: 60,
-//                               decoration: BoxDecoration(
-//                                 image: DecorationImage(
-//                                   image: AssetImage('assets/logo.png'),
-//                                   fit: BoxFit.cover,
-//                                 ),
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                       Padding(
-//                         padding: EdgeInsets.all(10.0),
-//                         child: Column(
-//                             crossAxisAlignment: CrossAxisAlignment.start,
-//                             children: [
-//                               Column(
-//                                 children: [
-//                                   FutureBuilder(
-//                                     future: profileController.getUserData(),
-//                                     builder: (context, snapshot) {
-//                                       if (snapshot.connectionState ==
-//                                           ConnectionState.done) {
-//                                         if (snapshot.hasData) {
-//                                           UserModel user =
-//                                               snapshot.data as UserModel;
-//
-//                                           userName = user.fullName;
-//                                           sapId = user.Sapid;
-//                                           return Column(
-//                                             children: [
-//                                               Row(
-//                                                 children: [
-//                                                   Text(
-//                                                     'Student Name: ',
-//                                                     style: TextStyle(
-//                                                       fontSize: 10.0,
-//                                                     ),
-//                                                   ),
-//                                                   Text(
-//                                                     userName,
-//                                                     style: TextStyle(
-//                                                       fontWeight:
-//                                                           FontWeight.bold,
-//                                                       fontSize: 10.0,
-//                                                     ),
-//                                                   ),
-//                                                 ],
-//                                               ),
-//                                               Row(
-//                                                 children: [
-//                                                   Text(
-//                                                     'Sap Id: ',
-//                                                     style: TextStyle(
-//                                                       fontSize: 10.0,
-//                                                     ),
-//                                                   ),
-//                                                   Text(
-//                                                     sapId,
-//                                                     style: TextStyle(
-//                                                       fontWeight:
-//                                                           FontWeight.bold,
-//                                                       fontSize: 10.0,
-//                                                     ),
-//                                                   ),
-//                                                 ],
-//                                               ),
-//                                             ],
-//                                           );
-//                                         }
-//                                       }
-//                                       // Return a loading indicator or error message if needed
-//                                       return CircularProgressIndicator(); // Change this to suit your UI
-//                                     },
-//                                   ),
-//                                   Row(
-//                                     children: [
-//                                       Text(
-//                                         'Stop: ',
-//                                         style: TextStyle(
-//                                           fontSize: 10.0,
-//                                         ),
-//                                       ),
-//                                       Text(
-//                                         'G14/4 Islamabad',
-//                                         style: TextStyle(
-//                                           fontWeight: FontWeight.bold,
-//                                           fontSize: 10.0,
-//                                         ),
-//                                       ),
-//                                     ],
-//                                   ),
-//                                   Row(
-//                                     children: [
-//                                       Text(
-//                                         'Bus No: ',
-//                                         style: TextStyle(
-//                                           fontSize: 10.0,
-//                                         ),
-//                                       ),
-//                                       Text(
-//                                         'LDY467',
-//                                         style: TextStyle(
-//                                           fontWeight: FontWeight.bold,
-//                                           fontSize: 10.0,
-//                                         ),
-//                                       ),
-//                                     ],
-//                                   ),
-//                                   Row(children: [
-//                                     Text(
-//                                       'Fee: ',
-//                                       style: TextStyle(
-//                                         fontSize: 10.0,
-//                                       ),
-//                                     ),
-//                                     Text(
-//                                       widget.fee,
-//                                       style: TextStyle(
-//                                         fontWeight: FontWeight.bold,
-//                                         fontSize: 10.0,
-//                                       ),
-//                                     ),
-//                                   ]),
-//                                   Row(
-//                                     children: [
-//                                       Text(
-//                                         'Payment deadline: ',
-//                                         style: TextStyle(
-//                                           fontSize: 10.0,
-//                                         ),
-//                                       ),
-//                                       Text(
-//                                         // DateFormat('yyyy-MM-dd').format(
-//                                         //   calculatePaymentDeadline(
-//                                         //       DateTime.parse(registrationDate)),
-//                                         // ),
-//                                         DateFormat('yyyy-MM-dd').format(
-//                                           DateTime.parse(registrationDate)
-//                                               .add(Duration(days: 5)),
-//                                         ),
-//
-//                                         style: TextStyle(
-//                                           fontWeight: FontWeight.bold,
-//                                           fontSize: 10.0,
-//                                         ),
-//                                       ),
-//                                     ],
-//                                   ),
-//                                   Row(
-//                                     children: [
-//                                       Text(
-//                                         'Start Date: ',
-//                                         style: TextStyle(
-//                                           fontSize: 10.0,
-//                                         ),
-//                                       ),
-//                                       Text(
-//                                         registrationDate,
-//                                         style: TextStyle(
-//                                           fontWeight: FontWeight.bold,
-//                                           fontSize: 10.0,
-//                                         ),
-//                                       ),
-//                                     ],
-//                                   ),
-//                                 ],
-//                               )
-//                             ]),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 
 class BoardingPass extends StatefulWidget {
   final String selectRoute;
@@ -603,6 +294,27 @@ class _BoardingPassState extends State<BoardingPass> {
                         Row(
                           children: [
                             Text(
+                              'Bus no',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 9.5,
+                              ),
+                              textAlign: TextAlign.justify,
+                            ),
+                            SizedBox(width: 30),
+                            Text(
+                              widget.bus,
+                              style: TextStyle(
+                                fontSize: 9.5,
+                              ),
+                              textAlign: TextAlign.justify,
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Text(
                               'Valid Upto:',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -621,7 +333,6 @@ class _BoardingPassState extends State<BoardingPass> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 5),
                         Row(
                           children: [
                             Text(

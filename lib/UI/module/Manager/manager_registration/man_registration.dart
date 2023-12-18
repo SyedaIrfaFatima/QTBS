@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../../../Authentication/Auth_reprository/User_Repository/user_repository.dart';
@@ -74,7 +75,10 @@ class _manageRegisterState extends State<manageRegister> {
           backgroundColor: Colors.blue,
           title: Text(
             'Registration',
-            style: TextStyle(color: Colors.white),
+              style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  // fontWeight: FontWeight.bold,
+                  color: Colors.white)
           ),
         ),
         body: Stack(children: [

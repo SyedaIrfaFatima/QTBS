@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'package:test_project/UI/module/Student/Payment/BoardingPass.dart';
 
@@ -977,24 +979,16 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final auth = FirebaseAuth.instance;
   String userName = '';
-  // String? uploadedVoucherURL;
-  // String? voucherDocumentID;
-  // String? VoucherURL;
 
   final ProfileController profileController = Get.find();
 
   Future<String> getVoucherStatus() async {
-    // Check if the voucherDocumentID is null or empty
-    if (widget.voucherDocumentID == null || widget.voucherDocumentID.isEmpty) {
-      print('Voucher Document ID is null or empty.');
-      return 'pending';
-    }
-
     try {
       // Replace with your Firestore logic to get the voucher status
+      final user = FirebaseAuth.instance.currentUser;
       DocumentSnapshot voucherSnapshot = await FirebaseFirestore.instance
           .collection('Vouchers')
-          .doc(widget.voucherDocumentID)
+          .doc(user?.uid)
           .get();
 
       if (voucherSnapshot.exists) {
@@ -1017,29 +1011,35 @@ class _HomeState extends State<Home> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(title: Text('Home'), actions: [
-          IconButton(
-            onPressed: () {
-              auth.signOut().then((value) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => LoginScreen(
-                              selectRoute: widget.selectRoute,
-                              fee: widget.fees,
-                              // voucherDocumentID: widget.voucherDocumentID,
-                              voucherDocumentID: (widget.voucherDocumentID),
-                              voucherURL: widget.voucherURL,
-                              bus: widget.busnumber,
-                            )));
-              }).onError((error, stackTrace) {
-                utils().toastMessage(error.toString());
-              });
-            },
-            icon: Icon(Icons.logout_outlined),
-          ),
-          SizedBox(width: 10),
-        ]),
+        appBar: AppBar(
+            title: Text('Home',
+                style: GoogleFonts.poppins(
+                    fontSize: 20,
+                    // fontWeight: FontWeight.bold,
+                    color: Colors.white)),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  auth.signOut().then((value) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LoginScreen(
+                                  selectRoute: widget.selectRoute,
+                                  fee: widget.fees,
+                                  // voucherDocumentID: widget.voucherDocumentID,
+                                  voucherDocumentID: (widget.voucherDocumentID),
+                                  voucherURL: widget.voucherURL,
+                                  bus: widget.busnumber,
+                                )));
+                  }).onError((error, stackTrace) {
+                    utils().toastMessage(error.toString());
+                  });
+                },
+                icon: Icon(Icons.logout_outlined),
+              ),
+              SizedBox(width: 10),
+            ]),
         drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
@@ -1088,33 +1088,49 @@ class _HomeState extends State<Home> {
               ListTile(
                 title: Text('Payment'),
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => payfee(
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     // builder: (context) => payfee(
+                  //     //     selectRoute: widget.selectRoute,
+                  //     //     fee: widget.fees,
+                  //     //     busnumber: widget
+                  //     //         .busnumber), // Replace PaymentScreen with your actual payment screen
+                  //   ),
+                  // );
+                  // Update the UI to show that item 1 was selected
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      child: payfee(
                           selectRoute: widget.selectRoute,
                           fee: widget.fees,
                           busnumber: widget
                               .busnumber), // Replace PaymentScreen with your actual payment screen
-                    ),
-                  ); // Update the UI to show that item 1 was selected
-                },
-              ),
-              ListTile(
-                title: Text('Voucher'),
-                onTap: () async {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return VoucherUpload(
-                          selectRoute: widget.selectRoute,
-                          fee: widget.fees,
-                          bus: widget.busnumber,
-                        );
-                      },
+                      // Replace with the screen you want to navigate to
+                      type: PageTransitionType
+                          .rightToLeft, // or any other transition type you prefer
+                      duration: Duration(
+                          microseconds: 700), // Specify your desired duration
                     ),
                   );
                 },
               ),
+              // ListTile(
+              //   title: Text('Voucher'),
+              //   onTap: () async {
+              //     Navigator.of(context).push(
+              //       MaterialPageRoute(
+              //         builder: (context) {
+              //           return VoucherUpload(
+              //             selectRoute: widget.selectRoute,
+              //             fee: widget.fees,
+              //             bus: widget.busnumber,
+              //           );
+              //         },
+              //       ),
+              //     );
+              //   },
+              // ),
               ListTile(
                 title: Text('Boarding pass '),
                 onTap: () async {
@@ -1189,10 +1205,15 @@ class _HomeState extends State<Home> {
               ListTile(
                 title: Text('Voucher Status '),
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          voucherstatus(), // Replace PaymentScreen with your actual payment screen
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      child:
+                          voucherstatus(), // Replace with the screen you want to navigate to
+                      type: PageTransitionType
+                          .rightToLeft, // or any other transition type you prefer
+                      duration: Duration(
+                          microseconds: 700), // Specify your desired duration
                     ),
                   ); // Update the UI to show that item 1 was selected
                 },

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../Authentication/models/User_model.dart';
 import '../Profile/profile_controller.dart';
@@ -52,17 +53,18 @@ class _feedbackState extends State<feedback> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue,
-          title: Text(
-            'Feedback',
-            style: TextStyle(color: Colors.white),
-          ),
+          title: Text('Feedback',
+              style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  // fontWeight: FontWeight.bold,
+                  color: Colors.white)),
         ),
         body: Stack(children: [
           Container(
             // Wrap with Container
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/feed.png'),
+                image: AssetImage('assets/feedbackk.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -133,14 +135,11 @@ class _feedbackState extends State<feedback> {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(right: 230),
-                                  child: Text(
-                                    'Rating',
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                      color: Colors
-                                          .black, // Change text color to make it visible
-                                    ),
-                                  ),
+                                  child: Text('Rating',
+                                      style: GoogleFonts.actor(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black)),
                                 ),
                                 RatingBar.builder(
                                   initialRating: feedbackRating,
@@ -203,14 +202,11 @@ class _feedbackState extends State<feedback> {
                             ),
                             Padding(
                               padding: EdgeInsets.only(right: 200),
-                              child: Text(
-                                'Comment',
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: Colors
-                                      .black, // Change text color to make it visible
-                                ),
-                              ),
+                              child: Text('Comment',
+                                  style: GoogleFonts.actor(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black)),
                             ),
                             Padding(
                               padding: EdgeInsets.only(right: 50),
@@ -286,27 +282,24 @@ class _feedbackState extends State<feedback> {
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blue[
-                                      800], // Changed background color to a darker blue
-                                  foregroundColor: Colors
-                                      .white, // Changed text color to white for better contrast
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 40,
-                                    vertical: 15,
-                                  ), // Adjusted padding for better proportions
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        20.0), // Added rounded corners
-                                  ),
-                                  textStyle: TextStyle(
-                                    fontSize:
-                                        15.0, // Increased font size for emphasis
-                                    fontWeight: FontWeight
-                                        .w500, // Increased font weight for clarity
-                                  ),
-                                ),
-                                child: Text(
-                                    'Submit Feedback'), // Changed text to be more descriptive and clear
+                                    backgroundColor: Colors.blue[
+                                        800], // Changed background color to a darker blue
+                                    foregroundColor: Colors
+                                        .white, // Changed text color to white for better contrast
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 40,
+                                      vertical: 15,
+                                    ), // Adjusted padding for better proportions
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          20.0), // Added rounded corners
+                                    ),
+                                    textStyle: GoogleFonts.lato(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black)),
+                                child: Text('Submit Feedback'),
+                                // Changed text to be more descriptive and clear
                               ),
                             ),
                           ],

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:test_project/UI/module/Student/Payment/fee_voucher.dart';
 
 import 'package:test_project/UI/module/Student/student%20routes/regionn.dart';
@@ -100,24 +102,48 @@ class _LoginScreenState extends State<LoginScreen> {
           // Replace 'fee' with the actual field name in your Firestore document
           print(
               'Voucher Document ID before navigation: ${widget.voucherDocumentID}');
+          // Navigator.push(
+          //   context,
+          // MaterialPageRoute(
+          //   builder: (context) => Home(
+          //     selectRoute: route ?? widget.selectRoute,
+          //     fees: fee ?? widget.fee,
+          //     busnumber: bus ?? widget.bus,
+          //     voucherDocumentID:
+          //         voucherDocumentID ?? widget.voucherDocumentID,
+          //     voucherURL: voucherURl ?? widget.voucherURL,
+          //   ),
+          // ),
           Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Home(
-                selectRoute: route ?? widget.selectRoute,
-                fees: fee ?? widget.fee,
-                busnumber: bus ?? widget.bus,
-                voucherDocumentID:
-                    voucherDocumentID ?? widget.voucherDocumentID,
-                voucherURL: voucherURl ?? widget.voucherURL,
-              ),
-            ),
-          );
+              context,
+              PageTransition(
+                child: Home(
+                  selectRoute: route ?? widget.selectRoute,
+                  fees: fee ?? widget.fee,
+                  busnumber: bus ?? widget.bus,
+                  voucherDocumentID:
+                      voucherDocumentID ?? widget.voucherDocumentID,
+                  voucherURL: voucherURl ?? widget.voucherURL,
+                ), // Replace with the screen you want to navigate to
+                type: PageTransitionType
+                    .topToBottom, // or any other transition type you prefer
+                duration: Duration(seconds: 1), // Specify your desired duration
+              ));
+          //     );
+          // );
         } else {
           // The user is authenticated but has not registered for a bus, navigate to the region screen
+
+          // MaterialPageRoute(builder: (context) => regionnnn()),
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => regionnnn()),
+            PageTransition(
+              child:
+                  regionnnn(), // Replace with the screen you want to navigate to
+              type: PageTransitionType
+                  .topToBottom, // or any other transition type you prefer
+              duration: Duration(seconds: 1), // Specify your desired duration
+            ),
           );
         }
 
@@ -199,13 +225,26 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     print('Voucher Document ID in Home: ${widget.voucherDocumentID}');
+
+    Widget buildTransitions(BuildContext context, Animation<double> animation,
+        Animation<double> secondaryAnimation, Widget child) {
+      return SlideTransition(
+        position: Tween<Offset>(
+          begin: Offset(-1, 0),
+          end: Offset.zero,
+        ).animate(animation),
+        child: child,
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text(
-          'Login',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: Text('Login',
+            style: GoogleFonts.poppins(
+                fontSize: 20,
+                // fontWeight: FontWeight.bold,
+                color: Colors.white)),
       ),
       body: Stack(children: [
         Container(
@@ -259,12 +298,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 40,
                 ),
+                // RoundButton(
+                //   title: 'Login',
+                //   loading: loading,
+                //   onTap: () {
+                //     if (_formkey.currentState!.validate()) {
+                //       login();
+                //     }
+                //   },
+                // ),
+
                 RoundButton(
                   title: 'Login',
                   loading: loading,
                   onTap: () {
                     if (_formkey.currentState!.validate()) {
                       login();
+
+                      // Example of using PageTransition for the login button
                     }
                   },
                 ),

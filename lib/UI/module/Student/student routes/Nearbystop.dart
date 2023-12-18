@@ -71,7 +71,7 @@ class _NearbyStopState extends State<NearbyStop> {
                   Center(
                     child: Image(
                       width: 500,
-                      height: 500,
+                      height: 400,
                       image: AssetImage('assets/NearBy Stop.png'),
                     ),
                   ),
@@ -101,7 +101,7 @@ class _NearbyStopState extends State<NearbyStop> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(9.0),
+              padding: EdgeInsets.all(20.0),
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.blue,
@@ -115,18 +115,18 @@ class _NearbyStopState extends State<NearbyStop> {
                         Text(
                           ('${widget.selectedRoute}'),
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 16,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         SizedBox(
-                          width: 90,
+                          width: 63,
                         ),
                         Text(
                           '${widget.fee}',
                           style: TextStyle(
-                            fontSize: 15, // Adjust the font size as needed
+                            fontSize: 16, // Adjust the font size as needed
                             color: Colors.white,
                           ),
                         ),
@@ -137,20 +137,20 @@ class _NearbyStopState extends State<NearbyStop> {
                       height: 150,
                       decoration: BoxDecoration(
                         color: Colors.lightBlueAccent[100],
-                        borderRadius: BorderRadius.circular(40),
                       ),
                       child: stopIds.isEmpty
                           ? Center(
-                              // Display CircularProgressIndicator when loading
                               child: CircularProgressIndicator(),
                             )
                           : ListView.builder(
                               itemCount: stopIds.length,
                               itemBuilder: (context, index) {
                                 String stopId = stopIds[index];
-                                return ListTile(
-                                  title: ElevatedButton(
-                                    onPressed: () {
+                                return Card(
+                                  elevation: 2,
+                                  margin: EdgeInsets.all(8),
+                                  child: InkWell(
+                                    onTap: () {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -168,7 +168,16 @@ class _NearbyStopState extends State<NearbyStop> {
                                         ),
                                       );
                                     },
-                                    child: Text(stopId),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        stopId,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 );
                               },
